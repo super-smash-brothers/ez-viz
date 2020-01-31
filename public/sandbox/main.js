@@ -27,7 +27,8 @@ var map = svg.append('g').attr('class', 'map')
 
 d3
   .queue()
-  .defer(d3.json, '/sandbox/50m.json')
+  // .defer(d3.json, '/sandbox/50m.json')
+  .defer(d3.json, '/sandbox/NTA_T.json')
   .defer(d3.json, '/sandbox/population.json')
   .await(function(error, world, data) {
     if (error) {
@@ -40,8 +41,9 @@ d3
 function drawMap(world, data) {
   // geoMercator projection
   var projection = d3
-    .geoMercator() //d3.geoOrthographic()
-    .scale(130)
+    // .geoMercator()
+    .geoConicConformal() //d3.geoOrthographic()
+    .scale(540)
     .translate([width / 2, height / 1.5])
 
   // geoPath projection
@@ -74,7 +76,8 @@ function drawMap(world, data) {
       '#4d004b'
     ])
 
-  var features = topojson.feature(world, world.objects.countries).features
+  // var features = topojson.feature(world, world.objects.countries).features
+  var features = topojson.feature(world, world.objects.NTA).features
   var populationById = {}
 
   data.forEach(function(d) {
