@@ -19,6 +19,7 @@ svg
 var zoom = d3.zoom().on('zoom', function() {
   var transform = d3.zoomTransform(this)
   map.attr('transform', transform)
+  console.log('map in zoom function: ', transform)
 })
 
 svg.call(zoom)
@@ -29,7 +30,7 @@ d3
   .queue()
   // .defer(d3.json, '/sandbox/50m.json')
   .defer(d3.json, '/sandbox/NTA_T.json')
-  .defer(d3.json, '/sandbox/population.json')
+  // .defer(d3.json, '/sandbox/population.json')
   .await(function(error, world, data) {
     if (error) {
       console.error('Oh dear, something went wrong: ' + error)
@@ -43,6 +44,7 @@ function drawMap(world, data) {
     // .geoMercator() //d3.geoOrthographic()
     .geoConicConformal()
     .scale(130)
+    // .center([-21028, -15618.875])
     .translate([289, 260])
 
   // geoPath projection
@@ -87,13 +89,13 @@ function drawMap(world, data) {
   var features = topojson.feature(world, world.objects.NTA).features
   var populationById = {}
 
-  data.forEach(function(d) {
-    populationById[d.country] = {
-      total: +d.total,
-      females: +d.females,
-      males: +d.males
-    }
-  })
+  // data.forEach(function(d) {
+  //   populationById[d.country] = {
+  //     total: +d.total,
+  //     females: +d.females,
+  //     males: +d.males
+  //   }
+  // })
   features.forEach(function(d) {
     d.details = populationById[d.properties.name]
       ? populationById[d.properties.name]
