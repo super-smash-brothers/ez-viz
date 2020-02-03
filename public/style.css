@@ -1,5 +1,10 @@
+html {
+  font-size: 62.5%;
+}
+
 body {
   font-family: sans-serif;
+  font-size: 1.6em;
 }
 
 a {
@@ -18,4 +23,26 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+/* Template Styles */
+.page-container {
+  width: 1200px;
+  margin: 0 auto;
+}
+.flex {
+  display: flex;
+}
+
+/* Map Page styles */
+.map-filters {
+  width: 16%;
+}
+.map-filters .block-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+.main-map {
+  flex-grow: 1;
+  background-color: gray;
 }
