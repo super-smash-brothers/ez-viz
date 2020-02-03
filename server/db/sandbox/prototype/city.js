@@ -130,6 +130,20 @@ const boroughMultiPolySchema = new mongoose.Schema({
   properties: boroughPropSchema
 })
 
+// city
+const cityPropSchema = new mongoose.Schema({
+  name: {
+    type: String
+  },
+  aggregateFoodGrade: {
+    type: String
+  },
+  // aggregateFoodGradePercentile does not make sense until we have multiple cities
+  totalRestaurants: {
+    type: Number
+  }
+})
+
 // Schema method
 
 // Model - a class that we use to construct documents
@@ -143,10 +157,12 @@ const BoroughMultiPoly = mongoose.model(
   'BoroughMultiPoly',
   boroughMultiPolySchema
 )
+const City = mongoose.model('City', cityPropSchema)
 
 // Document
 // neighborhoods
 // NTA.features.forEach(nta => {
+// [NTA.features[0]].forEach(nta => { // just load one entry
 //   try {
 //     if (nta.geometry.type === 'Polygon') {
 //       NeighborPoly.create(nta)
@@ -163,6 +179,7 @@ const BoroughMultiPoly = mongoose.model(
 // })
 
 // Boro.features.forEach(boro => {
+// [Boro.features[0]].forEach(boro => { // just load one entry
 //   try {
 //     BoroughMultiPoly.create(boro)
 //                     .then(doc => console.log('Boro MultiPolygon id:', doc.id))
@@ -170,5 +187,12 @@ const BoroughMultiPoly = mongoose.model(
 //     console.log('Error seeding boroughs:', error)
 //   }
 // })
+
+// City.create({
+//   name: 'New York',
+//   aggregateFoodGrade: 'A',
+//   totalRestaurants: 40000
+// })
+//     .then(doc => console.log('City:', doc.name))
 
 // We've changed our name to Delve.NYC! We've updated our MVP, contract and norms.
