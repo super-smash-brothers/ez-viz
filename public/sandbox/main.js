@@ -39,23 +39,22 @@ d3
   })
 
 function drawMap(world, data) {
-  // geoMercator projection
-  // var projection = d3
-  //   // .geoMercator()
-  //   .geoConicConformal() //d3.geoOrthographic()
-  //   .scale(130)
-  //   .translate([289,260])
+  var projection = d3
+    // .geoMercator() //d3.geoOrthographic()
+    .geoConicConformal()
+    .scale(130)
+    .translate([289, 260])
 
   // geoPath projection
-  // var path = d3.geoPath().projection(projection)
+  var path = d3.geoPath().projection(projection)
 
-  var path = d3.geoPath().projection(
-    d3
-      .geoConicConformal()
-      .parallels([33, 45])
-      .rotate([96, -39])
-      .fitSize([width, height], world)
-  )
+  // var path = d3.geoPath().projection(
+  //   d3
+  //     .geoConicConformal()
+  //     .parallels([33, 45])
+  //     .rotate([96, -39])
+  //     .fitSize([width, height], world)
+  // )
 
   //colors for population metrics
   var color = d3
