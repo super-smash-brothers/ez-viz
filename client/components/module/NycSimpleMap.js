@@ -13,6 +13,7 @@ const NycSimpleMap = () => (
       }}
       width={800}
       height={400}
+      projection="geoAzimuthalEqualArea"
     >
       <Geographies geography={geoUrl}>
         {({geographies}) =>
