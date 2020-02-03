@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/delvenyc', {useNewUrlParser: true})
 const NTA = require('../NTA.json')
-const Boro = require('./boro.geojson')
+const Boro = require('./boro.json')
 
 // Schema
 // validators - https://mongoosejs.com/docs/validation.html
@@ -150,7 +150,7 @@ const cityPropSchema = new mongoose.Schema({
 // neighborhoods
 const NeighborPoly = mongoose.model('NeighborPoly', neighborPolySchema)
 const NeighborMultiPoly = mongoose.model(
-  'NeighborPoly',
+  'NeighborMultiPoly',
   neighborMultiPolySchema
 )
 const BoroughMultiPoly = mongoose.model(
@@ -161,38 +161,44 @@ const City = mongoose.model('City', cityPropSchema)
 
 // Document
 // neighborhoods
-// NTA.features.forEach(nta => {
-// [NTA.features[0]].forEach(nta => { // just load one entry
-//   try {
-//     if (nta.geometry.type === 'Polygon') {
-//       NeighborPoly.create(nta)
-//                   .then(doc => console.log('NTA Polygon id:', doc.id));
-//     } else if (nta.geometry.type === 'MultiPolygon') {
-//       NeighborMultiPoly.create(nta)
-//                   .then(doc => console.log('NTA MultiPolygon id:', doc.id));
-//     } else {
-//       console.log('ERROR:', nta.id, nta.geometry.type)
-//     }
-//   } catch (error) {
-//     console.log('Error seeding neighborhoods:', error)
-//   }
-// })
+// const tmpArr1 = [NTA.features[0]]
+// tmpArr1.forEach(nta => { // just load one entry
+NTA.features.forEach(nta => {
+  // load all of them
+  try {
+    if (nta.geometry.type === 'Polygon') {
+      NeighborPoly.create(nta).then(doc =>
+        console.log('NTA Polygon id:', doc.id)
+      )
+    } else if (nta.geometry.type === 'MultiPolygon') {
+      NeighborMultiPoly.create(nta).then(doc =>
+        console.log('NTA MultiPolygon id:', doc.id)
+      )
+    } else {
+      console.log('ERROR:', nta.id, nta.geometry.type)
+    }
+  } catch (error) {
+    console.log('Error seeding neighborhoods:', error)
+  }
+})
 
-// Boro.features.forEach(boro => {
-// [Boro.features[0]].forEach(boro => { // just load one entry
-//   try {
-//     BoroughMultiPoly.create(boro)
-//                     .then(doc => console.log('Boro MultiPolygon id:', doc.id))
-//   } catch (error) {
-//     console.log('Error seeding boroughs:', error)
-//   }
-// })
+// const tmpArr2 = [Boro.features[0]]
+// tmpArr2.forEach(boro => { // just load one entry
+Boro.features.forEach(boro => {
+  // load all of them
+  try {
+    BoroughMultiPoly.create(boro).then(doc =>
+      console.log('Boro MultiPolygon id:', doc.id)
+    )
+  } catch (error) {
+    console.log('Error seeding boroughs:', error)
+  }
+})
 
-// City.create({
-//   name: 'New York',
-//   aggregateFoodGrade: 'A',
-//   totalRestaurants: 40000
-// })
-//     .then(doc => console.log('City:', doc.name))
+City.create({
+  name: 'New York',
+  aggregateFoodGrade: 'A',
+  totalRestaurants: 40000
+}).then(doc => console.log('City:', doc.name))
 
 // We've changed our name to Delve.NYC! We've updated our MVP, contract and norms.
