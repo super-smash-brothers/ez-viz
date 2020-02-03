@@ -200,5 +200,3 @@ City.create({
   aggregateFoodGrade: 'A',
   totalRestaurants: 40000
 }).then(doc => console.log('City:', doc.name))
-
-// We've changed our name to Delve.NYC! We've updated our MVP, contract and norms.
