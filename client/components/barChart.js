@@ -9,7 +9,6 @@ export class BarChart extends React.Component {
   }
 
   render() {
-    console.log('getting data: ', this.state)
     return (
       <svg width="250" height="100">
         {this.state.map((temp, index) => {
