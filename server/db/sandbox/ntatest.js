@@ -113,18 +113,24 @@ const NeighborPoly = mongoose.model('NeighborPoly', neighborPolySchema)
 const NeighborPoint = mongoose.model('NeighborPoint', neighborPointSchema)
 
 // Document
-// const NTASliceResult = NeighborPoly.create(NTASlice).
-//   then(doc => console.log('NTASlice document:', doc.properties.NTAName));
-// const NTASlice2Result = NeighborPoly.create(NTASlice2).
-//   then(doc => console.log('NTASlice2 document:', doc.properties.NTAName));
-// const boroParkPointResult = NeighborPoint.create(boroParkPoint).
-//   then(doc => console.log('boroParkPoint document:', doc.name));
-// const murrayHillPointResult = NeighborPoint.create(murrayHillPoint).
-//   then(doc => console.log('murrayHillPoint document:', doc.name));
-// const boroParkPoint2Result = NeighborPoint.create(boroParkPoint2).
-//   then(doc => console.log('boroParkPoint2 document:', doc.name));
-// const murrayHillPoint2Result = NeighborPoint.create(murrayHillPoint2).
-//   then(doc => console.log('murrayHillPoint2 document:', doc.name));
+const NTASliceResult = NeighborPoly.create(NTASlice).then(doc =>
+  console.log('NTASlice document:', doc.properties.NTAName)
+)
+const NTASlice2Result = NeighborPoly.create(NTASlice2).then(doc =>
+  console.log('NTASlice2 document:', doc.properties.NTAName)
+)
+const boroParkPointResult = NeighborPoint.create(boroParkPoint).then(doc =>
+  console.log('boroParkPoint document:', doc.name)
+)
+const murrayHillPointResult = NeighborPoint.create(murrayHillPoint).then(doc =>
+  console.log('murrayHillPoint document:', doc.name)
+)
+const boroParkPoint2Result = NeighborPoint.create(boroParkPoint2).then(doc =>
+  console.log('boroParkPoint2 document:', doc.name)
+)
+const murrayHillPoint2Result = NeighborPoint.create(murrayHillPoint2).then(
+  doc => console.log('murrayHillPoint2 document:', doc.name)
+)
 
 NeighborPoint.find({
   location: {
