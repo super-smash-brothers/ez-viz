@@ -163,40 +163,47 @@ const City = mongoose.model('City', cityPropSchema)
 // neighborhoods
 // const tmpArr1 = [NTA.features[0]]
 // tmpArr1.forEach(nta => { // just load one entry
-NTA.features.forEach(nta => {
-  // load all of them
-  try {
-    if (nta.geometry.type === 'Polygon') {
-      NeighborPoly.create(nta).then(doc =>
-        console.log('NTA Polygon id:', doc.id)
-      )
-    } else if (nta.geometry.type === 'MultiPolygon') {
-      NeighborMultiPoly.create(nta).then(doc =>
-        console.log('NTA MultiPolygon id:', doc.id)
-      )
-    } else {
-      console.log('ERROR:', nta.id, nta.geometry.type)
-    }
-  } catch (error) {
-    console.log('Error seeding neighborhoods:', error)
-  }
-})
+// NTA.features.forEach(nta => {
+//   // load all of them
+//   try {
+//     if (nta.geometry.type === 'Polygon') {
+//       NeighborPoly.create(nta).then(doc =>
+//         console.log('NTA Polygon id:', doc.id)
+//       )
+//     } else if (nta.geometry.type === 'MultiPolygon') {
+//       NeighborMultiPoly.create(nta).then(doc =>
+//         console.log('NTA MultiPolygon id:', doc.id)
+//       )
+//     } else {
+//       console.log('ERROR:', nta.id, nta.geometry.type)
+//     }
+//   } catch (error) {
+//     console.log('Error seeding neighborhoods:', error)
+//   }
+// })
 
 // const tmpArr2 = [Boro.features[0]]
 // tmpArr2.forEach(boro => { // just load one entry
-Boro.features.forEach(boro => {
-  // load all of them
-  try {
-    BoroughMultiPoly.create(boro).then(doc =>
-      console.log('Boro MultiPolygon id:', doc.id)
-    )
-  } catch (error) {
-    console.log('Error seeding boroughs:', error)
-  }
-})
+// Boro.features.forEach(boro => {
+//   // load all of them
+//   try {
+//     BoroughMultiPoly.create(boro).then(doc =>
+//       console.log('Boro MultiPolygon id:', doc.id)
+//     )
+//   } catch (error) {
+//     console.log('Error seeding boroughs:', error)
+//   }
+// })
 
-City.create({
-  name: 'New York',
-  aggregateFoodGrade: 'A',
-  totalRestaurants: 40000
-}).then(doc => console.log('City:', doc.name))
+// City.create({
+//   name: 'New York',
+//   aggregateFoodGrade: 'A',
+//   totalRestaurants: 40000
+// }).then(doc => console.log('City:', doc.name))
+
+module.exports = {
+  NeighborPoly,
+  NeighborMultiPoly,
+  BoroughMultiPoly,
+  City
+}
