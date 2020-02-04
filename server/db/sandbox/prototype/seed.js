@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const {NeighborPoly, BoroughPoly, City} = require('./city')
+const {NeighborPoly, BoroughPoly, City} = require('./schema')
 
 const NTA = require('../NTA.json')
 const Boro = require('./boro.json')

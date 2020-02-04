@@ -3,7 +3,7 @@ const {
   NeighborPoly,
   BoroughPoly,
   City
-} = require('../../db/sandbox/prototype/city')
+} = require('../../db/sandbox/prototype/schema')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
