@@ -9,7 +9,7 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     console.log('/api/prototype/ reached')
-    BoroughMultiPoly.find().then(arr => {
+    BoroughPoly.find().then(arr => {
       const geoJSON = {
         // returning data in a geoJSON format
         type: 'FeatureCollection',
@@ -27,13 +27,13 @@ router.get('/neighborhoods', async (req, res, next) => {
   try {
     console.log('/api/prototype/neighborhoods reached')
     NeighborPoly.find().then(arr => {
-      res.json(arr)
-      // const geoJSON = { // returning data in a geoJSON format
-      //   "type": "FeatureCollection",
-      //   "crs": {"type": "name", "properties": {"name": "EPSG:4326"}},
-      //   "features": arr
-      // }
-      // res.json(geoJSON)
+      const geoJSON = {
+        // returning data in a geoJSON format
+        type: 'FeatureCollection',
+        crs: {type: 'name', properties: {name: 'EPSG:4326'}},
+        features: arr
+      }
+      res.json(geoJSON)
     })
   } catch (err) {
     next(err)

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost/delvenyc', {useNewUrlParser: true}) // must include, cannot exist only in seed.js
 
 // Schema
 const polySchema = new mongoose.Schema({
