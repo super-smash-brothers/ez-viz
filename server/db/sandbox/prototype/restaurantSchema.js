@@ -1,13 +1,12 @@
 const mongoose = require('mongoose')
-const NTASlice = require('./ntaSlice')
-const NTASlice2 = require('./ntaSlice2')
-mongoose.connect('mongodb://localhost/ntatest', {useNewUrlParser: true})
+const NTASlice2 = require('../ntaSlice2')
+mongoose.connect('mongodb://localhost/delvenyc', {useNewUrlParser: true})
 
-const dataSet = require('./restaurant1.json')
-const dataSet1 = require('./restaurant2.json')
-const dataSet2 = require('./restaurant3.json')
-const dataSet3 = require('./restaurant4.json')
-const dataSet4 = require('./restaurant5.json')
+const dataSet = require('../restaurant-points/restaurant1.json')
+const dataSet1 = require('../restaurant-points/restaurant2.json')
+const dataSet2 = require('../restaurant-points/restaurant3.json')
+const dataSet3 = require('../restaurant-points/restaurant4.json')
+const dataSet4 = require('../restaurant-points/restaurant5.json')
 // const dataSet5 = require('./restaurant6.json')
 // const dataSet6 = require('./restaurant7.json')
 // const dataSet7 = require('./restaurant8.json')
@@ -47,30 +46,65 @@ const restaurantSchema = new mongoose.Schema({
   nta: String,
   pastViolation: [String]
 })
+//creates collection
 const restaurantPoint = mongoose.model('restaurantPoint', restaurantSchema)
+
+// restaurantPoint
+//   .find({
+//     location: {
+//       $geoWithin: {
+//         $geometry: NTASlice2.geometry
+//       }
+//     }
+//   })
+//   .then(docs => console.log(docs.map(elem => elem.name)))
+
+restaurantPoint
+  .aggregate([
+    {
+      $group: {
+        _id: '$nta',
+        total: {
+          $sum: {
+            $toInt: '$score'
+          }
+        },
+        count: {$sum: 1}
+      }
+    }
+  ])
+  .then(doc => {
+    // doc.forEach(
+    //   if(doc._id{
+    //   }
+    // )
+  })
+
+//Seeds Restauraunt Data
 const seedRestaurantData = () => {
   let i = 0
   dataSet.forEach(async element => {
-    // const coords = element.location.coordinates
-    // await restaurantPoint.create(element)
-    // console.log(i++)
+    await restaurantPoint.create(element)
+    console.log(i++)
   })
-  // dataSet1.forEach(async element => {
-  //   await restaurantPoint.create(element)
-  //   console.log(i++)
-  // });
-  // dataSet2.forEach(async element => {
-  //   await restaurantPoint.create(element)
-  //   console.log(i++)
-  // });
-  // dataSet3.forEach(async element => {
-  //   await restaurantPoint.create(element)
-  //   console.log(i++)
-  // });
-  // dataSet4.forEach(async element => {
-  //   await restaurantPoint.create(element)
-  //   console.log(i++)
-  // });
+  dataSet1.forEach(async element => {
+    await restaurantPoint.create(element)
+    console.log(i++)
+  })
+  dataSet2.forEach(async element => {
+    await restaurantPoint.create(element)
+    console.log(i++)
+  })
+  dataSet3.forEach(async element => {
+    await restaurantPoint.create(element)
+    console.log(i++)
+  })
+  dataSet4.forEach(async element => {
+    await restaurantPoint.create(element)
+    console.log(i++)
+  })
+
+  //Loaded up to here
   // dataSet5.forEach(async element => {
   //   await restaurantPoint.create(element)
   //   console.log(i++)
@@ -126,13 +160,3 @@ const seedRestaurantData = () => {
 }
 
 // seedRestaurantData()
-
-restaurantPoint
-  .find({
-    location: {
-      $geoWithin: {
-        $geometry: NTASlice2.geometry
-      }
-    }
-  })
-  .then(docs => console.log(docs.map(elem => elem.name)))

@@ -1,5 +1,5 @@
 // const axios = require('axios')
-const dataSet = require('./restaurant')
+const dataSet = require('./restaurant-points/restaurant')
 // const dataSet2 = require('./restaurant.json')
 var fs = require('fs')
 
@@ -25,7 +25,7 @@ const grabInfo = () => {
       data.violationCode = element[18]
       data.violationDescription = element[19]
       data.criticalFlag = element[20]
-      data.score = element[21]
+      data.score = parseInt(element[21], 10)
       data.recordDate = element[24]
       data.nta = element[33]
       dict.push(data)
