@@ -12,14 +12,11 @@ export class CityMap extends React.Component {
   }
 
   render() {
-    const width = Math.max(
-      document.documentElement.clientWidth,
-      window.innerWidth || 0
-    )
     const height = Math.max(
       document.documentElement.clientHeight,
       window.innerHeight || 0
     )
+    const width = height * 1.32465263323
     // const xExtent = d3.extent(singleNeighborhood, l => l[0])
     const xScale = d3
       .scaleLinear()
