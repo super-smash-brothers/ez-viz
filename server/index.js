@@ -81,6 +81,11 @@ const createApp = () => {
     }
   })
 
+  // sends sandbox/index.html
+  app.use('/sandbox', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public/sandbox/index.html'))
+  })
+
   // sends index.html
   app.use('*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public/index.html'))

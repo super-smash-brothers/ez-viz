@@ -6,8 +6,11 @@ import history from './history'
 import store from './store'
 import App from './app'
 
+// import CSS
+
 // establishes socket connection
-import './socket'
+import 'normalize.css/normalize.css'
+import '../public/styles/index.scss'
 
 ReactDOM.render(
   <Provider store={store}>
