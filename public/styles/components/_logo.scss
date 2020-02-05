@@ -1,0 +1,11 @@
+.logo {
+  color: $dark;
+  font-family: $title-font;
+  font-size: $xl-size;
+  text-shadow: $title-shadow;
+
+  .tld {
+    color: $blue;
+    font-variant: small-caps;
+  }
+}

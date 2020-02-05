@@ -8,8 +8,8 @@ const projection = geoEqualEarth()
 
 const NycMap = () => {
   const [geographies, setGeographies] = useState([])
+
   useEffect(() => {
-    console.log('in regular nycmap')
     fetch('/sandbox/NTA_T.json').then(response => {
       if (response.status !== 200) {
         console.log(`There was a problem: ${response.status}`)
@@ -20,6 +20,7 @@ const NycMap = () => {
       })
     })
   }, [])
+
   return (
     <svg width={800} height={450} viewBox="0 0 800 450">
       <g className="counties">
