@@ -18,7 +18,7 @@
 //       data.location = {
 //         type: 'Point',
 //         coordinates: [parseFloat(element[27]), parseFloat(element[26])]
-//       }
+//       }/
 //       data.borough = element[10]
 //       data.cuisine = element[15]
 //       data.inspectionDate = element[16]

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const {NeighborPoly, BoroughPoly, City} = require('./city')
+// const {NeighborPoly, BoroughPoly, City} = require('./city')
 mongoose.connect('mongodb://localhost/delvenyc', {useNewUrlParser: true})
 
 // https://stackoverflow.com/questions/13097266/querying-nested-documents-using-mongoose-mongodb
