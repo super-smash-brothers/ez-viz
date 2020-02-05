@@ -1,12 +1,12 @@
 const mongoose = require('mongoose')
 const NTASlice2 = require('../ntaSlice2')
+const {NeighborPoly, BoroughPoly, City} = require('./city')
 mongoose.connect('mongodb://localhost/delvenyc', {useNewUrlParser: true})
-
-const dataSet = require('../restaurant-points/restaurant1.json')
-const dataSet1 = require('../restaurant-points/restaurant2.json')
-const dataSet2 = require('../restaurant-points/restaurant3.json')
-const dataSet3 = require('../restaurant-points/restaurant4.json')
-const dataSet4 = require('../restaurant-points/restaurant5.json')
+// const dataSet = require('../restaurant-points/restaurant1.json')
+// const dataSet1 = require('../restaurant-points/restaurant2.json')
+// const dataSet2 = require('../restaurant-points/restaurant3.json')
+// const dataSet3 = require('../restaurant-points/restaurant4.json')
+// const dataSet4 = require('../restaurant-points/restaurant5.json')
 // const dataSet5 = require('./restaurant6.json')
 // const dataSet6 = require('./restaurant7.json')
 // const dataSet7 = require('./restaurant8.json')
@@ -33,130 +33,168 @@ const pointSchema = new mongoose.Schema({
 })
 
 const restaurantSchema = new mongoose.Schema({
-  name: String,
-  borough: String,
-  cuisine: String,
-  inspectionDate: String,
+  name: {
+    type: String
+  },
+  borough: {
+    type: String
+  },
+  cuisine: {
+    type: String
+  },
+  inspectionDate: {
+    type: String
+  },
   violationCode: String,
   violationDescription: String,
   criticalFlag: String,
-  score: String,
-  recordDate: String,
+  score: {
+    type: String
+  },
+  recordDate: {
+    type: Date
+  },
   location: pointSchema,
-  nta: String,
+  nta: {
+    type: String
+  },
   pastViolation: [String]
 })
 //creates collection
 const restaurantPoint = mongoose.model('restaurantPoint', restaurantSchema)
 
-// restaurantPoint
-//   .find({
-//     location: {
-//       $geoWithin: {
-//         $geometry: NTASlice2.geometry
-//       }
-//     }
-//   })
-//   .then(docs => console.log(docs.map(elem => elem.name)))
+restaurantSchema.aggregateFoodGrade = () => {
+  restaurantPoint
+    .aggregate([
+      {
+        $group: {
+          _id: '$nta',
+          total: {
+            $sum: {
+              $toInt: '$score'
+            }
+          },
+          count: {$sum: 1}
+        }
+      }
+    ])
+    .then(aggregateData => {
+      aggregateData.forEach(data => {
+        if (data._id !== null) {
+          NeighborPoly.update(
+            {'properties.NTACode': data._id},
+            {$set: {'properties.aggregateFoodGrade': data.total / data.count}},
+            () => {
+              console.log(
+                'needs this annonymous callback because save middle ware is not triggered when just doing an update'
+              )
+            }
+          )
+        }
+      })
+    })
+}
 
-restaurantPoint
-  .aggregate([
-    {
-      $group: {
-        _id: '$nta',
-        total: {
-          $sum: {
-            $toInt: '$score'
-          }
+restaurantSchema.barChart = id => {
+  restaurantPoint
+    .aggregate([
+      {
+        $group: {
+          _id: {id},
+          count: {$sum: 1}
         },
         count: {$sum: 1}
       }
-    }
-  ])
-  .then(doc => {
-    // doc.forEach(
-    //   if(doc._id{
-    //   }
-    // )
-  })
-
-//Seeds Restauraunt Data
-const seedRestaurantData = () => {
-  let i = 0
-  dataSet.forEach(async element => {
-    await restaurantPoint.create(element)
-    console.log(i++)
-  })
-  dataSet1.forEach(async element => {
-    await restaurantPoint.create(element)
-    console.log(i++)
-  })
-  dataSet2.forEach(async element => {
-    await restaurantPoint.create(element)
-    console.log(i++)
-  })
-  dataSet3.forEach(async element => {
-    await restaurantPoint.create(element)
-    console.log(i++)
-  })
-  dataSet4.forEach(async element => {
-    await restaurantPoint.create(element)
-    console.log(i++)
-  })
-
-  //Loaded up to here
-  // dataSet5.forEach(async element => {
-  //   await restaurantPoint.create(element)
-  //   console.log(i++)
-  // });
-  // dataSet6.forEach(async element => {
-  //   await restaurantPoint.create(element)
-  //   console.log(i++)
-  // });
-  // dataSet7.forEach(async element => {
-  //   await restaurantPoint.create(element)
-  //   console.log(i++)
-  // });
-  // dataSet8.forEach(async element => {
-  //   await restaurantPoint.create(element)
-  //   console.log(i++)
-  // });
-  // dataSet8.forEach(async element => {
-  //   await restaurantPoint.create(element)
-  //   console.log(i++)
-  // });
-  // dataSet9.forEach(async element => {
-  //   await restaurantPoint.create(element)
-  //   console.log(i++)
-  // });
-  // dataSet10.forEach(async element => {
-  //   await restaurantPoint.create(element)
-  //   console.log(i++)
-  // });
-  // dataSet11.forEach(async element => {
-  //   await restaurantPoint.create(element)
-  //   console.log(i++)
-  // });
-  // dataSet12.forEach(async element => {
-  //   await restaurantPoint.create(element)
-  //   console.log(i++)
-  // });
-  // dataSet13.forEach(async element => {
-  //   await restaurantPoint.create(element)
-  //   console.log(i++)
-  // });
-  // dataSet14.forEach(async element => {
-  //   await restaurantPoint.create(element)
-  //   console.log(i++)
-  // });
-  // dataSet15.forEach(async element => {
-  //   await restaurantPoint.create(element)
-  //   console.log(i++)
-  // });
-  // dataSet16.forEach(async element => {
-  //   await restaurantPoint.create(element)
-  //   console.log(i++)
-  // });
+    ])
+    .then(obj => {
+      console.log(obj)
+    })
 }
+
+console.log(restaurantSchema.barChart('$cuisine'))
+
+//used to insert many documents
+restaurantSchema.insertMany(dataSet, err => {
+  if (err) console.error(err)
+})
+
+// Seeds Restauraunt Data
+// const seedRestaurantData = () => {
+//   let i = 0
+//   dataSet.forEach(async element => {
+//     await restaurantPoint.create(element)
+//     console.log(i++)
+//   })
+//   dataSet1.forEach(async element => {
+//     await restaurantPoint.create(element)
+//     console.log(i++)
+//   })
+//   dataSet2.forEach(async element => {
+//     await restaurantPoint.create(element)
+//     console.log(i++)
+//   })
+//   dataSet3.forEach(async element => {
+//     await restaurantPoint.create(element)
+//     console.log(i++)
+//   })
+//   dataSet4.forEach(async element => {
+//     await restaurantPoint.create(element)
+//     console.log(i++)
+//   })
+// }
+//Loaded up to here
+// dataSet5.forEach(async element => {
+//   await restaurantPoint.create(element)
+//   console.log(i++)
+// });
+// dataSet6.forEach(async element => {
+//   await restaurantPoint.create(element)
+//   console.log(i++)
+// });
+// dataSet7.forEach(async element => {
+//   await restaurantPoint.create(element)
+//   console.log(i++)
+// });
+// dataSet8.forEach(async element => {
+//   await restaurantPoint.create(element)
+//   console.log(i++)
+// });
+// dataSet8.forEach(async element => {
+//   await restaurantPoint.create(element)
+//   console.log(i++)
+// });
+// dataSet9.forEach(async element => {
+//   await restaurantPoint.create(element)
+//   console.log(i++)
+// });
+// dataSet10.forEach(async element => {
+//   await restaurantPoint.create(element)
+//   console.log(i++)
+// });
+// dataSet11.forEach(async element => {
+//   await restaurantPoint.create(element)
+//   console.log(i++)
+// });
+// dataSet12.forEach(async element => {
+//   await restaurantPoint.create(element)
+//   console.log(i++)
+// });
+// dataSet13.forEach(async element => {
+//   await restaurantPoint.create(element)
+//   console.log(i++)
+// });
+// dataSet14.forEach(async element => {
+//   await restaurantPoint.create(element)
+//   console.log(i++)
+// });
+// dataSet15.forEach(async element => {
+//   await restaurantPoint.create(element)
+//   console.log(i++)
+// });
+// dataSet16.forEach(async element => {
+//   await restaurantPoint.create(element)
+//   console.log(i++)
+// });
+// }
 
 // seedRestaurantData()
