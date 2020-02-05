@@ -3,7 +3,7 @@ import * as d3 from 'd3'
 import {default as singleNeighborhood} from '../../public/sandbox/single.json'
 //put a single neighborhood's coordinates in a json to use
 // console.log('d3', d3)
-export class Map extends React.Component {
+export class MapNeighborhood extends React.Component {
   constructor() {
     super()
     this.state = singleNeighborhood
@@ -67,7 +67,7 @@ export class Map extends React.Component {
             //       )
             //     }, '')}
             strokeWidth="2"
-            fill="none"
+            fill="blue"
             stroke="#eb6a5b"
           />
         </svg>
