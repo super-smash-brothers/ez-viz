@@ -13,6 +13,8 @@ const cityPropSchema = new mongoose.Schema({
   }
 })
 
-const City = mongoose.model('City', cityPropSchema)
+const CitySchema = mongoose.model('City', cityPropSchema)
 
-module.exports = City
+module.exports = {
+  CitySchema
+}
