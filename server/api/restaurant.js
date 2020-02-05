@@ -1,11 +1,11 @@
 const router = require('express').Router()
-const {restaurantPoint} = require('../db/models/')
+const {RestaurantPoint} = require('../db/models/')
 module.exports = router
 
 router.get('/barchart/:id', async (req, res, next) => {
   try {
     let id = `$${req.params.id}`
-    const data = await restaurantPoint.aggregate([
+    const data = await RestaurantPoint.aggregate([
       {
         $group: {
           _id: id,
