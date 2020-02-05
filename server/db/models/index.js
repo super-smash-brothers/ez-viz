@@ -1,6 +1,6 @@
 const {CitySchema} = require('./city')
 const {NeighborPoly} = require('./neighborhood')
-const {restaurantPoint, restaurantSchema} = require('./restaurant')
+const {RestaurantPoint} = require('./restaurant')
 const {BoroughPoly} = require('./boro')
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/delvenyc', {useNewUrlParser: true})
@@ -22,6 +22,6 @@ mongoose.connect('mongodb://localhost/delvenyc', {useNewUrlParser: true})
 module.exports = {
   CitySchema,
   NeighborPoly,
-  restaurantPoint,
+  RestaurantPoint,
   BoroughPoly
 }

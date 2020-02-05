@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/delvenyc', {useNewUrlParser: true})
-const {NeighborhoodSchema} = require('./')
+const {NeighborPoly} = require('./')
 
 const pointSchema = new mongoose.Schema({
   type: {
@@ -9,7 +8,7 @@ const pointSchema = new mongoose.Schema({
     required: true
   },
   coordinates: {
-    type: [Number],
+    type: [Number], // array of numbers
     required: true
   }
 })
@@ -27,7 +26,7 @@ const restaurantSchema = new mongoose.Schema({
   inspectionDate: {
     type: String
   },
-  violationCode: String,
+  violationCode: String, // same as {type: String}
   violationDescription: String,
   criticalFlag: String,
   score: {
@@ -40,46 +39,51 @@ const restaurantSchema = new mongoose.Schema({
   nta: {
     type: String
   },
-  pastViolation: [String]
+  pastViolation: [String] // array of strings
 })
 
-const restaurantPoint = mongoose.model('restaurantPoint', restaurantSchema)
+const RestaurantPoint = mongoose.model('RestaurantPoint', restaurantSchema)
 
 //Caches aggregateFoodGrade running seed
 restaurantSchema.aggregateFoodGrade = () => {
-  restaurantPoint
-    .aggregate([
-      {
-        $group: {
-          _id: '$nta',
-          total: {
-            $sum: {
-              $toInt: '$score'
-            }
-          },
-          count: {$sum: 1}
-        }
+  RestaurantPoint.aggregate([
+    {
+      // '$' denotes an operation for mongoose
+      $group: {
+        // for each group
+        _id: '$nta', // where the id matches the nta
+        total: {
+          $sum: {
+            // sum up for a total
+            $toInt: '$score' // convert string to integer
+          }
+        },
+        count: {$sum: 1}
       }
-    ])
-    .then(aggregateData => {
-      aggregateData.forEach(data => {
-        if (data._id !== null) {
-          NeighborhoodSchema.update(
-            {'properties.NTACode': data._id},
-            {$set: {'properties.aggregateFoodGrade': data.total / data.count}},
-            () => {
-              console.log(
-                'needs this annonymous callback because save middle ware is not triggered when just doing an update'
-              )
-            }
-          )
-        }
-      })
+    }
+  ]).then(aggregateData => {
+    // aggregateData is an array
+    aggregateData.forEach(data => {
+      if (data._id !== null) {
+        // make sure there is a specified nta in _id
+        NeighborPoly.update(
+          // append data to neighborhood
+          {'properties.NTACode': data._id}, // specify the documents to update
+          {$set: {'properties.aggregateFoodGrade': data.total / data.count}}, // set specific field of document
+          () => {
+            // update is not saved without the presence of this callback
+            console.log(
+              'needs this annonymous callback because save middle ware is not triggered when just doing an update'
+            )
+          }
+        )
+      }
     })
+  })
 }
 
-// restaurantPoint.barChart('$cuisine')
+// RestaurantPoint.barChart('$cuisine')
 
 module.exports = {
-  restaurantPoint
+  RestaurantPoint
 }
