@@ -1,7 +1,7 @@
 const router = require('express').Router()
-const {NeighborPoly, BoroughPoly} = require('../db/models/')
-module.exports = router
+const {NeighborPoly, BoroughPoly, RestaurantPoint} = require('../db/models/')
 
+module.exports = router
 router.get('/boro', async (req, res, next) => {
   try {
     const allBoroughPoly = await BoroughPoly.find()
@@ -13,6 +13,30 @@ router.get('/boro', async (req, res, next) => {
     res.json(geoJSON)
   } catch (err) {
     next(err)
+  }
+})
+
+router.get('/foodscore', async (req, res, next) => {
+  try {
+    const aggregateData = await RestaurantPoint.aggregate([
+      {
+        // '$' denotes an operation for mongoose
+        $group: {
+          // for each group
+          _id: '$nta', // where the id matches the nta
+          total: {
+            $sum: {
+              // sum up for a total
+              $toInt: '$score' // convert string to integer
+            }
+          },
+          count: {$sum: 1}
+        }
+      }
+    ])
+    res.json(aggregateData)
+  } catch (error) {
+    console.error(error)
   }
 })
 
