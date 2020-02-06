@@ -1,4 +1,20 @@
-const User = require('./user')
+const {CitySchema} = require('./city')
+const {NeighborPoly} = require('./neighborhood')
+const {RestaurantPoint} = require('./restaurant')
+const {BoroughPoly} = require('./boro')
+const mongoose = require('mongoose')
+
+if (!process.env.MONGODB_SERVER)
+  console.log(
+    'MongoDB Atlas server not found. Defaulting to local MongoDB server.'
+  )
+else console.log('MongoDB Atlas server found. Connecting.')
+const connURI = process.env.MONGODB_SERVER
+  ? process.env.MONGODB_SERVER
+  : 'mongodb://localhost/delvenyc'
+console.log('Connection URI:', connURI)
+
+mongoose.connect(connURI, {useNewUrlParser: true})
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -13,6 +29,10 @@ const User = require('./user')
  * for example, we can say: const {User} = require('../db/models')
  * instead of: const User = require('../db/models/user')
  */
+
 module.exports = {
-  User
+  CitySchema,
+  NeighborPoly,
+  RestaurantPoint,
+  BoroughPoly
 }
