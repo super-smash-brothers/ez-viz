@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const {NeighborPoly} = require('./')
+const {NeighborPoly, neighborPropSchema} = require('./')
+mongoose.set('debug', true)
 
 const pointSchema = new mongoose.Schema({
   type: {
@@ -45,42 +46,64 @@ const restaurantSchema = new mongoose.Schema({
 const RestaurantPoint = mongoose.model('RestaurantPoint', restaurantSchema)
 
 //Caches aggregateFoodGrade running seed
-restaurantSchema.aggregateFoodGrade = () => {
-  RestaurantPoint.aggregate([
-    {
-      // '$' denotes an operation for mongoose
-      $group: {
-        // for each group
-        _id: '$nta', // where the id matches the nta
-        total: {
-          $sum: {
-            // sum up for a total
-            $toInt: '$score' // convert string to integer
-          }
-        },
-        count: {$sum: 1}
+let aggregateFoodGrade = async () => {
+  try {
+    const aggregateData = await RestaurantPoint.aggregate([
+      {
+        // '$' denotes an operation for mongoose
+        $group: {
+          // for each group
+          _id: '$nta', // where the id matches the nta
+          total: {
+            $sum: {
+              // sum up for a total
+              $toInt: '$score' // convert string to integer
+            }
+          },
+          count: {$sum: 1}
+        }
       }
-    }
-  ]).then(aggregateData => {
-    // aggregateData is an array
-    aggregateData.forEach(data => {
+    ])
+    aggregateData.forEach(async data => {
       if (data._id !== null) {
         // make sure there is a specified nta in _id
-        NeighborPoly.update(
-          // append data to neighborhood
-          {'properties.NTACode': data._id}, // specify the documents to update
-          {$set: {'properties.aggregateFoodGrade': data.total / data.count}}, // set specific field of document
-          () => {
-            // update is not saved without the presence of this callback
-            console.log(
-              'needs this annonymous callback because save middle ware is not triggered when just doing an update'
-            )
-          }
-        )
+        console.log(data)
+        const filter = {'properties.NTACode': data._id}
+        const update = {
+          $set: {'properties.aggregateFoodGrade': data.total / data.count}
+        }
+
+        const doc = await NeighborPoly.findOneAndUpdate(filter, update, {
+          upser: true
+        }).exec()
+        console.log(doc)
       }
     })
-  })
+    console.log('completed')
+  } catch (error) {
+    console.error(error)
+  }
 }
+
+// .then(aggregateData => {
+//   // aggregateData is an array
+//   aggregateData.forEach(data => {
+//     if (data._id !== null) {
+//       // make sure there is a specified nta in _id
+//       console.log(data)
+//       NeighborPoly.update(
+//         // append data to neighborhood
+//         { 'properties.NTACode': data._id }, // specify the documents to update
+//         { $set: { 'properties.aggregateFoodGrade': (data.total / data.count) } }, // set specific field of document
+//         { upsert: true }, //adds fiel
+//         (err) => {
+//           // update is not saved without the presence of this callback
+//           console.log(err)
+//         }
+//       )
+//     }
+//   })
+// })
 
 // RestaurantPoint.barChart('$cuisine')
 

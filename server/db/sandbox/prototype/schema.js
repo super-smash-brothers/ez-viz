@@ -1,9 +1,18 @@
 // const mongoose = require('mongoose')
 
-// const NTA = require('../NTA.json')
-// const Boro = require('./boro.json')
+// if (!process.env.MONGODB_SERVER)
+//   console.log(
+//     'MongoDB Atlas server not found. Defaulting to local MongoDB server.'
+//   )
+// else console.log('MongoDB Atlas server found. Connecting.')
+// const connURI = process.env.MONGODB_SERVER
+//   ? process.env.MONGODB_SERVER
+//   : 'mongodb://localhost/delvenyc'
+// console.log('Connection URI:', connURI)
 
-// // Schema
+// mongoose.connect(connURI, { useNewUrlParser: true })
+
+// // // Schema
 // const polySchema = new mongoose.Schema({
 //   type: {
 //     type: String,
@@ -83,7 +92,7 @@
 //   aggregateFoodGrade: {
 //     type: String
 //   },
-//   aggregateFoodGradePercentile: {
+//   aggregateFoodGradePercentile: {A
 //     type: Number
 //   },
 //   totalRestaurants: {
@@ -167,7 +176,7 @@
 //   }
 // )
 
-// // module.exports = {
+// module.exports = {
 // //   NeighborPoly,
 // //   BoroughPoly,
 // //   // City

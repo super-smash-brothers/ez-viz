@@ -1,7 +1,17 @@
 const router = require('express').Router()
-const {RestaurantPoint} = require('../db/models/')
+const {RestaurantPoint, db, NeighborPoly} = require('../db/models/')
 module.exports = router
-
+router.get('/points/:view', async (req, res, next) => {
+  try {
+    console.log('hitting points route')
+    let sortDistinct = `$${req.params.view}`
+    const distinct = await NeighborPoly.distinct('properties.NTACode')
+    console.log(distinct)
+    res.send('hello')
+  } catch (error) {
+    next(error)
+  }
+})
 router.get('/barchart/:id', async (req, res, next) => {
   try {
     let id = `$${req.params.id}`
@@ -17,7 +27,6 @@ router.get('/barchart/:id', async (req, res, next) => {
       },
       {$limit: 5}
     ])
-    data.sort()
     res.json(data)
   } catch (error) {
     console.error(error)

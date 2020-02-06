@@ -1,5 +1,5 @@
 const {CitySchema} = require('./city')
-const {NeighborPoly} = require('./neighborhood')
+const {NeighborPoly, neighborPropSchema} = require('./neighborhood')
 const {RestaurantPoint} = require('./restaurant')
 const {BoroughPoly} = require('./boro')
 const mongoose = require('mongoose')
@@ -15,7 +15,7 @@ const connURI = process.env.MONGODB_SERVER
   : 'mongodb://localhost/delvenyc'
 console.log('Connection URI:', connURI)
 
-mongoose.connect(connURI, {useNewUrlParser: true})
+const db = mongoose.connect(connURI, {useNewUrlParser: true})
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -35,5 +35,7 @@ module.exports = {
   CitySchema,
   NeighborPoly,
   RestaurantPoint,
-  BoroughPoly
+  BoroughPoly,
+  neighborPropSchema,
+  db
 }

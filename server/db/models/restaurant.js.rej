@@ -1,0 +1,21 @@
+diff a/server/db/models/restaurant.js b/server/db/models/restaurant.js	(rejected hunks)
+@@ -2,2 +2,2 @@ const mongoose = require('mongoose')
+-const { NeighborPoly, neighborPropSchema } = require('./')
+-mongoose.set("debug", true)
++const {NeighborPoly, neighborPropSchema} = require('./')
++mongoose.set('debug', true)
+@@ -63 +63 @@ let aggregateFoodGrade = async () => {
+-          count: { $sum: 1 }
++          count: {$sum: 1}
+@@ -71,2 +71,4 @@ let aggregateFoodGrade = async () => {
+-        const filter = { 'properties.NTACode': data._id }
+-        const update = { $set: { 'properties.aggregateFoodGrade': (data.total / data.count) } }
++        const filter = {'properties.NTACode': data._id}
++        const update = {
++          $set: {'properties.aggregateFoodGrade': data.total / data.count}
++        }
+@@ -74 +76,3 @@ let aggregateFoodGrade = async () => {
+-        const doc = await NeighborPoly.findOneAndUpdate(filter, update, { upser: true }).exec()
++        const doc = await NeighborPoly.findOneAndUpdate(filter, update, {
++          upser: true
++        }).exec()
