@@ -1,4 +1,0 @@
-diff a/server/db/sandbox/prototype/schema.js b/server/db/sandbox/prototype/schema.js	(rejected hunks)
-@@ -13 +13 @@ console.log('Connection URI:', connURI)
--mongoose.connect(connURI, { useNewUrlParser: true })
-+mongoose.connect(connURI, {useNewUrlParser: true})
