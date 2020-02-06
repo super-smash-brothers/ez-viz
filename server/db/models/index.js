@@ -3,6 +3,7 @@ const {NeighborPoly} = require('./neighborhood')
 const {RestaurantPoint} = require('./restaurant')
 const {BoroughPoly} = require('./boro')
 const mongoose = require('mongoose')
+require('../../../secrets')
 
 if (!process.env.MONGODB_SERVER)
   console.log(
