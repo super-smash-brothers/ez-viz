@@ -85,8 +85,6 @@ let aggregateFoodGrade = async () => {
   }
 }
 
-aggregateFoodGrade()
-
 // .then(aggregateData => {
 //   // aggregateData is an array
 //   aggregateData.forEach(data => {
