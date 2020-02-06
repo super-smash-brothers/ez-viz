@@ -24,9 +24,9 @@
   <body>
     <div id="map" class="main-map-container"></div>
     <script>
-      var mymap = L.map('map').setView(
+      var nycMap = L.map('map').setView(
         [40.7058323382838, -73.9778016471983],
-        14
+        10
       )
       L.tileLayer(
         'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
@@ -37,9 +37,17 @@
           accessToken:
             'pk.eyJ1Ijoiemthcm1pIiwiYSI6ImNrNjl0cjEyZjBqanUzZG41YmJqempsb2oifQ.rTF7bmNtao5ZSLkLN_1JWA'
         }
-      ).addTo(mymap)
-      // console.log(mymap.invalidateSize)
-      mymap.invalidateSize()
+      ).addTo(nycMap)
+
+      if (nycMap) {
+        const mapPane = document.querySelector('.leaflet-map-pane')
+        const stopResize = setInterval(() => {
+          if (nycMap.invalidateSize()) {
+            clearInterval(stopResize)
+            // let's use visibility:hidden in the CSS, then reveal once this executes
+          }
+        }, 50)
+      }
     </script>
     <div class="main-container">
       <div class="sidebar">
