@@ -30,7 +30,7 @@ class Routes extends Component {
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
-        <Route path="/simple" component={NycSimpleMap} />
+        <Route path="/leaflet" component={NycSimpleMap} />
         <Route component={Login} />
       </Switch>
     )
