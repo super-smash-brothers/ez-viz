@@ -1,13 +1,7 @@
 const mongoose = require('mongoose')
 // const NTASlice2 = require('../ntaSlice2')
 const {NeighborPoly} = require('../../models/index.js')
-mongoose.connect(
-  'mongodb+srv://viZ:UnaZiv4JavaMineN0ir@cluster0-hqnuy.mongodb.net/delvenyc',
-  {
-    useNewUrlParser: true,
-    dbName: 'delvenyc'
-  }
-)
+mongoose.connect(process.env.MONGODB_SERVER)
 // mongoose.connect('localhost://delvenyc', { useNewUrlParser: true })
 const pointSchema = new mongoose.Schema({
   type: {
