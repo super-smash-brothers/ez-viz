@@ -1,0 +1,42 @@
+/* Font imports */
+@import url('https://fonts.googleapis.com/css?family=Changa+One|Lilita+One|Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: $body-font;
+  font-size: $m-size;
+  height: 900px;
+}
+
+a {
+  text-decoration: none;
+}
+
+label {
+  display: block;
+}
+
+nav a {
+  display: inline-block;
+  margin: 1em;
+}
+
+ul {
+  padding: 0;
+}
+
+input {
+  outline: none;
+}
+
+button {
+  outline: none;
+  cursor: pointer;
+}
+
+.flex {
+  display: flex;
+}
