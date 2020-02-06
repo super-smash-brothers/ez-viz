@@ -25,7 +25,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/neighborhoods', async (req, res, next) => {
   try {
-    console.log('/api/prototype/neighborhoods reached')
+    console.log(NeighborPoly)
     NeighborPoly.find().then(arr => {
       const geoJSON = {
         // returning data in a geoJSON format

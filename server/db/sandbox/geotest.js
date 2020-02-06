@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/geotest', {useNewUrlParser: true})
+// mongoose.connect('mongodb://localhost/geotest', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// })
 const NTASlice = require('./ntaSlice') // importing json does not require module.exports
 
 // Schema
