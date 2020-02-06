@@ -109,13 +109,13 @@ const startListening = () => {
   // set up our socket control center
   const io = socketio(server)
   require('./socket')(io)
-  mongoose.connect(
-    'mongodb://localhost/delvenyc',
-    {useNewUrlParser: true},
-    err => {
-      console.log(err)
-    }
-  )
+  // mongoose.connect(
+  //   'mongodb://localhost/delvenyc',
+  //   {useNewUrlParser: true},
+  //   err => {
+  //     console.log(err)
+  //   }
+  // )
 }
 
 const syncDb = () => db.sync()
