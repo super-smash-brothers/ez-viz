@@ -1,0 +1,6 @@
+diff a/server/db/sandbox/prototype/querytest.js b/server/db/sandbox/prototype/querytest.js	(rejected hunks)
+@@ -2,2 +2,2 @@ const mongoose = require('mongoose')
+-const { NeighborPoly, BoroughPoly, City } = require('./schema')
+-mongoose.connect('mongodb://localhost/delvenyc', { useNewUrlParser: true })
++const {NeighborPoly, BoroughPoly, City} = require('./schema')
++mongoose.connect('mongodb://localhost/delvenyc', {useNewUrlParser: true})

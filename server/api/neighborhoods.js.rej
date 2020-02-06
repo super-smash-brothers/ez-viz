@@ -1,0 +1,11 @@
+diff a/server/api/neighborhoods.js b/server/api/neighborhoods.js	(rejected hunks)
+@@ -2,2 +2 @@ const router = require('express').Router()
+-const { NeighborPoly, BoroughPoly } = require('../db/models/')
+-
++const {NeighborPoly, BoroughPoly} = require('../db/models/')
+@@ -12 +11 @@ router.get('/boro', async (req, res, next) => {
+-      crs: { type: 'name', properties: { name: 'EPSG:4326' } },
++      crs: {type: 'name', properties: {name: 'EPSG:4326'}},
+@@ -28 +26 @@ router.get('/', async (req, res, next) => {
+-      crs: { type: 'name', properties: { name: 'EPSG:4326' } },
++      crs: {type: 'name', properties: {name: 'EPSG:4326'}},

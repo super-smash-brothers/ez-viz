@@ -1,18 +1,18 @@
 // const mongoose = require('mongoose')
 
-if (!process.env.MONGODB_SERVER)
-  console.log(
-    'MongoDB Atlas server not found. Defaulting to local MongoDB server.'
-  )
-else console.log('MongoDB Atlas server found. Connecting.')
-const connURI = process.env.MONGODB_SERVER
-  ? process.env.MONGODB_SERVER
-  : 'mongodb://localhost/delvenyc'
-console.log('Connection URI:', connURI)
+// if (!process.env.MONGODB_SERVER)
+//   console.log(
+//     'MongoDB Atlas server not found. Defaulting to local MongoDB server.'
+//   )
+// else console.log('MongoDB Atlas server found. Connecting.')
+// const connURI = process.env.MONGODB_SERVER
+//   ? process.env.MONGODB_SERVER
+//   : 'mongodb://localhost/delvenyc'
+// console.log('Connection URI:', connURI)
 
-mongoose.connect(connURI, {useNewUrlParser: true})
+// mongoose.connect(connURI, { useNewUrlParser: true })
 
-// // Schema
+// // // Schema
 // const polySchema = new mongoose.Schema({
 //   type: {
 //     type: String,

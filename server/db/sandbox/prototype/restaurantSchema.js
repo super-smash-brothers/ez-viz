@@ -9,7 +9,6 @@ mongoose.connect(
   }
 )
 // mongoose.connect('localhost://delvenyc', { useNewUrlParser: true })
-
 const pointSchema = new mongoose.Schema({
   type: {
     type: String,

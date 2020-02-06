@@ -1,0 +1,13 @@
+diff a/server/db/models/index.js b/server/db/models/index.js	(rejected hunks)
+@@ -1,4 +1,4 @@
+-const { CitySchema } = require('./city')
+-const { NeighborPoly, neighborPropSchema } = require('./neighborhood')
+-const { RestaurantPoint } = require('./restaurant')
+-const { BoroughPoly } = require('./boro')
++const {CitySchema} = require('./city')
++const {NeighborPoly, neighborPropSchema} = require('./neighborhood')
++const {RestaurantPoint} = require('./restaurant')
++const {BoroughPoly} = require('./boro')
+@@ -17 +17 @@ console.log('Connection URI:', connURI)
+-const db = mongoose.connect(connURI, { useNewUrlParser: true })
++const db = mongoose.connect(connURI, {useNewUrlParser: true})

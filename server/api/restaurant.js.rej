@@ -1,0 +1,30 @@
+diff a/server/api/restaurant.js b/server/api/restaurant.js	(rejected hunks)
+@@ -2 +2 @@ const router = require('express').Router()
+-const { RestaurantPoint, db, NeighborPoly } = require('../db/models/')
++const {RestaurantPoint, db, NeighborPoly} = require('../db/models/')
+@@ -9 +8 @@ router.get('/points/:view', async (req, res, next) => {
+-    let sortDistinct = (`$${req.params.view}`)
++    let sortDistinct = `$${req.params.view}`
+@@ -15,2 +13 @@ router.get('/points/:view', async (req, res, next) => {
+-  }
+-  catch (error) {
++  } catch (error) {
+@@ -27 +24 @@ router.get('/barchart/:id', async (req, res, next) => {
+-          count: { $sum: 1 }
++          count: {$sum: 1}
+@@ -31 +28 @@ router.get('/barchart/:id', async (req, res, next) => {
+-        $sort: { count: -1 }
++        $sort: {count: -1}
+@@ -33 +30 @@ router.get('/barchart/:id', async (req, res, next) => {
+-      { $limit: 5 }
++      {$limit: 5}
+@@ -40,9 +36,0 @@ router.get('/barchart/:id', async (req, res, next) => {
+-
+-
+-
+-
+-
+-
+-
+-
+-
