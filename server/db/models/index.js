@@ -2,6 +2,7 @@ const {CitySchema} = require('./city')
 const {NeighborPoly, neighborPropSchema} = require('./neighborhood')
 const {RestaurantPoint} = require('./restaurant')
 const {BoroughPoly} = require('./boro')
+const {NeighborSum} = require('./neighborhoodSum')
 const mongoose = require('mongoose')
 require('../../../secrets')
 mongoose.set('debug', true)
@@ -36,6 +37,7 @@ module.exports = {
   NeighborPoly,
   RestaurantPoint,
   BoroughPoly,
+  NeighborSum,
   neighborPropSchema,
   db
 }
