@@ -18,27 +18,46 @@ router.get('/boro', async (req, res, next) => {
 
 router.get('/foodscore', async (req, res, next) => {
   try {
-    const aggregateData = await RestaurantPoint.aggregate([
+    const uniqueNTA = await NeighborPoly.find().distinct('properties.NTACode')
+    const foodScore = await NeighborPoly.aggregate([
+      {$match: {$in: {uniqueNTA}}},
       {
-        // '$' denotes an operation for mongoose
         $group: {
-          // for each group
-          _id: '$nta', // where the id matches the nta
-          total: {
-            $sum: {
-              // sum up for a total
-              $toInt: '$score' // convert string to integer
-            }
-          },
-          count: {$sum: 1}
+          id: '$nta'
         }
       }
     ])
-    res.json(aggregateData)
+    res.json(uniqueNTA)
+    // res.json(foodScore)
   } catch (error) {
-    console.error(error)
+    next(error)
   }
 })
+
+// router.get('/foodscore', async (req, res, next) => {
+//   try {
+//     const aggregateData = await RestaurantPoint.aggregate([
+//       {
+//         // '$' denotes an operation for mongoose
+//         $group: {
+//           // for each group
+//           _id: '$nta', // where the id matches the nta
+//           total: {
+//             $sum: {
+//               // sum up for a total
+//               $toInt: '$score' // convert string to integer
+//             }
+//           },
+//           count: { $sum: 1 }
+//         }
+//       }
+//     ])
+
+//     res.json(aggregateData)
+//   } catch (error) {
+//     console.error(error)
+//   }
+// })
 
 router.get('/', async (req, res, next) => {
   try {

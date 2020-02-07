@@ -4,7 +4,7 @@ const {RestaurantPoint} = require('./restaurant')
 const {BoroughPoly} = require('./boro')
 const mongoose = require('mongoose')
 require('../../../secrets')
-
+mongoose.set('debug', true)
 if (!process.env.MONGODB_SERVER)
   console.log(
     'MongoDB Atlas server not found. Defaulting to local MongoDB server.'
