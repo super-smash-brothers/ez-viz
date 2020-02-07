@@ -12,16 +12,21 @@ const viewport = {
   zoom: 10
 }
 
+// select map style
 const mapStyleId = 'mapbox/streets-v11'
 
+// mapbox API access token
 const accessToken =
   'pk.eyJ1Ijoiemthcm1pIiwiYSI6ImNrNjl0cjEyZjBqanUzZG41YmJqempsb2oifQ.rTF7bmNtao5ZSLkLN_1JWA'
 
+// Mapbox/OpenstreetMap requires attribution
 const mapAttribution =
   'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>'
 
+// API URL for map
 const mapUrl = `https://api.mapbox.com/styles/v1/${mapStyleId}/tiles/{z}/{x}/{y}?access_token=${accessToken}`
 
+// min/max bounds for our overlays
 const bnd = [
   [40.9155410761847, -74.2555928790719],
   [40.4961236003829, -73.7000104153247]
@@ -29,15 +34,6 @@ const bnd = [
 
 export default class MainMapContainer extends Component {
   componentDidMount() {}
-
-  makeSvgOverlay() {
-    const svgLayer = document.createElementNS(
-      'http://www.w3.org/2000/svg',
-      'svg'
-    )
-    const newLayer = new SVGOverlay(svgLayer, bnd)
-    this.map.addLayer(newLayer)
-  }
 
   render = () => (
     <Map
@@ -50,7 +46,8 @@ export default class MainMapContainer extends Component {
       }}
     >
       <TileLayer attribution={mapAttribution} url={mapUrl} />
-      <SVGOverlay bounds={bnd} id="ovelay">
+      {/* Another attempt to include an overlay, but this doesn't seem to have a way to set the viewBox or link the overlay to the map for zoom/pan */}
+      <SVGOverlay viewBox="0 0 400 400" bounds={bnd} id="ovelay">
         <CityMap style={{backgroundColor: 'red'}} />
         {/* <rld3svg /> */}
       </SVGOverlay>
