@@ -1,12 +1,9 @@
 import React, {Component} from 'react'
-import NycMap from './NycMap'
-import {CityMap} from '../mapCity'
-import * as leaflet from 'leaflet'
-import {Map, TileLayer} from 'react-leaflet'
-// import * as D3SVGOverlay from 'react-leaflet-d3-svg-overlay'
-// import NycSimpleMap from './NycSimpleMap'
+import d3 from 'd3'
+import {Map, TileLayer, withLeaflet} from 'react-leaflet'
+// import 'react-leaflet-d3-svg-overlay'
 
-console.log('leaflet is: ', leaflet)
+// console.log('d3svgoverlay:', D3SVGOverlay)
 
 const viewport = {
   center: [40.7058323382838, -73.9778016471983],

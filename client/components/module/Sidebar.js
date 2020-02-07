@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Filters from './Filters'
 
 export default class Sidebar extends Component {
   render = () => (
@@ -11,36 +12,7 @@ export default class Sidebar extends Component {
         </div>
       </header>
 
-      <div className="map-filters-container">
-        <h3 className="block-title">Filter by&hellip;</h3>
-        <ul className="map-filters">
-          <li className="map-filter__item">
-            <input
-              type="checkbox"
-              className="map-filter__item-checkbox"
-              onClick={this.props.setFilter}
-              name="blah"
-            />
-            A Map Filter
-          </li>
-          <li className="map-filter__item">
-            <input type="checkbox" className="map-filter__item-checkbox" />A Map
-            Filter
-          </li>
-          <li className="map-filter__item">
-            <input type="checkbox" className="map-filter__item-checkbox" />A Map
-            Filter
-          </li>
-          <li className="map-filter__item">
-            <input type="checkbox" className="map-filter__item-checkbox" />A Map
-            Filter
-          </li>
-          <li className="map-filter__item">
-            <input type="checkbox" className="map-filter__item-checkbox" />A Map
-            Filter
-          </li>
-        </ul>
-      </div>
+      <Filters setFilter={this.props.setFilter} />
     </div>
   )
 }
