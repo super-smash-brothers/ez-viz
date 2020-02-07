@@ -38,7 +38,7 @@ const neighborPropSchema = new mongoose.Schema({
     type: Number
   },
   aggregateFoodGrade: {
-    type: String
+    type: Number
   },
   aggregateFoodGradePercentile: {
     type: Number
@@ -64,5 +64,6 @@ const neighborPolySchema = new mongoose.Schema({
 const NeighborPoly = mongoose.model('NeighborPoly', neighborPolySchema)
 
 module.exports = {
-  NeighborPoly
+  NeighborPoly,
+  neighborPropSchema
 }
