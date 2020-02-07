@@ -3,9 +3,12 @@ import MainMap from '../module/MainMap'
 import MainMapFilters from '../module/MainMapFilters'
 import Sidebar from '../module/Sidebar'
 
+const dummyFilters = ['population', 'restaurantGrades']
+
 export default class Main extends Component {
   state = {
-    filter: ''
+    filter: '',
+    filters: dummyFilters
   }
 
   // stage 2: extend to allow multiple filters?
@@ -18,7 +21,7 @@ export default class Main extends Component {
     <>
       <MainMap filter={this.state.filter} />
       <div className="main-page main-container flex">
-        <Sidebar setFilter={this.setFilter} />
+        <Sidebar filters={this.state.filters} setFilter={this.setFilter} />
       </div>
     </>
   )
