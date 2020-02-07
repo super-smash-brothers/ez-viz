@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, Main} from './components'
 import {me} from './store'
 import NycSimpleMap from './components/module/NycSimpleMap'
+import {CityMap} from './components/mapCity'
 
 /**
  * COMPONENT
@@ -31,6 +32,7 @@ class Routes extends Component {
         )}
         {/* Displays our Login component as a fallback */}
         <Route path="/leaflet" component={NycSimpleMap} />
+        <Route path="/citymapoverlay" component={CityMap} />
         <Route component={Login} />
       </Switch>
     )
