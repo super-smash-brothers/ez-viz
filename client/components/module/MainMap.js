@@ -7,7 +7,7 @@ export default class MainMapContainer extends Component {
   render = () => (
     <div className="main-map-container">
       {/* <NycMap /> */}
-      {/* <CityMap /> */}
+      <CityMap />
     </div>
   )
 }
