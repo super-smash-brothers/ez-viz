@@ -4,8 +4,6 @@ import PropTypes from 'prop-types'
 import {auth} from '../store'
 import {BarChart} from './chartBar'
 import {LineChart} from './chartLine'
-import {MapNeighborhood} from './mapNeighborhood'
-import {CityMap} from './mapCity'
 
 /**
  * COMPONENT
@@ -34,9 +32,10 @@ const AuthForm = props => {
         {error && error.response && <div> {error.response.data} </div>}
       </form>
       <a href="/auth/google">{displayName} with Google</a>
-      {/* <BarChart /> */}
-      {/* <LineChart /> */}
-      <CityMap />
+      <h1>BarChart component</h1>
+      <BarChart />
+      <h1>LineChart component</h1>
+      <LineChart />
     </div>
   )
 }

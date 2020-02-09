@@ -5,7 +5,7 @@ import {ComposableMap, Geographies, Geography} from 'react-simple-maps'
 const geoUrl = '/sandbox/NTA_T.json'
 
 const NycSimpleMap = () => (
-  <div>
+  <div style={{backgroundColor: '#000000'}}>
     <ComposableMap
       projectionConfig={{
         scale: 205,
