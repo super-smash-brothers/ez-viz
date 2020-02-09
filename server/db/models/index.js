@@ -1,11 +1,11 @@
 const {CitySchema} = require('./city')
 const {NeighborPoly, neighborPropSchema} = require('./neighborhood')
+const {NeighborSum} = require('./neighborhoodSum')
 const {RestaurantPoint} = require('./restaurant')
 const {BoroughPoly} = require('./boro')
-const {NeighborSum} = require('./neighborhoodSum')
 const mongoose = require('mongoose')
-require('../../../secrets')
 mongoose.set('debug', true)
+
 if (!process.env.MONGODB_SERVER)
   console.log(
     'MongoDB Atlas server not found. Defaulting to local MongoDB server.'
