@@ -68,30 +68,28 @@ export function CityMap(props) {
       return yScale(d[1])
     })
 
-  return (
+  return Object.keys(data).length ? (
     <svg width={width} height={height}>
-      {Object.keys(data).length ? (
-        data.features.map(neighborhood => {
-          // console.log('in search of nta', neighborhood.properties.NTACode)
-          return (
-            <MapNeighborhood
-              key={neighborhood.id}
-              line={line}
-              xScale={xScale}
-              yScale={yScale}
-              neighborhood={neighborhood}
-              width={width}
-              height={height}
-              avgFoodScore={foodScores.find(
-                element => element._id === neighborhood.properties.NTACode
-              )}
-              colorScale={colorScale}
-            />
-          )
-        })
-      ) : (
-        <h2>no data loaded</h2>
-      )}
+      {data.features.map(neighborhood => {
+        // console.log('in search of nta', neighborhood.properties.NTACode)
+        return (
+          <MapNeighborhood
+            key={neighborhood.id}
+            line={line}
+            xScale={xScale}
+            yScale={yScale}
+            neighborhood={neighborhood}
+            width={width}
+            height={height}
+            avgFoodScore={foodScores.find(
+              element => element._id === neighborhood.properties.NTACode
+            )}
+            colorScale={colorScale}
+          />
+        )
+      })}
     </svg>
+  ) : (
+    <h2>no data loaded</h2>
   )
 }

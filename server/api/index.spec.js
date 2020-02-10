@@ -4,17 +4,14 @@
 
 const {expect} = require('chai')
 const request = require('supertest')
-const app = require('../../index')
+const app = require('../index')
 
-// remove process.env.MONGODB_SERVER from secrets.js to test local server
-// and change xdescribe to describe
-
-xdescribe('Routes returning polygons', () => {
-  describe('/api/prototype/ returns a geoJSON', () => {
-    it('GET /api/prototype/', async () => {
-      const res = await request(app)
-        .get('/api/prototype/')
-        .expect(200)
+describe('Routes returning polygons', () => {
+  describe('/api/neighborhoods/ returns a geoJSON', () => {
+    it('GET /api/neighborhoods/', done => {
+      const res = request(app)
+        .get('/api/neighborhoods/')
+        .expect(200, done())
 
       expect(res.body).to.be.an('object')
       expect(res.body).to.have.property('type')
