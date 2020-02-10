@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const {NeighborPoly, BoroughPoly, RestaurantPoint} = require('../db/models/')
-
 module.exports = router
+
 router.get('/boro', async (req, res, next) => {
   try {
     const allBoroughPoly = await BoroughPoly.find()

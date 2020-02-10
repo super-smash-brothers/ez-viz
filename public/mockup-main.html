@@ -8,6 +8,8 @@
     />
     <title>Boilermaker</title>
     <!-- <link rel="stylesheet" href="/style.css" /> -->
+    <script src="./sandbox/staten-island-todt-hill.js"></script>
+    <script src="./sandbox/nyc_geojson.js"></script>
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
@@ -38,6 +40,10 @@
             'pk.eyJ1Ijoiemthcm1pIiwiYSI6ImNrNjl0cjEyZjBqanUzZG41YmJqempsb2oifQ.rTF7bmNtao5ZSLkLN_1JWA'
         }
       ).addTo(nycMap)
+
+      console.log('nycMap is ', nycMap)
+      const geo = L.geoJson(ourHood).addTo(nycMap)
+      console.log('geo is : ', geo)
 
       if (nycMap) {
         const mapPane = document.querySelector('.leaflet-map-pane')
