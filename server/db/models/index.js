@@ -32,6 +32,8 @@ const db = mongoose.connect(connURI, {useNewUrlParser: true})
  * instead of: const User = require('../db/models/user')
  */
 
+const User = require('./user') // just to maintain User in case we want to use sessions
+
 module.exports = {
   CitySchema,
   NeighborPoly,
@@ -39,5 +41,6 @@ module.exports = {
   BoroughPoly,
   NeighborSum,
   neighborPropSchema,
-  db
+  db,
+  User // just to maintain User in case we want to use sessions
 }
