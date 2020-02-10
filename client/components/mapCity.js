@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, Fragment} from 'react'
 import * as d3 from 'd3'
 import {default as singleNeighborhood} from '../../public/sandbox/single.json'
 import {default as allNeighborhoods} from '../../public/sandbox/NTA.json'
@@ -69,26 +69,29 @@ export function CityMap(props) {
     })
 
   return Object.keys(data).length ? (
-    <svg width={width} height={height}>
-      {data.features.map(neighborhood => {
-        // console.log('in search of nta', neighborhood.properties.NTACode)
-        return (
-          <MapNeighborhood
-            key={neighborhood.id}
-            line={line}
-            xScale={xScale}
-            yScale={yScale}
-            neighborhood={neighborhood}
-            width={width}
-            height={height}
-            avgFoodScore={foodScores.find(
-              element => element._id === neighborhood.properties.NTACode
-            )}
-            colorScale={colorScale}
-          />
-        )
-      })}
-    </svg>
+    <Fragment>
+      <svg width={width} height={height}>
+        {data.features.map(neighborhood => {
+          // console.log('in search of nta', neighborhood.properties.NTACode)
+          return (
+            <MapNeighborhood
+              key={neighborhood.id}
+              line={line}
+              xScale={xScale}
+              yScale={yScale}
+              neighborhood={neighborhood}
+              width={width}
+              height={height}
+              avgFoodScore={foodScores.find(
+                element => element._id === neighborhood.properties.NTACode
+              )}
+              colorScale={colorScale}
+            />
+          )
+        })}
+      </svg>
+      <BarChart />
+    </Fragment>
   ) : (
     <h2>no data loaded</h2>
   )
