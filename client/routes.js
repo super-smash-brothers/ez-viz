@@ -7,6 +7,7 @@ import {me} from './store'
 
 import {Main} from './components'
 import NycSimpleMap from './components/module/NycSimpleMap'
+import {CityMap} from './components/mapCity'
 
 /**
  * COMPONENT
@@ -32,7 +33,8 @@ class Routes extends Component {
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
-        <Route path="/simple" component={NycSimpleMap} />
+        <Route path="/leaflet" component={NycSimpleMap} />
+        <Route path="/citymapoverlay" component={CityMap} />
         <Route component={Login} />
       </Switch>
     )

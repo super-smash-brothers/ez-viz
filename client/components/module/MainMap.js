@@ -8,6 +8,8 @@ import {BarChart} from '../chartBar'
 import {LineChart} from '../chartLine'
 
 export default class MainMapContainer extends Component {
+  componentDidMount() {}
+
   render = () => (
     <div className="main-map-container">
       <h1>Inside MainMap component</h1>
