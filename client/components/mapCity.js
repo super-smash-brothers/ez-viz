@@ -6,6 +6,7 @@ import {MapNeighborhood} from './mapNeighborhood'
 import axios from 'axios'
 import BarChart from './chartBar'
 import {GraphContainer} from './containerGraphElements'
+import {scaleLinear} from 'd3'
 
 //put a single neighborhood's coordinates in a json to use
 // console.log('d3', d3)
@@ -63,7 +64,7 @@ export function CityMap() {
     window.innerHeight || 0
   )
   const width = height * 1.32465263323
-  console.log('bar data: ', barData)
+  // console.log('bar data: ', barData)
   // The lines below are how we found our range of food grades, so that they could be used to set the domain and range of color values.
   // We decided to hard code the numbers to save time, since the numbers are static
   // let allAverages
@@ -78,16 +79,24 @@ export function CityMap() {
     .domain([-74.2555928790719, -73.7000104153247])
     .range([0, width])
 
-  // const yExtent = d3.extent(singleNeighborhood, l => l[1])
+  const popExtent = d3.extent(neighborhoodPopulation, l => l.population)
+  // console.log('pop extent: ', popExtent)
+
   const yScale = d3
     .scaleLinear()
     .domain([40.4961236003829, 40.9155410761847])
     .range([height, 0])
 
-  const colorScale = d3
+  const foodColorScale = d3
     .scaleLinear()
     .domain([13.119565217391305, 25.468926553672315])
     .range(['black', 'white'])
+    .interpolate(d3.interpolateRgb.gamma(2.2))
+
+  const popColorScale = d3
+    .scaleLinear()
+    .domain(popExtent)
+    .range(['white', 'purple'])
     .interpolate(d3.interpolateRgb.gamma(2.2))
 
   // console.log('colorScale: ', colorScale(15))
@@ -119,9 +128,13 @@ export function CityMap() {
                 element => element._id === neighborhood.properties.NTACode
               )}
               noiseComplaints={noiseComplaints}
-              colorScale={colorScale}
+              foodColorScale={foodColorScale}
               setBarData={setBarData}
               barData={barData}
+              popColorScale={popColorScale}
+              neighborhoodPopulation={neighborhoodPopulation.filter(
+                n => n.nta_code === neighborhood.properties.NTACode
+              )}
             />
           )
         })}

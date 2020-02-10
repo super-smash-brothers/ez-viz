@@ -12,11 +12,14 @@ export const MapNeighborhood = props => {
     width,
     height,
     avgFoodScore,
-    colorScale,
+    foodColorScale,
     noiseComplaints,
     setBarData,
-    barData
+    barData,
+    popColorScale,
+    neighborhoodPopulation
   } = props
+  // console.log('this neighborhood pop', neighborhoodPopulation)
   const [borderWidth, setBorderWidth] = useState('0.5')
   // const enterNeighborhood = setBorderWidth(6)
   // const exitNeighborhood = setBorderWidth(0.5)
@@ -47,9 +50,10 @@ export const MapNeighborhood = props => {
           }}
           strokeWidth={borderWidth}
           fill={
-            avgFoodScore
-              ? colorScale(avgFoodScore.total / avgFoodScore.count)
-              : 'none'
+            popColorScale(neighborhoodPopulation[0].population)
+            // avgFoodScore
+            //   ? foodColorScale(avgFoodScore.total / avgFoodScore.count)
+            //   : 'none'
           }
           // fill='none'
           stroke="#eb6a5b"
@@ -71,9 +75,10 @@ export const MapNeighborhood = props => {
       }}
       strokeWidth={borderWidth}
       fill={
-        avgFoodScore
-          ? colorScale(avgFoodScore.total / avgFoodScore.count)
-          : 'none'
+        popColorScale(neighborhoodPopulation[0].population)
+        // avgFoodScore
+        //   ? foodColorScale(avgFoodScore.total / avgFoodScore.count)
+        //   : 'none'
       }
       stroke="#eb6a5b"
       onMouseEnter={() => setBorderWidth('6')}
