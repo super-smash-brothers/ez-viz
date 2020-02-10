@@ -1,7 +1,5 @@
 const mongoose = require('mongoose')
 
-mongoose.set('debug', true)
-
 const pointSchema = new mongoose.Schema({
   type: {
     type: String,

@@ -1,3 +1,16 @@
+/**
+ * In your development environment, you can keep all of your
+ * app's secret API keys in a file called `secrets.js`, in your project
+ * root. This file is included in the .gitignore - it will NOT be tracked
+ * or show up on Github. On your production server, you can add these
+ * keys as environment variables, so that they can still be read by the
+ * Node process on process.env
+ */
+if (process.env.NODE_ENV !== 'production') {
+  require('../secrets')
+  console.log('NODE_ENV not production, secret successfully required')
+}
+
 const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
@@ -10,7 +23,6 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
-const mongoose = require('mongoose')
 
 module.exports = app
 
@@ -19,16 +31,6 @@ module.exports = app
 if (process.env.NODE_ENV === 'test') {
   after('close the session store', () => sessionStore.stopExpiringSessions())
 }
-
-/**
- * In your development environment, you can keep all of your
- * app's secret API keys in a file called `secrets.js`, in your project
- * root. This file is included in the .gitignore - it will NOT be tracked
- * or show up on Github. On your production server, you can add these
- * keys as environment variables, so that they can still be read by the
- * Node process on process.env
- */
-if (process.env.NODE_ENV !== 'production') require('../secrets')
 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
@@ -81,11 +83,6 @@ const createApp = () => {
     } else {
       next()
     }
-  })
-
-  // sends sandbox/index.html
-  app.use('/sandbox', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public/sandbox/index.html'))
   })
 
   // sends index.html

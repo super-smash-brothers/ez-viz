@@ -12,7 +12,8 @@ const NTA = require('./NTA.json')
 const Boro = require('./boro.json')
 
 // Document
-const seedData = async () => {
+const seedPoly = async () => {
+  console.log('Seeding polygon data')
   //  - neighborhoods
   for (let i = 0; i < NTA.features.length; i++) {
     // load all of them
@@ -40,9 +41,11 @@ const seedData = async () => {
     totalRestaurants: 40000
   })
   console.log('City:', city.name)
+  console.log('Polygon data seeded')
 }
 
 const seedSums = async () => {
+  console.log('Seeding restaurant summary data')
   const uniqueNTA = await NeighborPoly.distinct(
     'properties.NTACode',
     (err, doc) => {
@@ -74,6 +77,28 @@ const seedSums = async () => {
     manualMap.push([singleNTA, letterGradeRange])
   }
   await NeighborSum.create({sumScore: manualMap})
+  console.log('Summary data seeded')
+}
+
+const seedPoints = async () => {
+  // originally taken from /server/db/models/restaurant.js
+  console.log('Seeding restaurant points')
+  const totalComponentFiles = 27
+  let currentComponent
+  for (let i = 1; i <= totalComponentFiles; i++) {
+    currentComponent = require(`./restaurant${i}.json`)
+    if (currentComponent === undefined) {
+      console.log('Check path for component files in seed file')
+      break
+    }
+    console.log('Processing component file:', i)
+    await RestaurantPoint.insertMany(currentComponent, (err, ele) => {
+      if (err) console.log(err)
+      console.log(ele)
+    })
+    console.log('Component file processed:', i)
+  }
+  console.log('Point data seeded')
 }
 
 const seed = async () => {
@@ -83,10 +108,9 @@ const seed = async () => {
   //   console.log(`Dropping collection: ${collectionName}`)
   //   await mongoose.connection.collections[collectionName].drop()
   // })
-  await seedData()
-  console.log('Data seeded')
+  await seedPoly()
   await seedSums()
-  console.log('Summary data seeded')
+  // await seedPoints()
   console.log('Seed complete')
   mongoose.connection.close() // close connection established by schema.js
 }

@@ -22,7 +22,12 @@ const NycMap = () => {
   }, [])
 
   return (
-    <svg width={800} height={450} viewBox="0 0 800 450">
+    <svg
+      width={800}
+      height={450}
+      viewBox="0 0 800 450"
+      style={{backgroundColor: '#000000'}}
+    >
       <g className="counties">
         {geographies.features &&
           geographies.features.map((d, i) => {
