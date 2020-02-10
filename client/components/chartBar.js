@@ -1,4 +1,4 @@
-import React, {useEffect, useState, setState, Fragment} from 'react'
+import React, {useEffect, useRef, useState, setState, Fragment} from 'react'
 import {default as barChartData} from '../../public/barChartData.json'
 // public/barChartData.js
 import axios from 'axios'
@@ -6,28 +6,42 @@ import * as d3 from 'd3'
 
 const BarChart = props => {
   const [nta, setNTAState] = useState(props)
-  const [cuisines, gotCuisines] = useState([])
-  const [scales, gotScales] = useState([])
+  const [cuisines, setCuisines] = useState([])
+  const [scales, setScales] = useState([])
 
-  const height = 200
-  const width = 300
+  const height = 260
+  const width = 600
   const padding = 40
+  const margin = {top: 20, bottom: 20, right: 20, left: 40}
+
+  const xAxisGroup = useRef()
+  const yAxisGroup = useRef()
+
   useEffect(
     () => {
-      async function getCusine() {
+      ;(async function getCusine() {
         const {data} = await axios.get('/api/restaurants/cuisine/MN17')
-        gotCuisines(data.cuisineObjects)
+        setCuisines(data.cuisineObjects)
         const xScale = d3
           .scaleBand()
-          .range([0, width])
           .domain(data.cuisineNames)
+          .range([0, width])
         const yScale = d3
-          .scaleLog()
-          .range([height / 2, 0])
+          .scaleLinear()
           .domain(d3.extent(data.counts))
-        gotScales([xScale, yScale])
-      }
-      getCusine()
+          .range([height, margin.bottom])
+        setScales([xScale, yScale])
+
+        // if (scales.length) {
+        const xAxis = d3.axisBottom()
+        const yAxis = d3.axisLeft()
+        console.log('scales are:', scales)
+        xAxis.scale(xScale)
+        d3.select(xAxisGroup.current).call(xAxis)
+        yAxis.scale(yScale)
+        d3.select(yAxisGroup.current).call(yAxis)
+        // }
+      })()
     },
     [nta]
   )
@@ -35,19 +49,29 @@ const BarChart = props => {
   return (
     <Fragment>
       {scales.length ? (
-        <svg width={width} height={height} transform=" rotate(180)">
+        <svg width={width + margin.right} height={height}>
+          <g
+            ref={xAxisGroup}
+            transform={`translate(${margin.left}, ${height - margin.bottom})`}
+          />
+          <g
+            ref={yAxisGroup}
+            transform={`translate(${margin.left}, -${margin.bottom})`}
+          />
           {cuisines.map((element, index) => {
+            console.log('element is: ', element)
             console.log(element.count, scales[1](element.count))
             return (
               <g key={element._id}>
                 <rect
-                  x={index * scales[0].bandwidth()}
-                  y={0}
+                  data-scale={scales[1](element.count)}
+                  x={index * scales[0].bandwidth() + margin.left + 1}
+                  y={scales[1](element.count) - margin.bottom}
                   width={scales[0].bandwidth() - 10}
                   height={height - scales[1](element.count)}
                   fill="#e3e769"
                 />
-                <text position="absolute">{element.count}</text>
+                <text>{element.count}</text>
               </g>
             )
           })}

@@ -93,6 +93,6 @@ export function CityMap(props) {
       <BarChart />
     </Fragment>
   ) : (
-    <h2>no data loaded</h2>
+    <h2>Loading&hellip;</h2>
   )
 }
