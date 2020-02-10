@@ -14,13 +14,11 @@ export function CityMap(props) {
     async function fetchData() {
       const calledNeighborhood = await axios.get('/api/neighborhoods')
       setMap(calledNeighborhood.data)
-      console.log(calledNeighborhood.data)
     }
     async function fetchFoodScoreData() {
       const foodScoreData = await axios.get('/api/neighborhoods/foodscore')
       setFoodScores(foodScoreData.data)
     }
-    console.log(Object.keys(data).length)
     fetchData()
     fetchFoodScoreData()
   }, [])
