@@ -9,6 +9,7 @@ const grabInfo = () => {
   let j = 1
   var d1 = Date.parse('2018-02-03')
   dataSet.forEach(element => {
+    // dataSet.forEach((element, index) => {
     var d2 = Date.parse(element[16])
     if (d1 < d2) {
       let data = {}
@@ -33,6 +34,7 @@ const grabInfo = () => {
       i++
       console.log(i)
       if (i === 10000) {
+        // if (i === 10000 || index === dataSet.length - 1
         fs.writeFile(`restaurant${j}.json`, JSON.stringify(dict), error =>
           console.log(error)
         )

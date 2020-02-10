@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import * as d3 from 'd3'
 import axios from 'axios'
+import BarChart from './chartBar'
 
 export const MapNeighborhood = props => {
   const {
@@ -12,10 +13,15 @@ export const MapNeighborhood = props => {
     height,
     avgFoodScore,
     colorScale,
-    noiseComplaints
+    noiseComplaints,
+    setBarData,
+    barData
   } = props
+  const [borderWidth, setBorderWidth] = useState('0.5')
+  // const enterNeighborhood = setBorderWidth(6)
+  // const exitNeighborhood = setBorderWidth(0.5)
   // console.log('neighborhood in map: ', neighborhood)
-  console.log('noise complaints: ', noiseComplaints)
+  // console.log('noise complaints: ', noiseComplaints)
   const xExtent = d3.extent(neighborhood.geometry.coordinates[0], n => n[0])
   const yExtent = d3.extent(neighborhood.geometry.coordinates[0], n => n[1])
   // console.log('x and y extent in neighborhood: ', xExtent, yExtent)
@@ -31,7 +37,15 @@ export const MapNeighborhood = props => {
         <path
           key={singlePolygon._id}
           d={line(singlePolygon[0])}
-          strokeWidth="2"
+          onMouseEnter={() => setBorderWidth('6')}
+          onMouseLeave={() => setBorderWidth('0.5')}
+          onClick={() => {
+            console.log('neighborhood data', neighborhood.properties.NTACode)
+            Object.keys(barData).length
+              ? setBarData({})
+              : setBarData({NTACode: neighborhood.properties.NTACode})
+          }}
+          strokeWidth={borderWidth}
           fill={
             avgFoodScore
               ? colorScale(avgFoodScore.total / avgFoodScore.count)
@@ -49,13 +63,21 @@ export const MapNeighborhood = props => {
     <path
       key={neighborhood._id}
       d={line(neighborhood.geometry.coordinates[0])}
-      strokeWidth="2"
+      onClick={() => {
+        // console.log('neighborhood data', neighborhood.properties.NTACode)
+        Object.keys(barData).length
+          ? setBarData({})
+          : setBarData({NTACode: neighborhood.properties.NTACode})
+      }}
+      strokeWidth={borderWidth}
       fill={
         avgFoodScore
           ? colorScale(avgFoodScore.total / avgFoodScore.count)
           : 'none'
       }
       stroke="#eb6a5b"
+      onMouseEnter={() => setBorderWidth('6')}
+      onMouseLeave={() => setBorderWidth('0.5')}
       // opacity='0.5'
     />
   )

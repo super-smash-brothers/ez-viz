@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, Fragment} from 'react'
 import * as d3 from 'd3'
 import {default as singleNeighborhood} from '../../public/sandbox/single.json'
 import {default as allNeighborhoods} from '../../public/sandbox/NTA.json'
 import {MapNeighborhood} from './mapNeighborhood'
-import {BarChart} from './chartBar'
 import axios from 'axios'
+import BarChart from './chartBar'
+import {GraphContainer} from './containerGraphElements'
 
 //put a single neighborhood's coordinates in a json to use
 // console.log('d3', d3)
@@ -14,6 +15,7 @@ export function CityMap() {
   const [noiseComplaints, setNoiseComplaints] = useState({})
   const [neighborhoodPopulation, setCityPopulation] = useState({})
   const [crime, setCrime] = useState({})
+  const [barData, setBarData] = useState({})
   useEffect(() => {
     async function fetchCrime() {
       const crimeData = await axios.get(
@@ -55,13 +57,13 @@ export function CityMap() {
   // console.log('noise data:', noiseComplaints)
   // console.log('food score data: ', foodScores)
   // console.log('neighborhood data: ', data)
-  console.log('pop data: ', neighborhoodPopulation)
+  // console.log('pop data: ', neighborhoodPopulation)
   const height = Math.max(
     document.documentElement.clientHeight,
     window.innerHeight || 0
   )
   const width = height * 1.32465263323
-
+  console.log('bar data: ', barData)
   // The lines below are how we found our range of food grades, so that they could be used to set the domain and range of color values.
   // We decided to hard code the numbers to save time, since the numbers are static
   // let allAverages
@@ -99,10 +101,10 @@ export function CityMap() {
       return yScale(d[1])
     })
 
-  return (
-    <svg width={width} height={height}>
-      {Object.keys(data).length ? (
-        data.features.map(neighborhood => {
+  return Object.keys(data).length ? (
+    <Fragment>
+      <svg width={width} height={height}>
+        {data.features.map(neighborhood => {
           // console.log('in search of nta', neighborhood.properties.NTACode)
           return (
             <MapNeighborhood
@@ -118,13 +120,17 @@ export function CityMap() {
               )}
               noiseComplaints={noiseComplaints}
               colorScale={colorScale}
+              setBarData={setBarData}
+              barData={barData}
             />
           )
-        })
-      ) : (
-        <h2>no data loaded</h2>
-      )}
-      {/* <BarChart /> */}
-    </svg>
+        })}
+      </svg>
+      {Object.keys(barData).length ? (
+        <GraphContainer ntaCode={barData} />
+      ) : null}
+    </Fragment>
+  ) : (
+    <h2>no data loaded</h2>
   )
 }

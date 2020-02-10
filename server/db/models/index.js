@@ -1,11 +1,11 @@
 const {CitySchema} = require('./city')
 const {NeighborPoly, neighborPropSchema} = require('./neighborhood')
+const {NeighborSum} = require('./neighborhoodSum')
 const {RestaurantPoint} = require('./restaurant')
 const {BoroughPoly} = require('./boro')
-const {NeighborSum} = require('./neighborhoodSum')
 const mongoose = require('mongoose')
-require('../../../secrets')
 mongoose.set('debug', true)
+
 if (!process.env.MONGODB_SERVER)
   console.log(
     'MongoDB Atlas server not found. Defaulting to local MongoDB server.'
@@ -32,6 +32,8 @@ const db = mongoose.connect(connURI, {useNewUrlParser: true})
  * instead of: const User = require('../db/models/user')
  */
 
+const User = require('./user') // just to maintain User in case we want to use sessions
+
 module.exports = {
   CitySchema,
   NeighborPoly,
@@ -39,5 +41,6 @@ module.exports = {
   BoroughPoly,
   NeighborSum,
   neighborPropSchema,
-  db
+  db,
+  User // just to maintain User in case we want to use sessions
 }

@@ -1,7 +1,0 @@
-diff a/server/api/prototype/index.js b/server/api/prototype/index.js	(rejected hunks)
-@@ -16 +16 @@ router.get('/', async (req, res, next) => {
--        crs: { type: 'name', properties: { name: 'EPSG:4326' } },
-+        crs: {type: 'name', properties: {name: 'EPSG:4326'}},
-@@ -33 +33 @@ router.get('/neighborhoods', async (req, res, next) => {
--        crs: { type: 'name', properties: { name: 'EPSG:4326' } },
-+        crs: {type: 'name', properties: {name: 'EPSG:4326'}},
