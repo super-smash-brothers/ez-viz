@@ -3,6 +3,8 @@ const {NeighborPoly, neighborPropSchema} = require('./neighborhood')
 const {NeighborSum} = require('./neighborhoodSum')
 const {RestaurantPoint} = require('./restaurant')
 const {BoroughPoly} = require('./boro')
+const {Noise} = require('./noise')
+const {NoiseSum} = require('./noiseSum')
 const mongoose = require('mongoose')
 mongoose.set('debug', true)
 
@@ -41,6 +43,8 @@ module.exports = {
   BoroughPoly,
   NeighborSum,
   neighborPropSchema,
+  Noise,
+  NoiseSum,
   db,
   User // just to maintain User in case we want to use sessions
 }
