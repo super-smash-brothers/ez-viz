@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState, Fragment} from 'react'
 import axios from 'axios'
 import * as d3 from 'd3'
+import Loader from './Loader'
 
 const CuisinesBarChart = props => {
   // Create our State vars
@@ -88,7 +89,7 @@ const CuisinesBarChart = props => {
           })}
         </svg>
       ) : (
-        <div> waiting ...</div>
+        <Loader />
       )}
     </Fragment>
   )
