@@ -6,15 +6,19 @@ import Sidebar from '../module/Sidebar'
 const dummyFilters = ['population', 'restaurantGrades']
 
 export default class Main extends Component {
-  state = {
-    filter: '',
-    filters: dummyFilters
+  constructor() {
+    super()
+    this.state = {
+      filter: 'food',
+      filters: dummyFilters
+    }
+    this.setFilter = this.setFilter.bind(this)
   }
 
   // stage 2: extend to allow multiple filters?
   setFilter = event => {
-    this.setState({filter: event.target.name})
-    console.log('set event:', event.target.name)
+    console.log('set event:', event.target.value)
+    this.setState({filter: event.target.value})
   }
 
   render = () => (

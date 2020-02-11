@@ -12,11 +12,10 @@ export const MapNeighborhood = props => {
     width,
     height,
     avgFoodScore,
-    foodColorScale,
+    colorScale,
     noiseComplaints,
     setBarData,
     barData,
-    popColorScale,
     neighborhoodPopulation
   } = props
   // console.log('this neighborhood pop', neighborhoodPopulation)
@@ -50,7 +49,7 @@ export const MapNeighborhood = props => {
           }}
           strokeWidth={borderWidth}
           fill={
-            popColorScale(neighborhoodPopulation[0].population)
+            colorScale(neighborhoodPopulation[0].population)
             // avgFoodScore
             //   ? foodColorScale(avgFoodScore.total / avgFoodScore.count)
             //   : 'none'
@@ -75,7 +74,7 @@ export const MapNeighborhood = props => {
       }}
       strokeWidth={borderWidth}
       fill={
-        popColorScale(neighborhoodPopulation[0].population)
+        colorScale(neighborhoodPopulation[0].population)
         // avgFoodScore
         //   ? foodColorScale(avgFoodScore.total / avgFoodScore.count)
         //   : 'none'

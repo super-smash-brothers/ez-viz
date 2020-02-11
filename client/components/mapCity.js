@@ -10,7 +10,9 @@ import {scaleLinear} from 'd3'
 
 //put a single neighborhood's coordinates in a json to use
 // console.log('d3', d3)
-export function CityMap() {
+export function CityMap(props) {
+  const {filter} = props
+  console.log('hows the filter?', filter)
   const [data, setMap] = useState({})
   const [foodScores, setFoodScores] = useState({})
   const [noiseComplaints, setNoiseComplaints] = useState({})
@@ -110,6 +112,18 @@ export function CityMap() {
       return yScale(d[1])
     })
 
+  const dataSets = {
+    food: foodScores,
+    population: neighborhoodPopulation,
+    noise: noiseComplaints,
+    crime: crime
+  }
+
+  const colorFilters = {
+    food: foodColorScale,
+    population: popColorScale
+  }
+
   return Object.keys(data).length ? (
     <Fragment>
       <svg width={width} height={height}>
@@ -128,10 +142,9 @@ export function CityMap() {
                 element => element._id === neighborhood.properties.NTACode
               )}
               noiseComplaints={noiseComplaints}
-              foodColorScale={foodColorScale}
+              colorScale={colorFilters[filter]}
               setBarData={setBarData}
               barData={barData}
-              popColorScale={popColorScale}
               neighborhoodPopulation={neighborhoodPopulation.filter(
                 n => n.nta_code === neighborhood.properties.NTACode
               )}

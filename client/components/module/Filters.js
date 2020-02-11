@@ -1,46 +1,22 @@
-import React from 'react'
+import React, {useState, useEffect, Fragment} from 'react'
 
 const Filters = ({setFilter}) => {
+  // const [selected, select] = useState('food')
+  // console.log('selected: ', selected)
+  console.log('is set filter here?', setFilter)
   return (
     <div className="map-filters-container">
-      <h3 className="block-title">Filter by&hellip;</h3>
-      <ul className="map-filters">
-        <li className="map-filter__item">
-          <label>
-            <input
-              type="checkbox"
-              className="map-filter__item-checkbox"
-              onClick={setFilter}
-              name="blah"
-            />
-            A Map Filter
-          </label>
-        </li>
-        <li className="map-filter__item">
-          <label>
-            <input type="checkbox" className="map-filter__item-checkbox" />A Map
-            Filter
-          </label>
-        </li>
-        <li className="map-filter__item">
-          <label>
-            <input type="checkbox" className="map-filter__item-checkbox" />A Map
-            Filter
-          </label>
-        </li>
-        <li className="map-filter__item">
-          <label>
-            <input type="checkbox" className="map-filter__item-checkbox" />A Map
-            Filter
-          </label>
-        </li>
-        <li className="map-filter__item">
-          <label>
-            <input type="checkbox" className="map-filter__item-checkbox" />A Map
-            Filter
-          </label>
-        </li>
-      </ul>
+      <h3 className="block-title">What would you like to see?</h3>
+      <form onChange={event => setFilter(event)}>
+        <label>
+          <select>
+            <option value="food">Restaurants</option>
+            <option value="population">Population</option>
+            <option value="noise">Noise</option>
+            <option value="crime">Crime</option>
+          </select>
+        </label>
+      </form>
     </div>
   )
 }
