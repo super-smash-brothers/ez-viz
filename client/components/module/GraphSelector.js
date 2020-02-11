@@ -4,6 +4,7 @@ import CuisinesBarChart from './CuisinesBarChart'
 const GraphSelector = ({filter, ntaCode}) => {
   switch (filter) {
     case 'food':
+      // Refactor this to break down graph items into further components
       return (
         <div className="graph-items-content">
           <div className="graph-item-container">
