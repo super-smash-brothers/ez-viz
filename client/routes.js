@@ -8,6 +8,7 @@ import {me} from './store'
 import {Main} from './components'
 import NycSimpleMap from './components/module/NycSimpleMap'
 import {CityMap} from './components/mapCity'
+import CuisinesBarChart from './components/module/CuisinesBarChart'
 
 /**
  * COMPONENT
@@ -35,6 +36,7 @@ class Routes extends Component {
         {/* Displays our Login component as a fallback */}
         <Route path="/leaflet" component={NycSimpleMap} />
         <Route path="/citymapoverlay" component={CityMap} />
+        <Route path="/cuisinesBarChart" component={CuisinesBarChart} />
         <Route component={Login} />
       </Switch>
     )

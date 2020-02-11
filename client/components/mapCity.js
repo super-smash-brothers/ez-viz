@@ -7,6 +7,7 @@ import axios from 'axios'
 import BarChart from './chartBar'
 import {GraphContainer} from './containerGraphElements'
 import {scaleLinear} from 'd3'
+import CuisinesBarChart from './module/CuisinesBarChart'
 
 //put a single neighborhood's coordinates in a json to use
 // console.log('d3', d3)
@@ -161,11 +162,9 @@ export function CityMap(props) {
           )
         })}
       </svg>
-      {Object.keys(barData).length ? (
-        <GraphContainer ntaCode={barData} />
-      ) : null}
+      <CuisinesBarChart ntaCode={barData} />
     </Fragment>
   ) : (
-    <h2>no data loaded</h2>
+    <h2>Loading&hellip;</h2>
   )
 }
