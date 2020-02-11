@@ -13,12 +13,10 @@ export const MapNeighborhood = props => {
     height,
     passedData,
     colorScale,
-    noiseComplaints,
     setBarData,
-    barData,
-    neighborhoodPopulation
+    barData
   } = props
-  // console.log('this neighborhood passed', passedData.passed)
+  // if (passedData) console.log('this passed', passedData)
   const [borderWidth, setBorderWidth] = useState('0.5')
   // const enterNeighborhood = setBorderWidth(6)
   // const exitNeighborhood = setBorderWidth(0.5)

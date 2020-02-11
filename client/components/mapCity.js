@@ -13,13 +13,16 @@ import CuisinesBarChart from './module/CuisinesBarChart'
 // console.log('d3', d3)
 export function CityMap(props) {
   const {filter} = props
-  console.log('hows the filter?', filter)
+  // console.log('hows the filter?', filter)
   const [data, setMap] = useState({})
   const [foodScores, setFoodScores] = useState({})
   const [noiseComplaints, setNoiseComplaints] = useState({})
   const [neighborhoodPopulation, setCityPopulation] = useState({})
   const [crime, setCrime] = useState({})
   const [barData, setBarData] = useState({})
+  //for filtering out park multipolygons
+  const parks = ['BK99', 'MN99', 'BX99', 'QN99', 'QN98', 'SI99', 'BX98']
+
   useEffect(() => {
     async function fetchCrime() {
       const crimeData = await axios.get(
@@ -34,20 +37,28 @@ export function CityMap(props) {
     async function fetchFoodScoreData() {
       const foodScoreData = await axios.get('/api/neighborhoods/foodscore')
       const averagFoodScores = foodScoreData.data.map(d => {
-        d.passed = d.total / d.count
+        if (!parks.includes(d._id)) {
+          d.passed = d.total / d.count
+        } else d.passed = null
         d.nta_code = d._id
         return d
       })
       setFoodScores(averagFoodScores)
     }
     async function fetchNoiseData() {
-      let data311 = await axios.get(
-        'https://data.cityofnewyork.us/resource/erm2-nwe9.json'
-      )
-      const noiseData = data311.data.filter(d =>
-        d.complaint_type.includes('Noise')
-      )
-      setNoiseComplaints(noiseData)
+      let noise311 = await axios.get('/api/noises')
+      // const noiseData = data311.data.filter(d =>
+      //   d.complaint_type.includes('Noise')
+      // )
+      const processedNoise = noise311.data.sumCount.map(n => {
+        if (!parks.includes(n[0])) {
+          n.passed = n[1]
+        } else n.passed = null
+        n.nta_code = n[0]
+        const returnObj = Object.assign({}, n)
+        return returnObj
+      })
+      setNoiseComplaints(processedNoise)
     }
     async function fetchPopulationData() {
       const rawPopData = await axios.get(
@@ -55,7 +66,9 @@ export function CityMap(props) {
       )
       const recentPopData = rawPopData.data.filter(p => p.year === '2010')
       const popWithPassed = recentPopData.map(d => {
-        d.passed = d.population
+        if (!parks.includes(d.nta_code)) {
+          d.passed = d.population
+        } else d.passed = null
         return d
       })
       setCityPopulation(popWithPassed)
@@ -67,7 +80,7 @@ export function CityMap(props) {
     fetchCrime()
   }, [])
 
-  // console.log('noise data:', noiseComplaints)
+  console.log('noise data:', noiseComplaints)
   // console.log('food score data: ', foodScores)
   // console.log('neighborhood data: ', data)
   // console.log('pop data: ', neighborhoodPopulation)
@@ -90,8 +103,10 @@ export function CityMap(props) {
     .scaleLinear()
     .domain([-74.2555928790719, -73.7000104153247])
     .range([0, width])
-
-  const popExtent = d3.extent(neighborhoodPopulation, l => l.population)
+  const foodExtent = d3.extent(foodScores, f => f.passed)
+  const popExtent = d3.extent(neighborhoodPopulation, l => parseInt(l.passed))
+  const noiseExtent = d3.extent(noiseComplaints, n => n.passed)
+  // console.log('extents', noiseExtent, popExtent, foodExtent)
   // console.log('pop extent: ', popExtent)
 
   const yScale = d3
@@ -101,14 +116,20 @@ export function CityMap(props) {
 
   const foodColorScale = d3
     .scaleLinear()
-    .domain([13.119565217391305, 25.468926553672315])
-    .range(['black', 'white'])
+    .domain(foodExtent)
+    .range(['white', 'brown'])
     .interpolate(d3.interpolateRgb.gamma(2.2))
 
   const popColorScale = d3
     .scaleLinear()
     .domain(popExtent)
     .range(['white', 'purple'])
+    .interpolate(d3.interpolateRgb.gamma(2.2))
+
+  const noiseColorScale = d3
+    .scaleLinear()
+    .domain(noiseExtent)
+    .range(['white', 'yellow'])
     .interpolate(d3.interpolateRgb.gamma(2.2))
 
   // console.log('colorScale: ', colorScale(15))
@@ -131,8 +152,10 @@ export function CityMap(props) {
 
   const colorFilters = {
     food: foodColorScale,
-    population: popColorScale
+    population: popColorScale,
+    noise: noiseColorScale
   }
+
   // console.log('what data: ', dataSets[filter])
   return Object.keys(data).length ? (
     <Fragment>
