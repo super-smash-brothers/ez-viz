@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {RestaurantPoint, db, NeighborPoly, NeighborSum} = require('../db/models')
+const {RestaurantPoint, NeighborSum} = require('../db/models')
 module.exports = router
 
 // eslint-disable-next-line complexity

@@ -6,7 +6,7 @@ const {BoroughPoly} = require('./boro')
 const {Noise} = require('./noise')
 const {NoiseSum} = require('./noiseSum')
 const mongoose = require('mongoose')
-// mongoose.set('debug', true)
+mongoose.set('debug', true)
 
 if (!process.env.MONGODB_SERVER)
   console.log(
