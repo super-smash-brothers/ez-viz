@@ -4,7 +4,7 @@ import {default as singleNeighborhood} from '../../public/sandbox/single.json'
 import {default as allNeighborhoods} from '../../public/sandbox/NTA.json'
 import {MapNeighborhood} from './mapNeighborhood'
 import axios from 'axios'
-import BarChart from './chartBar'
+import CuisinesBarChart from './module/CuisinesBarChart'
 
 //put a single neighborhood's coordinates in a json to use
 // console.log('d3', d3)
@@ -90,7 +90,7 @@ export function CityMap(props) {
           )
         })}
       </svg>
-      <BarChart />
+      <CuisinesBarChart />
     </Fragment>
   ) : (
     <h2>Loading&hellip;</h2>
