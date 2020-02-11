@@ -1,7 +1,7 @@
 import React, {useEffect, useState, setState, Fragment} from 'react'
 import {default as barChartData} from '../../public/barChartData.json'
-// public/barChartData.js
 import axios from 'axios'
+// public/barChartData.js
 import * as d3 from 'd3'
 
 const BarChart = props => {
