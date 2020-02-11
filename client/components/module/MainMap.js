@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
 import {CityMap} from '../mapCity'
+import BarChart from '../chartBar'
+import {LineChart} from '../chartLine'
 
 // import NycMap from './NycMap' // map rendering using npm modules d3-geo and topojson-client
 // import NycSimpleMap from './NycSimpleMap' // map rendering using npm module react-simple-maps
-
-import {BarChart} from '../chartBar'
-import {LineChart} from '../chartLine'
 
 export default class MainMapContainer extends Component {
   componentDidMount() {}

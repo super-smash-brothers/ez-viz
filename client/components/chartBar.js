@@ -14,7 +14,7 @@ const BarChart = props => {
   const padding = 40
   useEffect(
     () => {
-      async function getCusine() {
+      async function getCuisine() {
         const {data} = await axios.get('/api/restaurants/cuisine/MN17')
         gotCuisines(data.cuisineObjects)
         const xScale = d3
@@ -26,8 +26,10 @@ const BarChart = props => {
           .range([height / 2, 0])
           .domain(d3.extent(data.counts))
         gotScales([xScale, yScale])
+        const yAxis = d3.axisLeft.scale(yScale)
+        // d3.select(this.refs.group).call(yAxis)
       }
-      getCusine()
+      getCuisine()
     },
     [nta]
   )
@@ -36,6 +38,8 @@ const BarChart = props => {
     <Fragment>
       {scales.length ? (
         <svg width={width} height={height} transform=" rotate(180)">
+          <g />
+
           {cuisines.map((element, index) => {
             console.log(element.count, scales[1](element.count))
             return (
@@ -47,7 +51,6 @@ const BarChart = props => {
                   height={height - scales[1](element.count)}
                   fill="#e3e769"
                 />
-                <text position="absolute">{element.count}</text>
               </g>
             )
           })}
