@@ -12,7 +12,7 @@ const CuisinesBarChart = props => {
   // Chart dimensions
   const height = 260
   const width = 600
-  const margin = {top: 20, bottom: 20, right: 50, left: 40}
+  const margin = {top: 40, bottom: 40, right: 40, left: 40}
 
   // We use the `useRef()` hooks to grab the JSX elements that will render
   // our X- and Y-axis labels
@@ -26,8 +26,13 @@ const CuisinesBarChart = props => {
       // this self-invoking function is preceded by a semi-colon so it's never
       // accidentally run as a list of arguments for a previous statement.
       ;(async function getCusine() {
+        // for reference - props.barData = {NTACode: "BK31"}
+        // console.log('props.barData', props.barData)
         // get our data and put it on state
-        const {data} = await axios.get('/api/restaurants/cuisine/MN17')
+        const {data} = await axios.get(
+          `/api/restaurants/cuisine/${props.barData.NTACode}`
+        )
+        console.log('cuisine', data)
         setCuisines(data.cuisineObjects)
 
         // set our X-axis scale. scaleBand() for our discrete X values.
@@ -41,7 +46,7 @@ const CuisinesBarChart = props => {
         const yScale = d3
           .scaleLinear()
           .domain(d3.extent([...data.counts, 0]))
-          .range([height, margin.bottom])
+          .range([height, 0])
         setScales([xScale, yScale])
 
         // create and assign our axis labels
@@ -64,22 +69,25 @@ const CuisinesBarChart = props => {
   return (
     <Fragment>
       {scales.length ? (
-        <svg width={width + margin.right} height={height}>
+        <svg
+          width={width + margin.left + margin.right}
+          height={height + margin.top + margin.bottom}
+        >
           <g
             ref={xAxisGroup}
-            transform={`translate(${margin.left}, ${height - margin.bottom})`}
+            transform={`translate(${margin.left}, ${height + margin.top})`}
           />
           <g
             ref={yAxisGroup}
-            transform={`translate(${margin.left}, -${margin.bottom})`}
+            transform={`translate(${margin.left}, ${margin.top})`}
           />
           {cuisines.map((element, index) => {
             return (
               <g key={element._id}>
                 <rect
-                  data-scale={scales[1](element.count)}
-                  x={index * scales[0].bandwidth() + margin.left + 1}
-                  y={scales[1](element.count) - margin.bottom}
+                  data-scale={scales[1](element.count)} // returns difference from max; highest count item will return 0
+                  x={index * scales[0].bandwidth() + margin.left + 1} // + 1 to show the y axis line
+                  y={scales[1](element.count) + margin.top}
                   width={scales[0].bandwidth() - 10}
                   height={height - scales[1](element.count)}
                   fill="#e3e769"
