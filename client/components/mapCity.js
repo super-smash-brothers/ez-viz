@@ -32,7 +32,12 @@ export function CityMap(props) {
     }
     async function fetchFoodScoreData() {
       const foodScoreData = await axios.get('/api/neighborhoods/foodscore')
-      setFoodScores(foodScoreData.data)
+      const averagFoodScores = foodScoreData.data.map(d => {
+        d.passed = d.total / d.count
+        d.nta_code = d._id
+        return d
+      })
+      setFoodScores(averagFoodScores)
     }
     async function fetchNoiseData() {
       let data311 = await axios.get(
@@ -48,7 +53,11 @@ export function CityMap(props) {
         'https://data.cityofnewyork.us/resource/swpk-hqdp.json'
       )
       const recentPopData = rawPopData.data.filter(p => p.year === '2010')
-      setCityPopulation(recentPopData)
+      const popWithPassed = recentPopData.map(d => {
+        d.passed = d.population
+        return d
+      })
+      setCityPopulation(popWithPassed)
     }
     fetchData()
     fetchFoodScoreData()
@@ -123,7 +132,7 @@ export function CityMap(props) {
     food: foodColorScale,
     population: popColorScale
   }
-
+  // console.log('what data: ', dataSets[filter])
   return Object.keys(data).length ? (
     <Fragment>
       <svg width={width} height={height}>
@@ -138,16 +147,16 @@ export function CityMap(props) {
               neighborhood={neighborhood}
               width={width}
               height={height}
-              avgFoodScore={foodScores.find(
-                element => element._id === neighborhood.properties.NTACode
+              passedData={dataSets[filter].find(
+                element => element.nta_code === neighborhood.properties.NTACode
               )}
               noiseComplaints={noiseComplaints}
               colorScale={colorFilters[filter]}
               setBarData={setBarData}
               barData={barData}
-              neighborhoodPopulation={neighborhoodPopulation.filter(
-                n => n.nta_code === neighborhood.properties.NTACode
-              )}
+              // neighborhoodPopulation={neighborhoodPopulation.filter(
+              //   n => n.nta_code === neighborhood.properties.NTACode
+              // )}
             />
           )
         })}

@@ -11,14 +11,14 @@ export const MapNeighborhood = props => {
     neighborhood,
     width,
     height,
-    avgFoodScore,
+    passedData,
     colorScale,
     noiseComplaints,
     setBarData,
     barData,
     neighborhoodPopulation
   } = props
-  // console.log('this neighborhood pop', neighborhoodPopulation)
+  // console.log('this neighborhood passed', passedData.passed)
   const [borderWidth, setBorderWidth] = useState('0.5')
   // const enterNeighborhood = setBorderWidth(6)
   // const exitNeighborhood = setBorderWidth(0.5)
@@ -42,14 +42,14 @@ export const MapNeighborhood = props => {
           onMouseEnter={() => setBorderWidth('6')}
           onMouseLeave={() => setBorderWidth('0.5')}
           onClick={() => {
-            console.log('neighborhood data', neighborhood.properties.NTACode)
+            // console.log('neighborhood data', neighborhood.properties.NTACode)
             Object.keys(barData).length
               ? setBarData({})
               : setBarData({NTACode: neighborhood.properties.NTACode})
           }}
           strokeWidth={borderWidth}
           fill={
-            colorScale(neighborhoodPopulation[0].population)
+            passedData ? colorScale(passedData.passed) : 'none'
             // avgFoodScore
             //   ? foodColorScale(avgFoodScore.total / avgFoodScore.count)
             //   : 'none'
@@ -74,7 +74,7 @@ export const MapNeighborhood = props => {
       }}
       strokeWidth={borderWidth}
       fill={
-        colorScale(neighborhoodPopulation[0].population)
+        passedData ? colorScale(passedData.passed) : 'none'
         // avgFoodScore
         //   ? foodColorScale(avgFoodScore.total / avgFoodScore.count)
         //   : 'none'
