@@ -3,6 +3,8 @@
 @import './base/base';
 
 /* Component-related */
+@import './components/graph';
+@import './components/graph-container';
 @import './components/loader';
 @import './components/logo';
 @import './components/main-map';

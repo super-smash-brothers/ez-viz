@@ -11,7 +11,7 @@ const CuisinesBarChart = props => {
 
   // Chart dimensions
   const height = 260
-  const width = 600
+  const width = 420
   const margin = {top: 40, bottom: 40, right: 40, left: 40}
 
   // We use the `useRef()` hooks to grab the JSX elements that will render
@@ -70,6 +70,7 @@ const CuisinesBarChart = props => {
     <Fragment>
       {scales.length ? (
         <svg
+          className="graph-item"
           width={width + margin.left + margin.right}
           height={height + margin.top + margin.bottom}
         >
