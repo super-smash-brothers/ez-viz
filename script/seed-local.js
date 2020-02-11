@@ -5,7 +5,9 @@ const {
   BoroughPoly,
   CitySchema,
   RestaurantPoint,
-  NeighborSum
+  NeighborSum,
+  Noise,
+  NoiseSum
 } = require('../server/db/models/')
 
 const NTA = require('./NTA.json')
@@ -44,6 +46,27 @@ const seedPoly = async () => {
   console.log('Polygon data seeded')
 }
 
+const seedNoise = async () => {
+  console.log('Seeding noise data')
+  const noiseData = require('./311noisejan10.json')
+  for (let i = 0; i < noiseData.length; i++) {
+    try {
+      const doc = await Noise.create({
+        complaint_type: noiseData[i].complaint_type,
+        descriptor: noiseData[i].descriptor,
+        location: {
+          type: 'Point',
+          coordinates: [noiseData[i].longitude, noiseData[i].latitude]
+        }
+      })
+      console.log(`Number: ${i}, noise id: ${doc.unique_key}`)
+    } catch (error) {
+      console.log('Error seeding neighborhoods:', error)
+    }
+  }
+  console.log('Noise data seeded')
+}
+
 const seedSums = async () => {
   console.log('Seeding restaurant summary data')
   const uniqueNTA = await NeighborPoly.distinct(
@@ -80,6 +103,28 @@ const seedSums = async () => {
   console.log('Summary data seeded')
 }
 
+const seedNoiseSums = async () => {
+  console.log('Seeding noise summary data')
+  const allNTA = await NeighborPoly.find()
+  const manualMap = []
+  for (let i = 0; i < allNTA.length; i++) {
+    const singleNTA = allNTA[i]
+    const noisePoints = await Noise.find({
+      location: {
+        $geoWithin: {
+          $geometry: singleNTA.geometry
+        }
+      }
+    })
+    console.log(
+      `singleNTA ${singleNTA.properties.NTACode}, num ${noisePoints.length}`
+    )
+    manualMap.push([singleNTA.properties.NTACode, noisePoints.length])
+  }
+  await NoiseSum.create({sumCount: manualMap})
+  console.log('Summary data seeded')
+}
+
 const seedPoints = async () => {
   // originally taken from /server/db/models/restaurant.js
   console.log('Seeding restaurant points')
@@ -102,16 +147,18 @@ const seedPoints = async () => {
 }
 
 const seed = async () => {
-  console.log('Running seed')
+  // console.log('Running seed')
   // console.log('Dropping database')
   // Object.keys(mongoose.connection.collections).forEach(async collectionName => {
   //   console.log(`Dropping collection: ${collectionName}`)
   //   await mongoose.connection.collections[collectionName].drop()
   // })
-  await seedPoly()
-  await seedSums()
+  // await seedPoly()
+  // await seedNoise()
+  // await seedNoiseSums()
+  // await seedSums()
   // await seedPoints()
-  console.log('Seed complete')
+  // console.log('Seed complete')
   mongoose.connection.close() // close connection established by schema.js
 }
 
