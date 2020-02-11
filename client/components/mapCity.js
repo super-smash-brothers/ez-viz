@@ -80,7 +80,7 @@ export function CityMap(props) {
     fetchCrime()
   }, [])
 
-  console.log('noise data:', noiseComplaints)
+  // console.log('noise data:', noiseComplaints)
   // console.log('food score data: ', foodScores)
   // console.log('neighborhood data: ', data)
   // console.log('pop data: ', neighborhoodPopulation)
