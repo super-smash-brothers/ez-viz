@@ -8,6 +8,7 @@ import BarChart from './chartBar'
 import {GraphContainer} from './containerGraphElements'
 import {scaleLinear} from 'd3'
 import CuisinesBarChart from './module/CuisinesBarChart'
+import Loader from './module/Loader.js'
 
 //put a single neighborhood's coordinates in a json to use
 // console.log('d3', d3)
@@ -191,10 +192,10 @@ export function CityMap(props) {
         })}
       </svg>
       {Object.keys(barData).length ? (
-        <CuisinesBarChart ntaCode={barData} />
+        <CuisinesBarChart barData={barData} />
       ) : null}
     </Fragment>
   ) : (
-    <h2>Loading&hellip;</h2>
+    <Loader />
   )
 }

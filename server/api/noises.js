@@ -2,9 +2,12 @@ const router = require('express').Router()
 const {Noise, NeighborPoly, NoiseSum} = require('../db/models')
 module.exports = router
 
+// retrieve top 5 noise complaint descriptions for an NTA
 router.get('/topnoises/:nta', (req, res, next) => {
   try {
     const nta = req.params.nta
+
+    //
     NeighborPoly.find({'properties.NTACode': nta}).exec((err, ntaPoly) => {
       if (err) return res.json(err)
       Noise.find({
@@ -41,26 +44,48 @@ router.get('/topnoises/:nta', (req, res, next) => {
 })
 
 //specific route not ready
+// eslint-disable-next-line complexity
 router.get('/relative/:nta', async (req, res, next) => {
   try {
-    const data = await NoiseSum.find()
+    const data = await NoiseSum.find() // all noisesum data
+
+    // sort all, descending
     const sortedData = data[0].sumCount.sort((a, b) => {
       return b[1] - a[1]
     })
+
     const payload = {}
     const nta = req.params.nta.toUpperCase()
     payload.nta = nta
-    payload.count = 0
+    payload.allNtaCount = 0
     payload.relative = []
+    let foundIdx = null
     for (let i = 0; i < sortedData.length; i++) {
-      payload.count += sortedData[i][1]
-      payload.relative = []
+      payload.allNtaCount += sortedData[i][1]
       if (sortedData[i][0] === nta) {
-        payload.ntaComplaints = sortedData[i][1]
+        payload.ntaCount = sortedData[i][1]
+        foundIdx = i
         //   for (let i = 0; i < 5; i++) {
         //     if (payload.relative.length > 5)  break
 
         //     }
+      }
+    }
+
+    if (foundIdx <= 2) {
+      for (let i = 0; i < 5; i++) {
+        const current = sortedData[i]
+        payload.relative.push({nta: current[0], count: current[1]})
+      }
+    } else if (foundIdx >= sortedData.length - 3) {
+      for (let i = sortedData.length - 5; i < sortedData.length; i++) {
+        const current = sortedData[i]
+        payload.relative.push({nta: current[0], count: current[1]})
+      }
+    } else {
+      for (let i = foundIdx - 2; i < foundIdx + 3; i++) {
+        const current = sortedData[i]
+        payload.relative.push({nta: current[0], count: current[1]})
       }
     }
     res.json(payload)
