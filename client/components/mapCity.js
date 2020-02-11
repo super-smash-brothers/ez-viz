@@ -168,7 +168,7 @@ export function CityMap(props) {
         })}
       </svg>
       {Object.keys(barData).length ? (
-        <CuisinesBarChart ntaCode={barData} />
+        <CuisinesBarChart barData={barData} />
       ) : null}
     </Fragment>
   ) : (
