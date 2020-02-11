@@ -14,7 +14,9 @@ export const MapNeighborhood = props => {
     passedData,
     colorScale,
     setBarData,
-    barData
+    barData,
+    setPassedGrades,
+    grades
   } = props
   // if (passedData) console.log('this passed', passedData)
   const [borderWidth, setBorderWidth] = useState('0.5')
@@ -38,6 +40,7 @@ export const MapNeighborhood = props => {
           }
           onClick={() => {
             // console.log('neighborhood data', neighborhood.properties.NTACode)
+            setPassedGrades(grades)
             Object.keys(barData).length
               ? setBarData({})
               : setBarData({NTACode: neighborhood.properties.NTACode})
@@ -62,6 +65,7 @@ export const MapNeighborhood = props => {
       key={neighborhood._id}
       d={line(neighborhood.geometry.coordinates[0])}
       onClick={() => {
+        setPassedGrades(grades)
         // console.log('neighborhood data', neighborhood.properties.NTACode)
         Object.keys(barData).length
           ? setBarData({})

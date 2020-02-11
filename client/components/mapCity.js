@@ -16,10 +16,16 @@ export function CityMap(props) {
   const [neighborhoodPopulation, setCityPopulation] = useState({})
   const [crime, setCrime] = useState({})
   const [barData, setBarData] = useState({})
+  const [grades, setGrades] = useState([])
+  const [passedGrades, setPassedGrades] = useState([])
   //for filtering out park multipolygons
   const parks = ['BK99', 'MN99', 'BX99', 'QN99', 'QN98', 'SI99', 'BX98']
 
   useEffect(() => {
+    async function fetchGrades() {
+      const gradeData = await axios.get('/api/restaurants/letterGrade')
+      setGrades(gradeData.data)
+    }
     async function fetchCrime() {
       const crimeData = await axios.get(
         'https://data.cityofnewyork.us/resource/uip8-fykc.json'
@@ -74,6 +80,7 @@ export function CityMap(props) {
     fetchNoiseData()
     fetchPopulationData()
     fetchCrime()
+    fetchGrades()
   }, [])
 
   // console.log('noise data:', noiseComplaints)
@@ -179,6 +186,10 @@ export function CityMap(props) {
               colorScale={colorFilters[filter]}
               setBarData={setBarData}
               barData={barData}
+              setPassedGrades={setPassedGrades}
+              grades={grades.filter(
+                g => g[0] === neighborhood.properties.NTACode
+              )}
               // neighborhoodPopulation={neighborhoodPopulation.filter(
               //   n => n.nta_code === neighborhood.properties.NTACode
               // )}
@@ -186,12 +197,12 @@ export function CityMap(props) {
           )
         })}
       </svg>
-      <FoodGradePieChart />
       {Object.keys(barData).length ? (
         <GraphContainer
           ntaCode={barData}
           filter={filter}
           clearBarData={() => setBarData({})}
+          grades={passedGrades}
         />
       ) : null}
     </Fragment>

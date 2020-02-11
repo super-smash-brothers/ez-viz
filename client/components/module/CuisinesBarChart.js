@@ -30,7 +30,7 @@ const CuisinesBarChart = props => {
         // console.log('props.barData', props.barData)
         // get our data and put it on state
         const {data} = await axios.get(
-          `/api/restaurants/cuisine/${props.barData.NTACode}`
+          `/api/restaurants/cuisine/${props.ntaCode.NTACode}`
         )
         console.log('cuisine', data)
         setCuisines(data.cuisineObjects)
