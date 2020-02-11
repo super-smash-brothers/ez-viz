@@ -9,12 +9,12 @@ import {GraphContainer} from './containerGraphElements'
 import {scaleLinear} from 'd3'
 import CuisinesBarChart from './module/CuisinesBarChart'
 import Loader from './module/Loader.js'
+import {FoodGradePieChart} from './module/GradePieChart'
 
 //put a single neighborhood's coordinates in a json to use
 // console.log('d3', d3)
 export function CityMap(props) {
   const {filter} = props
-  // console.log('hows the filter?', filter)
   const [data, setMap] = useState({})
   const [foodScores, setFoodScores] = useState({})
   const [noiseComplaints, setNoiseComplaints] = useState({})
@@ -191,6 +191,7 @@ export function CityMap(props) {
           )
         })}
       </svg>
+      <FoodGradePieChart />
       {Object.keys(barData).length ? (
         <CuisinesBarChart barData={barData} />
       ) : null}
