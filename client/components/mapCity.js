@@ -1,13 +1,8 @@
 import React, {useState, useEffect, Fragment} from 'react'
 import * as d3 from 'd3'
-import {default as singleNeighborhood} from '../../public/sandbox/single.json'
-import {default as allNeighborhoods} from '../../public/sandbox/NTA.json'
 import {MapNeighborhood} from './mapNeighborhood'
 import axios from 'axios'
-import BarChart from './chartBar'
-import {GraphContainer} from './containerGraphElements'
-import {scaleLinear} from 'd3'
-import CuisinesBarChart from './module/CuisinesBarChart'
+import GraphContainer from './page/GraphContainer'
 import Loader from './module/Loader.js'
 
 //put a single neighborhood's coordinates in a json to use
@@ -169,7 +164,11 @@ export function CityMap(props) {
         })}
       </svg>
       {Object.keys(barData).length ? (
-        <CuisinesBarChart ntaCode={barData} />
+        <GraphContainer
+          ntaCode={barData}
+          filter={filter}
+          clearBarData={() => setBarData({})}
+        />
       ) : null}
     </Fragment>
   ) : (
