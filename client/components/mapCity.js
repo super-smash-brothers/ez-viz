@@ -2,7 +2,6 @@ import React, {useState, useEffect, Fragment} from 'react'
 import * as d3 from 'd3'
 import {MapNeighborhood} from './mapNeighborhood'
 import axios from 'axios'
-import TopNoiseHierBarChart from './module/TopNoiseHierBarChart'
 import GraphContainer from './page/GraphContainer'
 import Loader from './module/Loader.js'
 

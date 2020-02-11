@@ -30,7 +30,7 @@ const TopNoiseHierBarChart = props => {
         // console.log('props.barData', props.barData)
         // get our data and put it on state
         const {data} = await axios.get(
-          `/api/noises/topnoises/${props.barData.NTACode}`
+          `/api/noises/topnoises/${props.ntaCode.NTACode}`
         )
         console.log('topnoises', data)
         console.log('map0', data.map(elem => elem[0]))
