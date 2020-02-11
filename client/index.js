@@ -7,10 +7,10 @@ import store from './store'
 import App from './app'
 
 // import CSS
-
-// establishes socket connection
 import 'normalize.css/normalize.css'
 import '../public/styles/index.scss'
+
+// establishes socket connection
 
 ReactDOM.render(
   <Provider store={store}>

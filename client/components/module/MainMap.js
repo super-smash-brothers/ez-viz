@@ -14,8 +14,6 @@ export default class MainMapContainer extends Component {
 
   render = () => (
     <div className="main-map-container">
-      <h1>Inside MainMap component</h1>
-      <h1>CityMap component</h1>
       <CityMap filter={this.props.filter} />
       {/* <h1>NycMap component</h1>
       <NycMap /> */}
