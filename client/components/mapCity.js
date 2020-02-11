@@ -8,6 +8,7 @@ import BarChart from './chartBar'
 import {GraphContainer} from './containerGraphElements'
 import {scaleLinear} from 'd3'
 import CuisinesBarChart from './module/CuisinesBarChart'
+import TopNoiseHierBarChart from './module/TopNoiseHierBarChart'
 import Loader from './module/Loader.js'
 
 //put a single neighborhood's coordinates in a json to use
@@ -169,7 +170,10 @@ export function CityMap(props) {
         })}
       </svg>
       {Object.keys(barData).length ? (
-        <CuisinesBarChart barData={barData} />
+        <div>
+          <CuisinesBarChart barData={barData} />
+          <TopNoiseHierBarChart barData={barData} />
+        </div>
       ) : null}
     </Fragment>
   ) : (
