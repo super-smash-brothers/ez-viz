@@ -10,6 +10,7 @@ const Filters = ({setFilter}) => {
       <form onChange={event => setFilter(event)}>
         <label>
           <select>
+            <option value="">No filter</option>
             <option value="food">Restaurants</option>
             <option value="population">Population</option>
             <option value="noise">Noise</option>

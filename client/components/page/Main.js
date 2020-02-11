@@ -9,7 +9,7 @@ export default class Main extends Component {
   constructor() {
     super()
     this.state = {
-      filter: 'food',
+      filter: '',
       filters: dummyFilters
     }
     this.setFilter = this.setFilter.bind(this)

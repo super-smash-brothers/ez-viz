@@ -148,9 +148,14 @@ export function CityMap(props) {
               neighborhood={neighborhood}
               width={width}
               height={height}
-              passedData={dataSets[filter].find(
-                element => element.nta_code === neighborhood.properties.NTACode
-              )}
+              passedData={
+                filter.length
+                  ? dataSets[filter].find(
+                      element =>
+                        element.nta_code === neighborhood.properties.NTACode
+                    )
+                  : null
+              }
               noiseComplaints={noiseComplaints}
               colorScale={colorFilters[filter]}
               setBarData={setBarData}
@@ -162,7 +167,9 @@ export function CityMap(props) {
           )
         })}
       </svg>
-      <CuisinesBarChart ntaCode={barData} />
+      {Object.keys(barData).length ? (
+        <CuisinesBarChart ntaCode={barData} />
+      ) : null}
     </Fragment>
   ) : (
     <h2>Loading&hellip;</h2>

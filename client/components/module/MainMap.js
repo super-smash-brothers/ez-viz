@@ -21,10 +21,10 @@ export default class MainMapContainer extends Component {
       <NycMap /> */}
       {/* <h1>NycSimpleMap component</h1>
       <NycSimpleMap /> */}
-      <h1>CuisinesBarChart component</h1>
-      <CuisinesBarChart />
-      <h1>LineChart component</h1>
-      <LineChart />
+      {/* <h1>CuisinesBarChart component</h1>
+      <CuisinesBarChart /> */}
+      {/* <h1>LineChart component</h1>
+      <LineChart /> */}
     </div>
   )
 }
