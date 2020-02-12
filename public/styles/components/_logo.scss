@@ -3,7 +3,13 @@
   font-family: $title-font;
   font-size: $xl-size;
   text-shadow: $title-shadow;
+  background: transparent url(/assets/images/delve-nyc-logo-text.png) no-repeat;
+  background-size: contain;
+  background-position-y: center;
 
+  strong {
+    visibility: hidden;
+  }
   .tld {
     color: $blue;
     font-variant: small-caps;

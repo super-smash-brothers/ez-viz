@@ -1,20 +1,22 @@
 .map-filters-container {
   width: 100%;
 
-  .map-filters {
-    margin-left: 1rem;
-    list-style-type: none;
+  .block-title {
+    font-size: $m-size;
+  }
 
-    .map-filter__item {
-      line-height: 1.75em;
-      display: flex;
-      flex-direction: row;
-      align-items: baseline;
-      color: darken($dark, 2%);
+  .map-filter-input {
+    width: 100%;
+    color: #343c41;
+    font-size: 1.6rem;
+    font-weight: bold;
+    border: 2px solid #809fad;
+    height: 4rem;
+  }
 
-      .map-filter__item-checkbox {
-        margin-right: 0.6rem;
-      }
-    }
+  .map-filters-description {
+    font-size: $s-size;
+    line-height: $m-size;
+    color: darken($gray, 10%);
   }
 }
