@@ -5,7 +5,7 @@ import GraphSelector from '../module/GraphSelector'
 
 const GraphContainer = props => {
   const {ntaCode, filter, clearBarData, grades} = props
-
+  console.log('props', props)
   return (
     <div className="graph-container-mask">
       <div className="graph-container">

@@ -87,7 +87,7 @@ export function CityMap(props) {
     fetchGrades()
   }, [])
 
-  console.log('crime data:', crime)
+  // console.log('crime data:', crime)
   // console.log('noise data:', noiseComplaints)
   // console.log('food score data: ', foodScores)
   // console.log('neighborhood data: ', data)

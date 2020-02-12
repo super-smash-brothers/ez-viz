@@ -43,7 +43,10 @@ export const MapNeighborhood = props => {
             setPassedGrades(grades)
             Object.keys(barData).length
               ? setBarData({})
-              : setBarData({NTACode: neighborhood.properties.NTACode})
+              : setBarData({
+                  NTACode: neighborhood.properties.NTACode,
+                  NTAName: neighborhood.properties.NTAName
+                })
           }}
           strokeWidth={borderWidth}
           fill={
@@ -69,7 +72,10 @@ export const MapNeighborhood = props => {
         console.log('neighborhood data', neighborhood.properties.NTACode)
         Object.keys(barData).length
           ? setBarData({})
-          : setBarData({NTACode: neighborhood.properties.NTACode})
+          : setBarData({
+              NTACode: neighborhood.properties.NTACode,
+              NTAName: neighborhood.properties.NTAName
+            })
       }}
       strokeWidth={borderWidth}
       fill={
