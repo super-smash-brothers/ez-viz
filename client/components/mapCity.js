@@ -8,12 +8,13 @@ import {FoodGradePieChart} from './module/GradePieChart'
 
 //put a single neighborhood's coordinates in a json to use
 // console.log('d3', d3)
+// eslint-disable-next-line max-statements
 export function CityMap(props) {
   const {filter} = props
   const [data, setMap] = useState({})
   const [foodScores, setFoodScores] = useState({})
   const [noiseComplaints, setNoiseComplaints] = useState({})
-  const [neighborhoodPopulation, setCityPopulation] = useState({})
+  const [neighborhoodPopulation, setCityPopulation] = useState([])
   const [crime, setCrime] = useState({})
   const [barData, setBarData] = useState({})
   const [grades, setGrades] = useState([])
@@ -87,6 +88,7 @@ export function CityMap(props) {
     fetchGrades()
   }, [])
 
+  // console.log('hash map test:', popHashMap)
   // console.log('crime data:', crime)
   // console.log('noise data:', noiseComplaints)
   // console.log('food score data: ', foodScores)
@@ -96,17 +98,12 @@ export function CityMap(props) {
     document.documentElement.clientHeight,
     window.innerHeight || 0
   )
+  //this ensures that the map has a set ratio of height to width
   const width = height * 1.32465263323
   // console.log('bar data: ', barData)
   // The lines below are how we found our range of food grades, so that they could be used to set the domain and range of color values.
   // We decided to hard code the numbers to save time, since the numbers are static
   // let allAverages
-  // if (Object.keys(foodScores).length) {
-  //   allAverages = foodScores.map(element => element.total/element.count)
-  //   const averagesHighLow = d3.extent(allAverages, l => l)
-  //   console.log('our averages: ', averagesHighLow)
-  //   console.log('all averages: ', allAverages.sort())
-  // }
   const xScale = d3
     .scaleLinear()
     .domain([-74.2555928790719, -73.7000104153247])
@@ -172,7 +169,6 @@ export function CityMap(props) {
     crime: crimeColorScale
   }
 
-  // console.log('what data: ', dataSets[filter])
   return Object.keys(data).length ? (
     <Fragment>
       <svg width={width} height={height}>
@@ -195,7 +191,6 @@ export function CityMap(props) {
                     )
                   : null
               }
-              // noiseComplaints={noiseComplaints}
               colorScale={colorFilters[filter]}
               setBarData={setBarData}
               barData={barData}
@@ -203,14 +198,11 @@ export function CityMap(props) {
               grades={grades.filter(
                 g => g[0] === neighborhood.properties.NTACode
               )}
-              // neighborhoodPopulation={neighborhoodPopulation.filter(
-              //   n => n.nta_code === neighborhood.properties.NTACode
-              // )}
             />
           )
         })}
       </svg>
-      {Object.keys(barData).length ? (
+      {Object.keys(barData).length && !parks.includes(barData.NTACode) ? (
         <GraphContainer
           ntaCode={barData}
           filter={filter}

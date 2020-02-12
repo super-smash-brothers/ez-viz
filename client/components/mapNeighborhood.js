@@ -39,25 +39,15 @@ export const MapNeighborhood = props => {
             passedData && passedData.passed ? () => setBorderWidth('0.5') : null
           }
           onClick={() => {
-            // console.log('neighborhood data', neighborhood.properties.NTACode)
             setPassedGrades(grades)
-            Object.keys(barData).length
-              ? setBarData({})
-              : setBarData({
-                  NTACode: neighborhood.properties.NTACode,
-                  NTAName: neighborhood.properties.NTAName
-                })
+            setBarData({
+              NTACode: neighborhood.properties.NTACode,
+              NTAName: neighborhood.properties.NTAName
+            })
           }}
           strokeWidth={borderWidth}
-          fill={
-            passedData ? colorScale(passedData.passed) : 'white'
-            // avgFoodScore
-            //   ? foodColorScale(avgFoodScore.total / avgFoodScore.count)
-            //   : 'none'
-          }
-          // fill='none'
+          fill={passedData ? colorScale(passedData.passed) : 'white'}
           stroke="#eb6a5b"
-          // opacity='0.5'
         />
       )
     })
@@ -69,21 +59,13 @@ export const MapNeighborhood = props => {
       d={line(neighborhood.geometry.coordinates[0])}
       onClick={() => {
         setPassedGrades(grades)
-        console.log('neighborhood data', neighborhood.properties.NTACode)
-        Object.keys(barData).length
-          ? setBarData({})
-          : setBarData({
-              NTACode: neighborhood.properties.NTACode,
-              NTAName: neighborhood.properties.NTAName
-            })
+        setBarData({
+          NTACode: neighborhood.properties.NTACode,
+          NTAName: neighborhood.properties.NTAName
+        })
       }}
       strokeWidth={borderWidth}
-      fill={
-        passedData ? colorScale(passedData.passed) : 'white'
-        // avgFoodScore
-        //   ? foodColorScale(avgFoodScore.total / avgFoodScore.count)
-        //   : 'none'
-      }
+      fill={passedData ? colorScale(passedData.passed) : 'white'}
       stroke="#eb6a5b"
       onMouseEnter={
         passedData && passedData.passed ? () => setBorderWidth('6') : null
@@ -91,7 +73,6 @@ export const MapNeighborhood = props => {
       onMouseLeave={
         passedData && passedData.passed ? () => setBorderWidth('0.5') : null
       }
-      // opacity='0.5'
     />
   )
 }
