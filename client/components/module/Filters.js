@@ -1,6 +1,7 @@
 import React, {useState, useEffect, Fragment} from 'react'
+import Legend from './Legend'
 
-const Filters = ({setFilter}) => {
+const Filters = ({setFilter, filter}) => {
   return (
     <div className="map-filters-container">
       <h3 className="block-title">What would you like to see?</h3>
@@ -23,6 +24,7 @@ const Filters = ({setFilter}) => {
         Click the neighborhood for a detailed breakdown of statistics for that
         criteria.
       </p>
+      {!!filter.length && <Legend filter={filter} />}
     </div>
   )
 }

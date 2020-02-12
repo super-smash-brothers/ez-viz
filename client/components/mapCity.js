@@ -5,6 +5,7 @@ import {MapNeighborhood} from './mapNeighborhood'
 import axios from 'axios'
 import GraphContainer from './page/GraphContainer'
 import Loader from './module/Loader.js'
+import Legend from './module/Legend'
 
 //put a single neighborhood's coordinates in a json to use
 // console.log('d3', d3)
@@ -106,8 +107,6 @@ export function CityMap(props) {
     .range(['white', 'purple'])
     .interpolate(d3.interpolateRgb.gamma(2.2))
 
-  // console.log('colorScale: ', colorScale(15))
-
   const line = d3
     .line()
     .x(d => {
@@ -131,8 +130,7 @@ export function CityMap(props) {
 
   return Object.keys(data).length ? (
     <Fragment>
-      <svg width={width} height={height}>
-        <g className="legendLinear" transform="translate(20,20)" />
+      <svg width={width} height={height} className="main-map">
         {data.features.map(neighborhood => {
           // console.log('in search of nta', neighborhood.properties.NTACode)
           return (

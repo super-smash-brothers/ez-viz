@@ -12,7 +12,7 @@ export default class Sidebar extends Component {
         </div>
       </header>
 
-      <Filters setFilter={this.props.setFilter} />
+      <Filters setFilter={this.props.setFilter} filter={this.props.filter} />
     </div>
   )
 }

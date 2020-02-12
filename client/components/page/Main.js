@@ -25,7 +25,11 @@ export default class Main extends Component {
     <>
       <MainMap filter={this.state.filter} />
       <div className="main-page main-container flex">
-        <Sidebar filters={this.state.filters} setFilter={this.setFilter} />
+        <Sidebar
+          filter={this.state.filter}
+          filters={this.state.filters}
+          setFilter={this.setFilter}
+        />
       </div>
     </>
   )
