@@ -24,3 +24,11 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+strong {
+  text-shadow: 1px 1px 1px black;
+}
+
+font {
+  margin: 0 5px 0 5px;
+}
