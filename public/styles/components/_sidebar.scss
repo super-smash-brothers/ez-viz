@@ -4,8 +4,8 @@
   position: fixed;
   top: 2vh;
   left: 2vw;
-  width: auto;
-  height: 40vh;
+  max-width: 25vw;
+  max-height: 50vh;
   border: 2px solid $gray;
   padding: $m-size;
   background-color: $light;

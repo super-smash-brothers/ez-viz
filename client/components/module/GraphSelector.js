@@ -47,6 +47,16 @@ const GraphSelector = ({filter, ntaCode, grades}) => {
           </div>
         </div>
       )
+    case 'crime':
+      return (
+        <div className="graph-items-content">
+          <div className="graph-item-container">
+            <h2 className="graph-item__title">{ntaCode.NTAName}</h2>
+            <h2 className="graph-item__title">Coming soon:</h2>
+            Top 5 Offenses
+          </div>
+        </div>
+      )
     default:
       return null
   }
