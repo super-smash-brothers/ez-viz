@@ -12,3 +12,55 @@ router.get('/', (req, res, next) => {
     res.json(data)
   })
 })
+
+// eslint-disable-next-line complexity
+router.get('/relative/:nta', async (req, res, next) => {
+  try {
+    const data = await Population.find(
+      {year: {$eq: 2010}},
+      {nta_code: 1, population: 1, _id: 0}
+    ) // all noisesum data
+
+    // sort all, descending
+    let arrayData = []
+    data.forEach(ele => {
+      arrayData.push([ele.nta_code, ele.population])
+    })
+    arrayData = arrayData.sort((a, b) => {
+      return b[1] - a[1]
+    })
+
+    const payload = {}
+    const nta = req.params.nta.toUpperCase()
+    payload.allNtaCount = 0
+    payload.relative = []
+    let foundIdx = null
+    for (let i = 0; i < arrayData.length; i++) {
+      payload.allNtaCount += arrayData[i][1]
+      if (arrayData[i][0] === nta) {
+        payload.ntaCount = arrayData[i][1]
+        foundIdx = i
+      }
+    }
+
+    if (foundIdx <= 2) {
+      for (let i = 0; i < 5; i++) {
+        const current = arrayData[i]
+        payload.relative.push({nta: current[0], count: current[1]})
+      }
+    } else if (foundIdx >= arrayData.length - 3) {
+      for (let i = arrayData.length - 5; i < arrayData.length; i++) {
+        const current = arrayData[i]
+        payload.relative.push({nta: current[0], count: current[1]})
+      }
+    } else {
+      for (let i = foundIdx - 2; i < foundIdx + 3; i++) {
+        const current = arrayData[i]
+        payload.relative.push({nta: current[0], count: current[1]})
+      }
+    }
+    res.json(payload)
+  } catch (error) {
+    console.error(error)
+  }
+})

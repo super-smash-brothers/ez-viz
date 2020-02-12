@@ -2,6 +2,7 @@ import React from 'react'
 import CuisinesBarChart from './CuisinesBarChart'
 import {FoodGradePieChart} from './GradePieChart'
 import TopNoiseHierBarChart from './TopNoiseHierBarChart'
+import RelativePopulationChart from './RelativePopulationChart'
 
 const GraphSelector = ({filter, ntaCode, grades}) => {
   console.log(ntaCode)
@@ -27,8 +28,14 @@ const GraphSelector = ({filter, ntaCode, grades}) => {
         </div>
       )
     case 'population':
-      console.log('population graph')
-      break
+      return (
+        <div className="graph-items-content">
+          <div className="graph-item-container">
+            <h2 className="graph-item__title">Relative Population by NTA</h2>
+            <RelativePopulationChart ntaCode={ntaCode} />
+          </div>
+        </div>
+      )
     case 'noise':
       return (
         <div className="graph-items-content">
