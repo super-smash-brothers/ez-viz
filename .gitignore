@@ -1,6 +1,9 @@
 node_modules
 public/bundle.js
 public/bundle.js.map
+public/barChartData.json
+public/sandbox
+server/api/prototype
 secrets.js
 .DS_Store
 npm-debug.log

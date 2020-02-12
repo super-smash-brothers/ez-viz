@@ -63,11 +63,9 @@ export function CityMap(props) {
       setNoiseComplaints(processedNoise)
     }
     async function fetchPopulationData() {
-      const rawPopData = await axios.get(
-        'https://data.cityofnewyork.us/resource/swpk-hqdp.json'
-      )
-      const recentPopData = rawPopData.data.filter(p => p.year === '2010')
-      const popWithPassed = recentPopData.map(d => {
+      const rawPopData = await axios.get('/api/populations/')
+      // const recentPopData = rawPopData.data.filter(p => p.year === '2010')
+      const popWithPassed = rawPopData.data.map(d => {
         if (!parks.includes(d.nta_code)) {
           d.passed = d.population
         } else d.passed = null
