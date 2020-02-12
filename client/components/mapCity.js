@@ -1,5 +1,6 @@
 import React, {useState, useEffect, Fragment} from 'react'
 import * as d3 from 'd3'
+import {legendColor} from 'd3-svg-legend'
 import {MapNeighborhood} from './mapNeighborhood'
 import axios from 'axios'
 import GraphContainer from './page/GraphContainer'
@@ -127,10 +128,11 @@ export function CityMap(props) {
     food: foodColorScale,
     population: popColorScale
   }
-  // console.log('what data: ', dataSets[filter])
+
   return Object.keys(data).length ? (
     <Fragment>
       <svg width={width} height={height}>
+        <g className="legendLinear" transform="translate(20,20)" />
         {data.features.map(neighborhood => {
           // console.log('in search of nta', neighborhood.properties.NTACode)
           return (
