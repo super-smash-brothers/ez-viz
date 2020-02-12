@@ -5,8 +5,10 @@ const {RestaurantPoint} = require('./restaurant')
 const {BoroughPoly} = require('./boro')
 const {Noise} = require('./noise')
 const {NoiseSum} = require('./noiseSum')
+const {Crime} = require('./crime')
+const {CrimeSum} = require('./crimeSum')
 const mongoose = require('mongoose')
-mongoose.set('debug', true)
+// mongoose.set('debug', true)
 
 if (!process.env.MONGODB_SERVER)
   console.log(
@@ -45,6 +47,8 @@ module.exports = {
   neighborPropSchema,
   Noise,
   NoiseSum,
+  Crime,
+  CrimeSum,
   db,
   User // just to maintain User in case we want to use sessions
 }

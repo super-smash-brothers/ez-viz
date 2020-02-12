@@ -66,7 +66,7 @@ export const MapNeighborhood = props => {
       d={line(neighborhood.geometry.coordinates[0])}
       onClick={() => {
         setPassedGrades(grades)
-        // console.log('neighborhood data', neighborhood.properties.NTACode)
+        console.log('neighborhood data', neighborhood.properties.NTACode)
         Object.keys(barData).length
           ? setBarData({})
           : setBarData({NTACode: neighborhood.properties.NTACode})
