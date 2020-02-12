@@ -1,8 +1,9 @@
 import React from 'react'
 import CuisinesBarChart from './CuisinesBarChart'
+import {FoodGradePieChart} from './GradePieChart'
 import TopNoiseHierBarChart from './TopNoiseHierBarChart'
 
-const GraphSelector = ({filter, ntaCode}) => {
+const GraphSelector = ({filter, ntaCode, grades}) => {
   switch (filter) {
     case 'food':
       // Refactor this to break down graph items into further components
@@ -14,7 +15,7 @@ const GraphSelector = ({filter, ntaCode}) => {
           </div>
           <div className="graph-item-container">
             <h2 className="graph-item__title">Top 5 Restaurants by Grade</h2>
-            <CuisinesBarChart ntaCode={ntaCode} />
+            <FoodGradePieChart grades={grades} ntaCode={ntaCode} />
           </div>
         </div>
       )

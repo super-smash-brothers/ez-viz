@@ -6,7 +6,7 @@ const {
 } = require('../../db/sandbox/prototype/schema')
 module.exports = router
 
-router.get('/', (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     console.log('/api/prototype/ reached')
     BoroughPoly.find().then(arr => {
@@ -23,7 +23,7 @@ router.get('/', (req, res, next) => {
   }
 })
 
-router.get('/neighborhoods', (req, res, next) => {
+router.get('/neighborhoods', async (req, res, next) => {
   try {
     console.log(NeighborPoly)
     NeighborPoly.find().then(arr => {

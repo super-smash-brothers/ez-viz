@@ -7,7 +7,9 @@ const {
   RestaurantPoint,
   NeighborSum,
   Noise,
-  NoiseSum
+  NoiseSum,
+  Crime,
+  CrimeSum
 } = require('../server/db/models/')
 
 const NTA = require('./NTA.json')
@@ -65,6 +67,27 @@ const seedNoise = async () => {
     }
   }
   console.log('Noise data seeded')
+}
+
+const seedCrime = async () => {
+  console.log('Seeding crime data')
+  const crimeData = require('./uip8-fykc.json')
+  for (let i = 0; i < crimeData.length; i++) {
+    try {
+      const doc = await Crime.create({
+        OFNS_DESC: crimeData[i].ofns_desc,
+        ARREST_DATE: crimeData[i].arrest_date,
+        location: {
+          type: 'Point',
+          coordinates: [crimeData[i].longitude, crimeData[i].latitude]
+        }
+      })
+      console.log(`Number: ${i}, crime id: ${doc.unique_key}`)
+    } catch (error) {
+      console.log('Error seeding neighborhoods:', error)
+    }
+  }
+  console.log('Crime data seeded')
 }
 
 const seedSums = async () => {
@@ -125,6 +148,28 @@ const seedNoiseSums = async () => {
   console.log('Summary data seeded')
 }
 
+const seedCrimeSums = async () => {
+  console.log('Seeding noise summary data')
+  const allNTA = await NeighborPoly.find()
+  const manualMap = []
+  for (let i = 0; i < allNTA.length; i++) {
+    const singleNTA = allNTA[i]
+    const crimePoints = await Crime.find({
+      location: {
+        $geoWithin: {
+          $geometry: singleNTA.geometry
+        }
+      }
+    })
+    // console.log(
+    //   `singleNTA ${singleNTA.properties.NTACode}, num ${crimePoints.length}`
+    // )
+    manualMap.push([singleNTA.properties.NTACode, crimePoints.length])
+  }
+  await CrimeSum.create({sumCount: manualMap})
+  console.log('Summary data seeded')
+}
+
 const seedPoints = async () => {
   // originally taken from /server/db/models/restaurant.js
   console.log('Seeding restaurant points')
@@ -156,6 +201,8 @@ const seed = async () => {
   // await seedPoly()
   // await seedNoise()
   // await seedNoiseSums()
+  // await seedCrime()
+  // await seedCrimeSums()
   // await seedSums()
   // await seedPoints()
   // console.log('Seed complete')

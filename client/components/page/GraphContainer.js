@@ -4,7 +4,7 @@ import {faArrowLeft} from '@fortawesome/free-solid-svg-icons'
 import GraphSelector from '../module/GraphSelector'
 
 const GraphContainer = props => {
-  const {ntaCode, filter, clearBarData} = props
+  const {ntaCode, filter, clearBarData, grades} = props
 
   return (
     <div className="graph-container-mask">
@@ -15,7 +15,7 @@ const GraphContainer = props => {
         >
           <FontAwesomeIcon icon={faArrowLeft} size="lg" /> Return to Map
         </div>
-        <GraphSelector ntaCode={ntaCode} filter={filter} />
+        <GraphSelector grades={grades} ntaCode={ntaCode} filter={filter} />
       </div>
     </div>
   )

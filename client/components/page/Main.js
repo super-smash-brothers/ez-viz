@@ -17,7 +17,6 @@ export default class Main extends Component {
 
   // stage 2: extend to allow multiple filters?
   setFilter = event => {
-    console.log('set event:', event.target.value)
     this.setState({filter: event.target.value})
   }
 
