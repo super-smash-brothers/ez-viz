@@ -27,10 +27,16 @@ export function CityMap(props) {
       setGrades(gradeData.data)
     }
     async function fetchCrime() {
-      const crimeData = await axios.get(
-        'https://data.cityofnewyork.us/resource/uip8-fykc.json'
-      )
-      setCrime(crimeData.data)
+      let crimeList = await axios.get('/api/crimes')
+      const processedCrime = crimeList.data.sumCount.map(n => {
+        if (!parks.includes(n[0])) {
+          n.passed = n[1]
+        } else n.passed = null
+        n.nta_code = n[0]
+        const returnObj = Object.assign({}, n)
+        return returnObj
+      })
+      setCrime(processedCrime)
     }
     async function fetchData() {
       const calledNeighborhood = await axios.get('/api/neighborhoods')
@@ -81,6 +87,7 @@ export function CityMap(props) {
     fetchGrades()
   }, [])
 
+  console.log('crime data:', crime)
   // console.log('noise data:', noiseComplaints)
   // console.log('food score data: ', foodScores)
   // console.log('neighborhood data: ', data)
@@ -107,6 +114,7 @@ export function CityMap(props) {
   const foodExtent = d3.extent(foodScores, f => f.passed)
   const popExtent = d3.extent(neighborhoodPopulation, l => parseInt(l.passed))
   const noiseExtent = d3.extent(noiseComplaints, n => n.passed)
+  const crimeExtent = d3.extent(crime, n => n.passed)
   // console.log('extents', noiseExtent, popExtent, foodExtent)
   // console.log('pop extent: ', popExtent)
 
@@ -133,6 +141,12 @@ export function CityMap(props) {
     .range(['white', 'yellow'])
     .interpolate(d3.interpolateRgb.gamma(2.2))
 
+  const crimeColorScale = d3
+    .scaleLinear()
+    .domain(crimeExtent)
+    .range(['white', 'red'])
+    .interpolate(d3.interpolateRgb.gamma(2.2))
+
   // console.log('colorScale: ', colorScale(15))
 
   const line = d3
@@ -154,7 +168,8 @@ export function CityMap(props) {
   const colorFilters = {
     food: foodColorScale,
     population: popColorScale,
-    noise: noiseColorScale
+    noise: noiseColorScale,
+    crime: crimeColorScale
   }
 
   // console.log('what data: ', dataSets[filter])
@@ -180,7 +195,7 @@ export function CityMap(props) {
                     )
                   : null
               }
-              noiseComplaints={noiseComplaints}
+              // noiseComplaints={noiseComplaints}
               colorScale={colorFilters[filter]}
               setBarData={setBarData}
               barData={barData}
