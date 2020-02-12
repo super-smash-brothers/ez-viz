@@ -28,6 +28,7 @@ const RelativePopulationChart = props => {
         const {data} = await axios.get(
           `/api/populations/relative/${props.ntaCode.NTACode}`
         )
+        console.log('pop', data)
         //put the high value at the top
         data.relative.reverse()
         setRelativePop(data.relative)

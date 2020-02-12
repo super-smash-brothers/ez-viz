@@ -48,7 +48,9 @@ export const MapNeighborhood = props => {
           strokeWidth={borderWidth}
           fill={passedData ? colorScale(passedData.passed) : 'white'}
           stroke="#eb6a5b"
-        />
+        >
+          <title>{neighborhood.properties.NTAName}</title>
+        </path>
       )
     })
   }
@@ -73,6 +75,8 @@ export const MapNeighborhood = props => {
       onMouseLeave={
         passedData && passedData.passed ? () => setBorderWidth('0.5') : null
       }
-    />
+    >
+      <title>{neighborhood.properties.NTAName}</title>
+    </path>
   )
 }
