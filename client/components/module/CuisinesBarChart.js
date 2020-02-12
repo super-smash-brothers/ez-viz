@@ -32,7 +32,7 @@ const CuisinesBarChart = props => {
         const {data} = await axios.get(
           `/api/restaurants/cuisine/${props.ntaCode.NTACode}`
         )
-        console.log('cuisine', data)
+        // console.log('cuisine', data)
         setCuisines(data.cuisineObjects)
 
         // set our X-axis scale. scaleBand() for our discrete X values.
@@ -52,7 +52,7 @@ const CuisinesBarChart = props => {
         // create and assign our axis labels
         const xAxis = d3.axisBottom()
         const yAxis = d3.axisLeft()
-        console.log('scales are:', scales)
+        console.log('props are:', props)
         xAxis.scale(xScale)
         d3.select(xAxisGroup.current).call(xAxis)
         yAxis.scale(yScale)
@@ -61,7 +61,6 @@ const CuisinesBarChart = props => {
     },
     [nta]
   )
-
   // g tags will host our x- and y-axis labels
   // scales[0] = our xScale function
   // scales[1] = our yScale function

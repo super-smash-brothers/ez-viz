@@ -5,6 +5,8 @@ export const FoodGradePieChart = props => {
   const grades = props.grades[0][1]
   const total = grades.A + grades.B + grades.C
   const frame = 200
+  const ntaCode = props.ntaCode
+  console.log('nta Code', ntaCode)
   const arcGenerator = d3.arc()
   const aSlice = arcGenerator({
     startAngle: 0,
