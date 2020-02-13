@@ -13,6 +13,7 @@ const Filters = ({setFilter, filter}) => {
             <option value="population">Population</option>
             <option value="noise">Noise Complaints</option>
             <option value="crime">Crime</option>
+            <option value="comprehensive">Comprehensive View</option>
           </select>
         </label>
       </form>
