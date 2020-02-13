@@ -31,7 +31,10 @@ const GraphSelector = ({filter, ntaCode, grades}) => {
       return (
         <div className="graph-items-content">
           <div className="graph-item-container">
-            <h2 className="graph-item__title">Relative Population by NTA</h2>
+            <h2 className="graph-item__title">{ntaCode.NTAName}</h2>
+            <h2 className="graph-item__title">
+              Relative Population by Neighborhood
+            </h2>
             <RelativePopulationChart ntaCode={ntaCode} />
           </div>
         </div>
