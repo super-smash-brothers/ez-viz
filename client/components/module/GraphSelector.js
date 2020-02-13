@@ -55,7 +55,7 @@ const GraphSelector = ({filter, ntaCode, grades}) => {
         <div className="graph-items-content">
           <div className="graph-item-container">
             <h2 className="graph-item__title">{ntaCode.NTAName}</h2>
-            <h2 className="graph-item__title">Crime over time</h2>
+            <h2 className="graph-item__title">Crime Over time</h2>
             <CrimeTimeChart ntaCode={ntaCode} />
           </div>
         </div>
