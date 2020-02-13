@@ -3,6 +3,7 @@ import CuisinesBarChart from './CuisinesBarChart'
 import {FoodGradePieChart} from './GradePieChart'
 import TopNoiseHierBarChart from './TopNoiseHierBarChart'
 import RelativePopulationChart from './RelativePopulationChart'
+import CrimeTimeChart from './CrimeTimeChart'
 
 const GraphSelector = ({filter, ntaCode, grades}) => {
   console.log(ntaCode)
@@ -54,8 +55,8 @@ const GraphSelector = ({filter, ntaCode, grades}) => {
         <div className="graph-items-content">
           <div className="graph-item-container">
             <h2 className="graph-item__title">{ntaCode.NTAName}</h2>
-            <h2 className="graph-item__title">Coming soon:</h2>
-            Top 5 Offenses
+            <h2 className="graph-item__title">Crime over time</h2>
+            <CrimeTimeChart ntaCode={ntaCode} />
           </div>
         </div>
       )
