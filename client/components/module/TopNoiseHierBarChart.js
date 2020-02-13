@@ -36,7 +36,6 @@ const TopNoiseHierBarChart = props => {
         // console.log('map0', data.map(elem => elem[0]))
         // console.log('map1', [...data.map(elem => elem[1]), 0])
         setTopNoises(data.reverse()) // put the high value at the top
-        console.log('DATA', data)
 
         // set our X-axis scale. scaleBand() for our discrete X values.
         const yScale = d3 // y-axis now holds names
