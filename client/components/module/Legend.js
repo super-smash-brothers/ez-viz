@@ -1,37 +1,38 @@
 import React from 'react'
 import * as d3 from 'd3'
-import {legendColor} from 'd3-svg-legend'
-
-// console.log('legendColor = ', legendColor)
-// console.log('popColorSCale = ', popColorScale)
-
-// const legendLinear = legendColor()
-//   .shapeWidth(30)
-//   .cells(10)
-//   .orient('hoizontal')
-//   .scale(popColorScale)
-
-// const legendBox = d3.select('.legendLinear').call(legendLinear)
-// console.log('legendLinear = ', legendLinear)
 
 const Legend = ({filter}) => {
   const width = 240
   const height = 10
 
-  const colors = {
-    food: 'brown',
-    crime: 'red',
-    noise: 'yellow',
-    population: 'purple'
+  const legendData = {
+    food: {
+      title: 'Food Grade',
+      color: 'brown',
+      spectrum: ['Best', 'Worst']
+    },
+    crime: {
+      title: 'Crime Rates',
+      color: 'red',
+      spectrum: ['Lowest', 'Highest']
+    },
+    noise: {
+      title: 'Noise Complaints',
+      color: 'yellow',
+      spectrum: ['Lowest', 'Highest']
+    },
+    population: {
+      title: 'Population',
+      color: 'purple',
+      spectrum: ['Lowest', 'Highest']
+    }
   }
-  console.log('filter = ', filter)
+
   const barScale = d3
     .scaleLinear()
     .domain([1, 10])
-    .range(['white', colors[filter]])
+    .range(['white', legendData[filter].color])
     .interpolate(d3.interpolateRgb.gamma(2.2))
-
-  console.log('barscale', barScale(0), ', ', barScale(100))
 
   const rectColors = []
   for (let i = 0; i < 10; i++) {
@@ -40,7 +41,7 @@ const Legend = ({filter}) => {
 
   return (
     <div className="legend-choropleth">
-      <strong className="legend-title">Legend</strong>
+      <strong className="legend-title">{legendData[filter].title}</strong>
       <svg className="legend-choropleth-graphic">
         {rectColors.map((el, i) => {
           return (
@@ -55,6 +56,14 @@ const Legend = ({filter}) => {
           )
         })}
       </svg>
+      <div className="legend-choropleth-label">
+        <div className="legend-choropleth-label__item">
+          {legendData[filter].spectrum[0]}
+        </div>
+        <div className="legend-choropleth-label__item">
+          {legendData[filter].spectrum[1]}
+        </div>
+      </div>
     </div>
   )
 }
