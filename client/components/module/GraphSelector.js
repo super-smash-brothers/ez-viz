@@ -5,6 +5,7 @@ import TopNoiseHierBarChart from './TopNoiseHierBarChart'
 import RelativePopulationChart from './RelativePopulationChart'
 import {MapNeighborhood} from '../mapNeighborhood'
 import * as d3 from 'd3'
+import CrimeTimeChart from './CrimeTimeChart'
 
 const GraphSelector = ({filter, ntaCode, grades}) => {
   let coordXExtent
@@ -101,8 +102,8 @@ const GraphSelector = ({filter, ntaCode, grades}) => {
         <div className="graph-items-content">
           <div className="graph-item-container">
             <h2 className="graph-item__title">{ntaCode.NTAName}</h2>
-            <h2 className="graph-item__title">Coming soon:</h2>
-            Top 5 Offenses
+            <h2 className="graph-item__title">Crime Over Time</h2>
+            <CrimeTimeChart ntaCode={ntaCode} />
           </div>
         </div>
       )
@@ -141,6 +142,8 @@ const GraphSelector = ({filter, ntaCode, grades}) => {
           <RelativePopulationChart ntaCode={ntaCode} />
           <h2 className="graph-item__title">Top 5 Noise Complaints</h2>
           <TopNoiseHierBarChart ntaCode={ntaCode} />
+          <h2 className="graph-item__title">Crime Over Time</h2>
+          <CrimeTimeChart ntaCode={ntaCode} />
         </div>
       )
     default:

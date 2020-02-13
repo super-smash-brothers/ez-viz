@@ -75,7 +75,11 @@ router.get('/time/:nta', (req, res, next) => {
             timeSum[trimTime]++
           }
         }
-        res.json(timeSum)
+        res.json({
+          crimeArr: Object.entries(timeSum),
+          dates: Object.keys(timeSum),
+          counts: Object.values(timeSum)
+        })
       })
     })
   } catch (error) {
