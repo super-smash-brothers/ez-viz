@@ -24,12 +24,13 @@ const RelativePopulationChart = props => {
   useEffect(
     () => {
       ;(async function getRelativePop() {
-        console.log(props.ntaCode.NTACode)
+        // console.log('props nta name:', props.ntaCode)
         const {data} = await axios.get(
           `/api/populations/relative/${props.ntaCode.NTACode}`
         )
         console.log('pop', data)
         //put the high value at the top
+        console.log('data relative:', data)
         data.relative.reverse()
         setRelativePop(data.relative)
         const yScale = d3 // y-axis now holds names

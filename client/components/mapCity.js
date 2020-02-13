@@ -200,6 +200,7 @@ export function CityMap(props) {
               grades={grades.filter(
                 g => g[0] === neighborhood.properties.NTACode
               )}
+              filter={filter}
             />
           )
         })}
