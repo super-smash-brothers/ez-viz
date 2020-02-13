@@ -16,7 +16,8 @@ export const MapNeighborhood = props => {
     setBarData,
     barData,
     setPassedGrades,
-    grades
+    grades,
+    filter
   } = props
   // if (passedData) console.log('this passed', passedData)
   const [borderWidth, setBorderWidth] = useState('0.5')
@@ -38,13 +39,17 @@ export const MapNeighborhood = props => {
           onMouseLeave={
             passedData && passedData.passed ? () => setBorderWidth('0.5') : null
           }
-          onClick={() => {
-            setPassedGrades(grades)
-            setBarData({
-              NTACode: neighborhood.properties.NTACode,
-              NTAName: neighborhood.properties.NTAName
-            })
-          }}
+          onClick={
+            filter.length
+              ? () => {
+                  setPassedGrades(grades)
+                  setBarData({
+                    NTACode: neighborhood.properties.NTACode,
+                    NTAName: neighborhood.properties.NTAName
+                  })
+                }
+              : null
+          }
           strokeWidth={borderWidth}
           fill={passedData ? colorScale(passedData.passed) : 'white'}
           stroke="#eb6a5b"
@@ -59,13 +64,17 @@ export const MapNeighborhood = props => {
     <path
       key={neighborhood._id}
       d={line(neighborhood.geometry.coordinates[0])}
-      onClick={() => {
-        setPassedGrades(grades)
-        setBarData({
-          NTACode: neighborhood.properties.NTACode,
-          NTAName: neighborhood.properties.NTAName
-        })
-      }}
+      onClick={
+        filter.length
+          ? () => {
+              setPassedGrades(grades)
+              setBarData({
+                NTACode: neighborhood.properties.NTACode,
+                NTAName: neighborhood.properties.NTAName
+              })
+            }
+          : null
+      }
       strokeWidth={borderWidth}
       fill={passedData ? colorScale(passedData.passed) : 'white'}
       stroke="#eb6a5b"
