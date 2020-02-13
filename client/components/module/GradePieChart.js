@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import * as d3 from 'd3'
 
 export const FoodGradePieChart = props => {
@@ -26,6 +26,7 @@ export const FoodGradePieChart = props => {
     innerRadius: 0,
     outerRadius: frame / 2
   })
+
   return (
     <svg height={frame} width={frame}>
       <path

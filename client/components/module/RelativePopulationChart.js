@@ -58,6 +58,19 @@ const RelativePopulationChart = props => {
         d3.select(xAxisGroup.current).call(xAxis)
         yAxis.scale(yScale)
         d3.select(yAxisGroup.current).call(yAxis)
+
+        d3
+          .selectAll('rect') // if we add more than one bar graph, we will need to redesign the transition
+          .data([
+            {width: xScale(data.relative[0].count)},
+            {width: xScale(data.relative[1].count)},
+            {width: xScale(data.relative[2].count)},
+            {width: xScale(data.relative[3].count)},
+            {width: xScale(data.relative[4].count)}
+          ])
+          .transition()
+          .duration(750)
+          .attr('width', d => d.width)
       })()
     },
     [nta]
@@ -80,7 +93,6 @@ const RelativePopulationChart = props => {
                   } // center from the - 10
                   x={margin.left + 1} // + 1 to show the y axis line
                   height={scales[1].bandwidth() - 10}
-                  width={scales[0](element.count)}
                   fill="#e3e769"
                 />
               </g>
