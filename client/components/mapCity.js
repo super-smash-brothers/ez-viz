@@ -106,16 +106,14 @@ export function CityMap(props) {
   // The lines below are how we found our range of food grades, so that they could be used to set the domain and range of color values.
   // We decided to hard code the numbers to save time, since the numbers are static
   // let allAverages
-  const xScale = d3
-    .scaleLinear()
-    .domain([-74.2555928790719, -73.7000104153247])
-    .range([0, width])
   const foodExtent = d3.extent(foodScores, f => f.passed)
   const popExtent = d3.extent(neighborhoodPopulation, l => parseInt(l.passed))
   const noiseExtent = d3.extent(noiseComplaints, n => n.passed)
   const crimeExtent = d3.extent(crime, n => n.passed)
-  // console.log('extents', noiseExtent, popExtent, foodExtent)
-  // console.log('pop extent: ', popExtent)
+  const xScale = d3
+    .scaleLinear()
+    .domain([-74.2555928790719, -73.7000104153247])
+    .range([0, width])
 
   const yScale = d3
     .scaleLinear()
@@ -146,6 +144,8 @@ export function CityMap(props) {
     .range(['white', 'red'])
     .interpolate(d3.interpolateRgb.gamma(2.2))
 
+  const comprehensiveColorScale = () => '#B7E2C9'
+
   // console.log('colorScale: ', colorScale(15))
 
   const line = d3
@@ -161,16 +161,19 @@ export function CityMap(props) {
     food: foodScores,
     population: neighborhoodPopulation,
     noise: noiseComplaints,
-    crime: crime
+    crime: crime,
+    comprehensive: [{passed: 'hi'}]
   }
 
   const colorFilters = {
     food: foodColorScale,
     population: popColorScale,
     noise: noiseColorScale,
-    crime: crimeColorScale
+    crime: crimeColorScale,
+    comprehensive: comprehensiveColorScale
   }
 
+  // console.log('bar data', barData)
   return Object.keys(data).length ? (
     <Fragment>
       <svg width={width} height={height} className="main-map">
@@ -190,7 +193,10 @@ export function CityMap(props) {
                   ? dataSets[filter].find(
                       element =>
                         element.nta_code === neighborhood.properties.NTACode
-                    )
+                    ) ||
+                    (!parks.includes(neighborhood.properties.NTACode)
+                      ? dataSets[filter][0]
+                      : null)
                   : null
               }
               colorScale={colorFilters[filter]}
@@ -200,6 +206,7 @@ export function CityMap(props) {
               grades={grades.filter(
                 g => g[0] === neighborhood.properties.NTACode
               )}
+              filter={filter}
             />
           )
         })}
