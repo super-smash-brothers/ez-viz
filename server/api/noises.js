@@ -6,8 +6,7 @@ module.exports = router
 router.get('/topnoises/:nta', (req, res, next) => {
   try {
     const nta = req.params.nta
-
-    //
+    //Finding the geometry of the specific NTA and then querying for all of the points in the geometry
     NeighborPoly.find({'properties.NTACode': nta}).exec((err, ntaPoly) => {
       if (err) return res.json(err)
       Noise.find({
@@ -17,6 +16,7 @@ router.get('/topnoises/:nta', (req, res, next) => {
           }
         }
       }).exec((err2, allPoints) => {
+        //Aggregating all of the points with the same description
         if (err2) return res.json(err2)
         let aggregateNoise = {}
         for (let i = 0; i < allPoints.length; i++) {
@@ -65,13 +65,8 @@ router.get('/relative/:nta', async (req, res, next) => {
       if (sortedData[i][0] === nta) {
         payload.ntaCount = sortedData[i][1]
         foundIdx = i
-        //   for (let i = 0; i < 5; i++) {
-        //     if (payload.relative.length > 5)  break
-
-        //     }
       }
     }
-
     if (foundIdx <= 2) {
       for (let i = 0; i < 5; i++) {
         const current = sortedData[i]
