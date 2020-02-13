@@ -18,13 +18,13 @@ router.get('/relative/:nta', async (req, res, next) => {
   try {
     const data = await Population.find(
       {year: {$eq: 2010}},
-      {nta_code: 1, population: 1, _id: 0}
+      {nta_code: 1, population: 1, nta_name: 1, _id: 0}
     ) // all noisesum data
 
     // sort all, descending
     let arrayData = []
     data.forEach(ele => {
-      arrayData.push([ele.nta_code, ele.population])
+      arrayData.push([ele.nta_code, ele.population, ele.nta_name])
     })
     arrayData = arrayData.sort((a, b) => {
       return b[1] - a[1]
@@ -42,21 +42,32 @@ router.get('/relative/:nta', async (req, res, next) => {
         foundIdx = i
       }
     }
-
     if (foundIdx <= 2) {
       for (let i = 0; i < 5; i++) {
         const current = arrayData[i]
-        payload.relative.push({nta: current[0], count: current[1]})
+        payload.relative.push({
+          nta: current[0],
+          count: current[1],
+          ntaName: current[2]
+        })
       }
     } else if (foundIdx >= arrayData.length - 3) {
       for (let i = arrayData.length - 5; i < arrayData.length; i++) {
         const current = arrayData[i]
-        payload.relative.push({nta: current[0], count: current[1]})
+        payload.relative.push({
+          nta: current[0],
+          count: current[1],
+          ntaName: current[2]
+        })
       }
     } else {
       for (let i = foundIdx - 2; i < foundIdx + 3; i++) {
         const current = arrayData[i]
-        payload.relative.push({nta: current[0], count: current[1]})
+        payload.relative.push({
+          nta: current[0],
+          count: current[1],
+          ntaName: current[2]
+        })
       }
     }
     res.json(payload)
