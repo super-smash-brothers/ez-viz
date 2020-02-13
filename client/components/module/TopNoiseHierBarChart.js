@@ -36,6 +36,7 @@ const TopNoiseHierBarChart = props => {
         // console.log('map0', data.map(elem => elem[0]))
         // console.log('map1', [...data.map(elem => elem[1]), 0])
         setTopNoises(data.reverse()) // put the high value at the top
+        console.log('DATA', data)
 
         // set our X-axis scale. scaleBand() for our discrete X values.
         const yScale = d3 // y-axis now holds names
@@ -59,6 +60,19 @@ const TopNoiseHierBarChart = props => {
         d3.select(xAxisGroup.current).call(xAxis)
         yAxis.scale(yScale)
         d3.select(yAxisGroup.current).call(yAxis)
+
+        d3
+          .selectAll('rect') // if we add more than one bar graph, we will need to redesign the transition
+          .data([
+            {width: xScale(data[0][1])},
+            {width: xScale(data[1][1])},
+            {width: xScale(data[2][1])},
+            {width: xScale(data[3][1])},
+            {width: xScale(data[4][1])}
+          ])
+          .transition()
+          .duration(750)
+          .attr('width', d => d.width)
       })()
     },
     [nta]
@@ -90,7 +104,6 @@ const TopNoiseHierBarChart = props => {
                   } // center from the - 10
                   x={margin.left + 1} // + 1 to show the y axis line
                   height={scales[1].bandwidth() - 10}
-                  width={scales[0](element[1])}
                   fill="#e3e769"
                 />
               </g>
