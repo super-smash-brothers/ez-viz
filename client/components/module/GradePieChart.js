@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import * as d3 from 'd3'
 
 export const FoodGradePieChart = props => {
@@ -6,7 +6,7 @@ export const FoodGradePieChart = props => {
   const total = grades.A + grades.B + grades.C
   const frame = 200
   const ntaCode = props.ntaCode
-  console.log('nta Code', ntaCode)
+  //   console.log('nta Code', ntaCode)
   const arcGenerator = d3.arc()
   const aSlice = arcGenerator({
     startAngle: 0,
@@ -26,6 +26,7 @@ export const FoodGradePieChart = props => {
     innerRadius: 0,
     outerRadius: frame / 2
   })
+
   return (
     <svg height={frame} width={frame}>
       <path

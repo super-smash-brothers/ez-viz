@@ -21,15 +21,16 @@ export default class Main extends Component {
   }
 
   render = () => (
-    <>
+    <div className="site-wrapper main-container">
       <MainMap filter={this.state.filter} />
-      <div className="main-page main-container flex">
+      {/* ZK: I removed main-container here. If sidebar stuff starts breaking, re0add*/}
+      <div className="main-page flex">
         <Sidebar
           filter={this.state.filter}
           filters={this.state.filters}
           setFilter={this.setFilter}
         />
       </div>
-    </>
+    </div>
   )
 }

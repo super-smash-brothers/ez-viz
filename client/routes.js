@@ -2,10 +2,9 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome} from './components'
+import {Main, Login, Signup, UserHome} from './components'
 import {me} from './store'
 
-import {Main} from './components'
 import NycSimpleMap from './components/module/NycSimpleMap'
 import {CityMap} from './components/mapCity'
 import CuisinesBarChart from './components/module/CuisinesBarChart'
@@ -20,6 +19,10 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn} = this.props
+
+    // Cleanup?
+    // We don't use any Routes aside from root (/).
+    // We should set up a route that 404's or redirects anything that is NOT root
 
     return (
       <Switch>

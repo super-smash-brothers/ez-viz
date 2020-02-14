@@ -1,3 +1,4 @@
+/* eslint-disable indent react/jsx-indent react/jsx-indent-props */
 import React from 'react'
 import polylabel from 'polylabel'
 

@@ -39,5 +39,11 @@
       overflow-x: hidden;
       padding-bottom: $l-size;
     }
+
+    .graph-container-neighborhood {
+      background-color: white;
+      padding: $l-size;
+      border: 1px solid $gray;
+    }
   }
 }

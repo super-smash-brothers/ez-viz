@@ -59,6 +59,19 @@ const TopNoiseHierBarChart = props => {
         d3.select(xAxisGroup.current).call(xAxis)
         yAxis.scale(yScale)
         d3.select(yAxisGroup.current).call(yAxis)
+
+        d3
+          .selectAll('.noiseRect')
+          .data([
+            {width: xScale(data[0][1])},
+            {width: xScale(data[1][1])},
+            {width: xScale(data[2][1])},
+            {width: xScale(data[3][1])},
+            {width: xScale(data[4][1])}
+          ])
+          .transition()
+          .duration(750)
+          .attr('width', d => d.width)
       })()
     },
     [nta]
@@ -84,13 +97,13 @@ const TopNoiseHierBarChart = props => {
             return (
               <g key={element[0]}>
                 <rect
+                  className="noiseRect"
                   data-scale={scales[0](element[1])}
                   y={
                     Math.abs(4 - index) * scales[1].bandwidth() + margin.top + 5
                   } // center from the - 10
                   x={margin.left + 1} // + 1 to show the y axis line
                   height={scales[1].bandwidth() - 10}
-                  width={scales[0](element[1])}
                   fill="#e3e769"
                 />
               </g>
