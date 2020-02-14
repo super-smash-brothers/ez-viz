@@ -12,7 +12,7 @@ const CrimeTimeChart = props => {
   const [scales, setScales] = useState([]) // Scales for rendering our chart
   const height = 260
   const width = 420
-  const margin = {top: 40, bottom: 40, right: 40, left: 40}
+  const margin = {top: 40, bottom: 60, right: 40, left: 40}
   const xAxisGroup = useRef()
   const yAxisGroup = useRef()
 
@@ -56,7 +56,12 @@ const CrimeTimeChart = props => {
         const xAxis = d3.axisBottom()
         const yAxis = d3.axisLeft()
         xAxis.scale(xScale)
-        d3.select(xAxisGroup.current).call(xAxis)
+        d3
+          .select(xAxisGroup.current)
+          .call(xAxis)
+          .selectAll('text')
+          .style('text-anchor', 'start')
+          .attr('transform', 'rotate(25 10 10)')
         yAxis.scale(yScale)
         d3.select(yAxisGroup.current).call(yAxis)
       })()
