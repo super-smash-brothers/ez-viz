@@ -59,7 +59,7 @@ const CuisinesBarChart = props => {
         d3.select(yAxisGroup.current).call(yAxis)
 
         d3
-          .selectAll('rect') // if we add more than one bar graph, we will need to redesign the transition
+          .selectAll('.cuisineRect')
           .data([
             {height: height - yScale(data.cuisineObjects[0].count)},
             {height: height - yScale(data.cuisineObjects[1].count)},
@@ -98,6 +98,7 @@ const CuisinesBarChart = props => {
             return (
               <g key={element._id}>
                 <rect
+                  className="cuisineRect"
                   data-scale={scales[1](element.count)} // returns difference from max; highest count item will return 0
                   x={index * scales[0].bandwidth() + margin.left + 1} // + 1 to show the y axis line
                   y={scales[1](element.count) + margin.top}
