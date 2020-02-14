@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import * as d3 from 'd3'
 import axios from 'axios'
 import BarChart from './chartBar'
+import Tooltip from './module/Tooltip'
 
 export const MapNeighborhood = props => {
   const {
@@ -20,10 +21,12 @@ export const MapNeighborhood = props => {
   } = props
   // if (passedData) console.log('this passed', passedData)
   const [borderWidth, setBorderWidth] = useState('0.5')
+  const [tooltip, setTooltip] = useState(false)
   // const enterNeighborhood = setBorderWidth(6)
   // const exitNeighborhood = setBorderWidth(0.5)
   // console.log('neighborhood in map: ', neighborhood)
   // console.log('noise complaints: ', noiseComplaints)
+
   const xExtent = d3.extent(neighborhood.geometry.coordinates[0], n => n[0])
   const yExtent = d3.extent(neighborhood.geometry.coordinates[0], n => n[1])
   if (neighborhood.geometry.type === 'MultiPolygon') {
@@ -54,25 +57,33 @@ export const MapNeighborhood = props => {
   }
 
   return (
-    <path
-      key={neighborhood._id}
-      d={line(neighborhood.geometry.coordinates[0])}
-      onClick={() => {
-        setPassedGrades(grades)
-        setBarData({
-          NTACode: neighborhood.properties.NTACode,
-          NTAName: neighborhood.properties.NTAName
-        })
-      }}
-      strokeWidth={borderWidth}
-      fill={passedData ? colorScale(passedData.passed) : 'white'}
-      stroke="#eb6a5b"
-      onMouseEnter={
-        passedData && passedData.passed ? () => setBorderWidth('6') : null
-      }
-      onMouseLeave={
-        passedData && passedData.passed ? () => setBorderWidth('0.5') : null
-      }
-    />
+    <g className="neighborhood">
+      <path
+        key={neighborhood._id}
+        d={line(neighborhood.geometry.coordinates[0])}
+        onClick={() => {
+          setPassedGrades(grades)
+          setBarData({
+            NTACode: neighborhood.properties.NTACode,
+            NTAName: neighborhood.properties.NTAName
+          })
+        }}
+        strokeWidth={borderWidth}
+        fill={passedData ? colorScale(passedData.passed) : 'white'}
+        stroke="#eb6a5b"
+        onMouseEnter={event => {
+          if (passedData && passedData.passed) setBorderWidth('6')
+          console.log('hover event:', event)
+          setTooltip({event, neighborhood})
+        }}
+        onMouseLeave={() => {
+          if (passedData && passedData.passed) setBorderWidth('0.5')
+          setTooltip(false)
+        }}
+      />
+      {tooltip && (
+        <Tooltip nta={neighborhood} xScale={xScale} yScale={yScale} />
+      )}
+    </g>
   )
 }
