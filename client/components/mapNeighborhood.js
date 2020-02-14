@@ -70,7 +70,8 @@ export const MapNeighborhood = props => {
           setPassedGrades(grades)
           setBarData({
             NTACode: neighborhood.properties.NTACode,
-            NTAName: neighborhood.properties.NTAName
+            NTAName: neighborhood.properties.NTAName,
+            neighborhood: neighborhood
           })
         }}
         strokeWidth={borderWidth}
@@ -87,9 +88,9 @@ export const MapNeighborhood = props => {
         }}
       />
       <title>{neighborhood.properties.NTAName}</title>
-      {tooltip && (
+      {/*tooltip && (
         <Tooltip nta={neighborhood} xScale={xScale} yScale={yScale} />
-      )}
+      )*/}
     </g>
   )
 }
