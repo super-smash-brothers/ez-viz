@@ -42,22 +42,6 @@ router.get('/foodscore', async (req, res, next) => {
 })
 
 router.get('/', async (req, res, next) => {
-  // mongoDB
-  try {
-    const allNeighborPoly = await NeighborPoly.find()
-    const geoJSON = {
-      // returning data in a geoJSON format
-      type: 'FeatureCollection',
-      crs: {type: 'name', properties: {name: 'EPSG:4326'}},
-      features: allNeighborPoly
-    }
-    res.json(geoJSON)
-  } catch (err) {
-    next(err)
-  }
-})
-
-router.get('/', async (req, res, next) => {
   // heroku
   try {
     switch (process.env.NTA_SOURCE) {
