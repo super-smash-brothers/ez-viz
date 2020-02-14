@@ -12,7 +12,6 @@ const GraphSelector = ({filter, ntaCode, grades}) => {
   let coordYExtent
   let allCoordArray = []
 
-  console.log('my ntaCode: ', ntaCode)
   const multiPolygonConverter = arr => {
     for (let i = 0; i < arr.length; i++) {
       Array.isArray(arr[i]) && arr[i].length !== 2

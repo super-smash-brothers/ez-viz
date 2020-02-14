@@ -23,10 +23,6 @@ export const MapNeighborhood = props => {
   const [borderWidth, setBorderWidth] = useState('0.5')
   const [tooltip, setTooltip] = useState(false)
 
-  // Cleanup?
-  const xExtent = d3.extent(neighborhood.geometry.coordinates[0], n => n[0])
-  const yExtent = d3.extent(neighborhood.geometry.coordinates[0], n => n[1])
-
   if (neighborhood.geometry.type === 'MultiPolygon') {
     return neighborhood.geometry.coordinates.map(singlePolygon => {
       return (
@@ -66,20 +62,24 @@ export const MapNeighborhood = props => {
       <path
         key={neighborhood._id}
         d={line(neighborhood.geometry.coordinates[0])}
-        onClick={() => {
-          setPassedGrades(grades)
-          setBarData({
-            NTACode: neighborhood.properties.NTACode,
-            NTAName: neighborhood.properties.NTAName,
-            neighborhood: neighborhood
-          })
-        }}
+        onClick={
+          filter && filter.length
+            ? () => {
+                setPassedGrades(grades)
+                setBarData({
+                  NTACode: neighborhood.properties.NTACode,
+                  NTAName: neighborhood.properties.NTAName,
+                  neighborhood: neighborhood
+                })
+              }
+            : null
+        }
         strokeWidth={borderWidth}
         fill={passedData ? colorScale(passedData.passed) : 'white'}
         stroke="#eb6a5b"
         onMouseEnter={event => {
           if (passedData && passedData.passed) setBorderWidth('6')
-          console.log('hover event:', event)
+          // console.log('hover event:', event)
           setTooltip({event, neighborhood})
         }}
         onMouseLeave={() => {
