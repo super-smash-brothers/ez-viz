@@ -60,7 +60,7 @@ const RelativePopulationChart = props => {
         d3.select(yAxisGroup.current).call(yAxis)
 
         d3
-          .selectAll('rect') // if we add more than one bar graph, we will need to redesign the transition
+          .selectAll('.popRect')
           .data([
             {width: xScale(data.relative[0].count)},
             {width: xScale(data.relative[1].count)},
@@ -87,6 +87,7 @@ const RelativePopulationChart = props => {
             return (
               <g key={element.nta}>
                 <rect
+                  className="popRect"
                   data-scale={scales[0](element.count)}
                   y={
                     Math.abs(4 - index) * scales[1].bandwidth() + margin.top + 5

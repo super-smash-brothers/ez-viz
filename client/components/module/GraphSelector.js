@@ -131,11 +131,13 @@ const GraphSelector = ({filter, ntaCode, grades}) => {
           </div>
           <div className="graph-item-container">
             <h2 className="graph-item__title">Distribution of Health Scores</h2>
-            <strong>
-              <font color="green">A</font>
-              <font color="yellow">B</font>
-              <font color="red">C or lower</font>
-            </strong>
+            <div style={{textShadow: '1px 1px black'}}>
+              <strong>
+                <font color="green">A </font>
+                <font color="yellow">B </font>
+                <font color="red">C or lower</font>
+              </strong>
+            </div>
             <FoodGradePieChart grades={grades} ntaCode={ntaCode} />
           </div>
           <h2 className="graph-item__title">

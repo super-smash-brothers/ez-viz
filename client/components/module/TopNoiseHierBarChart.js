@@ -61,7 +61,7 @@ const TopNoiseHierBarChart = props => {
         d3.select(yAxisGroup.current).call(yAxis)
 
         d3
-          .selectAll('rect') // if we add more than one bar graph, we will need to redesign the transition
+          .selectAll('.noiseRect')
           .data([
             {width: xScale(data[0][1])},
             {width: xScale(data[1][1])},
@@ -97,6 +97,7 @@ const TopNoiseHierBarChart = props => {
             return (
               <g key={element[0]}>
                 <rect
+                  className="noiseRect"
                   data-scale={scales[0](element[1])}
                   y={
                     Math.abs(4 - index) * scales[1].bandwidth() + margin.top + 5
