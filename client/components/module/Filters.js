@@ -25,7 +25,8 @@ const Filters = ({setFilter, filter}) => {
         Click the neighborhood for a detailed breakdown of statistics for that
         criteria.
       </p>
-      {!!filter.length && <Legend filter={filter} />}
+      {!!filter.length &&
+        filter !== 'comprehensive' && <Legend filter={filter} />}
     </div>
   )
 }

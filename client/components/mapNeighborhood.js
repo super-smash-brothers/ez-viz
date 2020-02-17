@@ -79,6 +79,8 @@ export const MapNeighborhood = props => {
         stroke="#eb6a5b"
         onMouseEnter={event => {
           if (passedData && passedData.passed) setBorderWidth('6')
+
+          // Cleanup?
           // console.log('hover event:', event)
           setTooltip({event, neighborhood})
         }}
@@ -88,7 +90,9 @@ export const MapNeighborhood = props => {
         }}
       />
       <title>{neighborhood.properties.NTAName}</title>
-      {/*tooltip && (
+      {/*
+        // ZK: Leave this in -- will be used for tooltip feature
+        tooltip && (
         <Tooltip nta={neighborhood} xScale={xScale} yScale={yScale} />
       )*/}
     </g>
