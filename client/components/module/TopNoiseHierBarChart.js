@@ -32,6 +32,7 @@ const TopNoiseHierBarChart = props => {
         const {data} = await axios.get(
           `/api/noises/topnoises/${props.ntaCode.NTACode}`
         )
+        // Cleanup?
         // console.log('topnoises', data)
         // console.log('map0', data.map(elem => elem[0]))
         // console.log('map1', [...data.map(elem => elem[1]), 0])
@@ -85,10 +86,12 @@ const TopNoiseHierBarChart = props => {
     <Fragment>
       {scales.length ? (
         <svg
+          className="graph-item"
           width={width + margin.left + margin.right}
           height={height + margin.top + margin.bottom}
         >
           {topNoises.map((element, index) => {
+            // Cleanup?
             // console.log('map', element, index)
             // console.log('scales0', scales[0])
             // console.log('elem0', element[0])

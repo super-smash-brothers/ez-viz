@@ -79,6 +79,7 @@ const RelativePopulationChart = props => {
     <Fragment>
       {scales.length ? (
         <svg
+          className="graph-item"
           width={width + margin.left + margin.right}
           height={height + margin.top + margin.bottom}
         >

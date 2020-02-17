@@ -9,4 +9,13 @@
     border: 1px solid gray;
     height: 10px;
   }
+
+  .legend-choropleth-label {
+    display: flex;
+    justify-content: space-between;
+
+    .legend-choropleth-label__item {
+      font-size: $s-size;
+    }
+  }
 }
