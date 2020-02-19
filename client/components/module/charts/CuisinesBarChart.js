@@ -27,12 +27,10 @@ const CuisinesBarChart = props => {
       // accidentally run as a list of arguments for a previous statement.
       ;(async function getCusine() {
         // for reference - props.barData = {NTACode: "BK31"}
-        // console.log('props.barData', props.barData)
         // get our data and put it on state
         const {data} = await axios.get(
           `/api/restaurants/cuisine/${props.ntaCode.NTACode}`
         )
-        // console.log('cuisine', data)
         setCuisines(data.cuisineObjects)
 
         // set our X-axis scale. scaleBand() for our discrete X values.

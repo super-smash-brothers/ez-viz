@@ -27,15 +27,10 @@ const TopNoiseHierBarChart = props => {
       // accidentally run as a list of arguments for a previous statement.
       ;(async function getTopNoises() {
         // for reference - props.barData = {NTACode: "BK31"}
-        // console.log('props.barData', props.barData)
         // get our data and put it on state
         const {data} = await axios.get(
           `/api/noises/topnoises/${props.ntaCode.NTACode}`
         )
-        // Cleanup?
-        // console.log('topnoises', data)
-        // console.log('map0', data.map(elem => elem[0]))
-        // console.log('map1', [...data.map(elem => elem[1]), 0])
         setTopNoises(data.reverse()) // put the high value at the top
 
         // set our X-axis scale. scaleBand() for our discrete X values.
@@ -55,7 +50,6 @@ const TopNoiseHierBarChart = props => {
         // create and assign our axis labels
         const xAxis = d3.axisBottom()
         const yAxis = d3.axisRight()
-        // console.log('scales are:', scales)
         xAxis.scale(xScale)
         d3.select(xAxisGroup.current).call(xAxis)
         yAxis.scale(yScale)
@@ -91,12 +85,6 @@ const TopNoiseHierBarChart = props => {
           height={height + margin.top + margin.bottom}
         >
           {topNoises.map((element, index) => {
-            // Cleanup?
-            // console.log('map', element, index)
-            // console.log('scales0', scales[0])
-            // console.log('elem0', element[0])
-            // console.log('elem1', element[1])
-            // console.log('scales0elem1', scales[0](element[1]))
             return (
               <g key={element[0]}>
                 <rect

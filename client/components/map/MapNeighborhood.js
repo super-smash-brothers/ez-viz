@@ -78,8 +78,6 @@ export const MapNeighborhood = props => {
         onMouseEnter={event => {
           if (passedData && passedData.passed) setBorderWidth('6')
 
-          // Cleanup?
-          // console.log('hover event:', event)
           setTooltip({event, neighborhood})
         }}
         onMouseLeave={() => {
