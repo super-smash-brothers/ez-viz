@@ -1,11 +1,11 @@
 /* eslint-disable complexity */
 const mongoose = require('mongoose')
 const {
-  NeighborPoly,
-  BoroughPoly,
   CitySchema,
-  RestaurantPoint,
+  BoroughPoly,
+  NeighborPoly,
   NeighborSum,
+  RestaurantPoint,
   Noise,
   NoiseSum,
   Crime,

@@ -1,3 +1,49 @@
+# Delve.NYC
+
+_Find your neighborhood before you find your apartment_
+
+If you're looking to explore or even relocate and community is an important
+factor, check out Delve.NYC! We provide a visual interpretation of important,
+quality of life information by neighborhood, including restaurant grades,
+population density and noise complaints.
+
+D3 was used to draw the neighborhood boundaries from a geoJSON and to scale the
+appropriate colors for the choropleth map based on data from NYC’s official
+API. We have MongoDB in the back with Mongoose as an ODM for geospatial
+queries. By using D3, we have access to flexible processing for visual
+rendering of our data. By using MongoDB, our queries for points within a given
+geometric boundary are performant when required. We also used React hooks to
+manage state client-side and SASS to add styling.
+
+Deployed at: [http://www.delve.nyc][deploy-url]
+
+[deploy-url]: http://delve.nyc
+
+Quickstart:
+
+* Fork this repo
+* With PostgreSQL running,
+  ```
+  npm install
+  npm run start-dev
+  ```
+* Navigate to localhost:8080 on your browser
+
+Group members:
+Peter Crosta - [GitHub][peter-git] - [LinkedIn][peter-linkin]
+Ziv Karmi - [GitHub][ziv-git] - [LinkedIn][ziv-linkin]
+Adam Mak - [GitHub][adam-git] - [LinkedIn][adam-linkin]
+Eric Yang - [GitHub][eric-git] - [LinkedIn][eric-linkin]
+
+[peter-git]: https://github.com/PeterCrosta
+[ziv-git]: https://github.com/zkarmi
+[adam-git]: https://github.com/adammak137
+[eric-git]: https://github.com/eyang4
+[peter-linkin]: https://www.linkedin.com/in/peter-crosta/
+[ziv-linkin]: https://www.linkedin.com/in/nycdev/
+[adam-linkin]: https://www.linkedin.com/in/adam-mak-66024a101/
+[eric-linkin]: https://www.linkedin.com/in/eyang1
+
 # Boilermaker
 
 _Good things come in pairs_

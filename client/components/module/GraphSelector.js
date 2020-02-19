@@ -1,11 +1,13 @@
 import React from 'react'
-import CuisinesBarChart from './CuisinesBarChart'
-import {FoodGradePieChart} from './GradePieChart'
-import TopNoiseHierBarChart from './TopNoiseHierBarChart'
-import RelativePopulationChart from './RelativePopulationChart'
-import {MapNeighborhood} from '../mapNeighborhood'
+import {
+  CrimeTimeChart,
+  CuisinesBarChart,
+  FoodGradePieChart,
+  RelativePopulationChart,
+  TopNoiseHierBarChart
+} from './charts'
+import {MapNeighborhood} from '../map/MapNeighborhood'
 import * as d3 from 'd3'
-import CrimeTimeChart from './CrimeTimeChart'
 
 const GraphSelector = ({filter, ntaCode, grades}) => {
   let coordXExtent

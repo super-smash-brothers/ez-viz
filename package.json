@@ -41,7 +41,6 @@
   "author": "Fullstack Academy of Code",
   "license": "MIT",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.12.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
     "@fortawesome/react-fontawesome": "^0.1.8",
@@ -51,11 +50,9 @@
     "css-loader": "^3.4.2",
     "d3": "^5.15.0",
     "d3-geo": "^1.11.9",
-    "d3-svg-legend": "^2.25.6",
     "express": "^4.16.4",
     "express-session": "^1.15.1",
     "history": "^4.9.0",
-    "leaflet": "^1.6.0",
     "mongoose": "^5.8.11",
     "morgan": "^1.9.1",
     "node-sass": "^4.13.1",
@@ -67,10 +64,7 @@
     "polylabel": "^1.0.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
-    "react-d3-library": "^1.1.8",
     "react-dom": "^16.12.0",
-    "react-leaflet": "^2.6.1",
-    "react-leaflet-d3-svg-overlay": "^1.1.0",
     "react-redux": "^7.0.1",
     "react-router-dom": "^5.0.0",
     "react-simple-maps": "^1.0.0-beta.0",
@@ -81,8 +75,7 @@
     "sequelize": "^5.15.1",
     "socket.io": "^2.2.0",
     "style-loader": "^1.1.3",
-    "topojson-client": "^3.1.0",
-    "topojson-server": "^3.0.1"
+    "topojson-client": "^3.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
