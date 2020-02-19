@@ -52,7 +52,6 @@ const CuisinesBarChart = props => {
         // create and assign our axis labels
         const xAxis = d3.axisBottom()
         const yAxis = d3.axisLeft()
-        console.log('props are:', props)
         xAxis.scale(xScale)
         d3.select(xAxisGroup.current).call(xAxis)
         yAxis.scale(yScale)

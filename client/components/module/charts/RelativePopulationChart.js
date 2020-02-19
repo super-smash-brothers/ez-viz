@@ -28,9 +28,7 @@ const RelativePopulationChart = props => {
         const {data} = await axios.get(
           `/api/populations/relative/${props.ntaCode.NTACode}`
         )
-        console.log('pop', data)
         //put the high value at the top
-        console.log('data relative:', data)
         data.relative.reverse()
         setRelativePop(data.relative)
         const yScale = d3 // y-axis now holds names
@@ -84,7 +82,6 @@ const RelativePopulationChart = props => {
           height={height + margin.top + margin.bottom}
         >
           {relativePop.map((element, index) => {
-            console.log(element)
             return (
               <g key={element.nta}>
                 <rect
