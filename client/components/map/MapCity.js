@@ -6,7 +6,6 @@ import GraphContainer from '../module/GraphContainer'
 import Loader from '../module/Loader'
 
 //put a single neighborhood's coordinates in a json to use
-// console.log('d3', d3)
 // eslint-disable-next-line max-statements
 export function CityMap(props) {
   const {filter} = props
@@ -87,22 +86,14 @@ export function CityMap(props) {
     fetchGrades()
   }, [])
 
-  // console.log('hash map test:', popHashMap)
-  // console.log('crime data:', crime)
-  // console.log('noise data:', noiseComplaints)
-  // console.log('food score data: ', foodScores)
-  // console.log('neighborhood data: ', data)
-  // console.log('pop data: ', neighborhoodPopulation)
   const height = Math.max(
     document.documentElement.clientHeight,
     window.innerHeight || 0
   )
   //this ensures that the map has a set ratio of height to width
   const width = height * 1.32465263323
-  // console.log('bar data: ', barData)
   // The lines below are how we found our range of food grades, so that they could be used to set the domain and range of color values.
-  // We decided to hard code the numbers to save time, since the numbers are static
-  // let allAverages
+  // We decided to hard code the numbers for the city bounds to save time, since the numbers are static
   const foodExtent = d3.extent(foodScores, f => f.passed)
   const popExtent = d3.extent(neighborhoodPopulation, l => parseInt(l.passed))
   const noiseExtent = d3.extent(noiseComplaints, n => n.passed)
@@ -143,8 +134,6 @@ export function CityMap(props) {
 
   const comprehensiveColorScale = () => '#B7E2C9'
 
-  // console.log('colorScale: ', colorScale(15))
-
   const line = d3
     .line()
     .x(d => {
@@ -170,12 +159,10 @@ export function CityMap(props) {
     comprehensive: comprehensiveColorScale
   }
 
-  // console.log('bar data', barData)
   return Object.keys(data).length ? (
     <Fragment>
       <svg width={width} height={height} className="main-map">
         {data.features.map(neighborhood => {
-          // console.log('in search of nta', neighborhood.properties.NTACode)
           return (
             <MapNeighborhood
               key={neighborhood.id}

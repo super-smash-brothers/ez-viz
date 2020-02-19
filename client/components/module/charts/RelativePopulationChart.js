@@ -24,7 +24,6 @@ const RelativePopulationChart = props => {
   useEffect(
     () => {
       ;(async function getRelativePop() {
-        // console.log('props nta name:', props.ntaCode)
         const {data} = await axios.get(
           `/api/populations/relative/${props.ntaCode.NTACode}`
         )
