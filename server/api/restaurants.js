@@ -2,7 +2,6 @@ const router = require('express').Router()
 const {RestaurantPoint, NeighborSum} = require('../db/models')
 module.exports = router
 
-// eslint-disable-next-line complexity
 router.get('/letterGrade', async (req, res, next) => {
   try {
     const neighborSum = await NeighborSum.find()

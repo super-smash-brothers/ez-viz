@@ -1,8 +1,8 @@
 const {CitySchema} = require('./city')
+const {BoroughPoly} = require('./boro')
 const {NeighborPoly, neighborPropSchema} = require('./neighborhood')
 const {NeighborSum} = require('./neighborhoodSum')
 const {RestaurantPoint} = require('./restaurant')
-const {BoroughPoly} = require('./boro')
 const {Noise} = require('./noise')
 const {NoiseSum} = require('./noiseSum')
 const {Crime} = require('./crime')
@@ -41,11 +41,11 @@ const User = require('./user') // just to maintain User in case we want to use s
 
 module.exports = {
   CitySchema,
-  NeighborPoly,
-  RestaurantPoint,
   BoroughPoly,
-  NeighborSum,
+  NeighborPoly,
   neighborPropSchema,
+  NeighborSum,
+  RestaurantPoint,
   Noise,
   NoiseSum,
   Crime,

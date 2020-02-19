@@ -42,7 +42,6 @@ router.get('/foodscore', async (req, res, next) => {
 })
 
 router.get('/', async (req, res, next) => {
-  // heroku
   try {
     switch (process.env.NTA_SOURCE) {
       case 'mongoDB': {

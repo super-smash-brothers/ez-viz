@@ -2,12 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Main, Login, Signup, UserHome} from './components'
+import {Map, Login, Signup, UserHome} from './components'
 import {me} from './store'
-
-import NycSimpleMap from './components/module/NycSimpleMap'
-import {CityMap} from './components/mapCity'
-import CuisinesBarChart from './components/module/CuisinesBarChart'
 
 /**
  * COMPONENT
@@ -27,20 +23,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route path="/" exact component={Main} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
-          </Switch>
-        )}
-        {/* Displays our Login component as a fallback */}
-        <Route path="/leaflet" component={NycSimpleMap} />
-        <Route path="/citymapoverlay" component={CityMap} />
-        <Route path="/cuisinesBarChart" component={CuisinesBarChart} />
-        <Route component={Login} />
+        <Route component={Map} />
       </Switch>
     )
   }
