@@ -15,11 +15,12 @@ rendering of our data. By using MongoDB, our queries for points within a given
 geometric boundary are performant when required. We also used React hooks to
 manage state client-side and SASS to add styling.
 
-Deployed at: [http://www.delve.nyc][deploy-url]
+###Deployed at:
+[http://www.delve.nyc][deploy-url]
 
 [deploy-url]: http://delve.nyc
 
-Quickstart:
+###Quickstart:
 
 * Fork this repo
 * With PostgreSQL running,
@@ -29,11 +30,12 @@ Quickstart:
   ```
 * Navigate to localhost:8080 on your browser
 
-Developers:  
-* Peter Crosta - [GitHub][peter-git] - [LinkedIn][peter-linkin]  
-* Ziv Karmi - [GitHub][ziv-git] - [LinkedIn][ziv-linkin]  
-* Adam Mak - [GitHub][adam-git] - [LinkedIn][adam-linkin]  
-* Eric Yang - [GitHub][eric-git] - [LinkedIn][eric-linkin]  
+###Developers:
+
+* Peter Crosta - [GitHub][peter-git] - [LinkedIn][peter-linkin]
+* Ziv Karmi - [GitHub][ziv-git] - [LinkedIn][ziv-linkin]
+* Adam Mak - [GitHub][adam-git] - [LinkedIn][adam-linkin]
+* Eric Yang - [GitHub][eric-git] - [LinkedIn][eric-linkin]
 
 [peter-git]: https://github.com/PeterCrosta
 [ziv-git]: https://github.com/zkarmi
