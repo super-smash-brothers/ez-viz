@@ -4,7 +4,6 @@ import * as d3 from 'd3'
 const Legend = ({filter}) => {
   const width = 240
   const height = 10
-  console.log('filter is', filter)
   const legendData = {
     food: {
       title: 'Food Grade',
