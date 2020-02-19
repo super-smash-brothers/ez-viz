@@ -29,11 +29,11 @@ Quickstart:
   ```
 * Navigate to localhost:8080 on your browser
 
-Group members:
-Peter Crosta - [GitHub][peter-git] - [LinkedIn][peter-linkin]  
-Ziv Karmi - [GitHub][ziv-git] - [LinkedIn][ziv-linkin]  
-Adam Mak - [GitHub][adam-git] - [LinkedIn][adam-linkin]  
-Eric Yang - [GitHub][eric-git] - [LinkedIn][eric-linkin]  
+Developers:  
+* Peter Crosta - [GitHub][peter-git] - [LinkedIn][peter-linkin]  
+* Ziv Karmi - [GitHub][ziv-git] - [LinkedIn][ziv-linkin]  
+* Adam Mak - [GitHub][adam-git] - [LinkedIn][adam-linkin]  
+* Eric Yang - [GitHub][eric-git] - [LinkedIn][eric-linkin]  
 
 [peter-git]: https://github.com/PeterCrosta
 [ziv-git]: https://github.com/zkarmi
